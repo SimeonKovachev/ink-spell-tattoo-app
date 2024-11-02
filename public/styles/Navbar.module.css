@@ -1,0 +1,25 @@
+.animatedLink {
+  position: relative;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.animatedLink::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  background-color: #fbbf24; /* Yellow color */
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.animatedLink:hover {
+  color: #fbbf24; /* Change text color on hover */
+}
+
+.animatedLink:hover::after {
+  width: 100%;
+  left: 0;
+}

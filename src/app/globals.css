@@ -2,20 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Poppins:wght@500;600&display=swap');
+
+@font-face {
+  font-family: 'Fire Flight';
+  src: url('/fonts/FireFlight-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
+  --font-heading: 'Lora', serif;
+  --font-body: 'Poppins', sans-serif;
+  --font-special: 'Fire Flight', sans-serif;
+
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
+  font-family: var(--font-body);
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+.heading, .special-text {
+  font-family: var(--font-special);
+}
+
+/* Other elements */
+p, li, a, button, input, textarea {
+  font-family: var(--font-body);
 }
