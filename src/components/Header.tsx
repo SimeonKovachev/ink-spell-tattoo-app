@@ -4,13 +4,13 @@ export default function Header() {
   return (
     <header
       className="relative h-screen flex items-center text-white bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/images/home-background.jpg')" }}
+      style={{ backgroundImage: "url('/images/header/home-background.jpg')" }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
 
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 pointer-events-none"
-        style={{ backgroundImage: "url('/images/grain-overlay.jpg')" }}
+        style={{ backgroundImage: "url('/images/header/grain-overlay.jpg')" }}
       ></div>
 
       <div className="relative z-10 max-w-3xl px-6 md:px-12 lg:px-20">
