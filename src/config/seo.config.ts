@@ -125,3 +125,7 @@ export const metadata: Metadata = {
     ],
   },
 };
+
+export function generateMetadata() {
+  return metadata;
+}

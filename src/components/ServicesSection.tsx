@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { sanityClient } from "../sanity/lib/client";
+import { client } from "../sanity/lib/client";
 
 type Service = {
   _id: string;
@@ -12,7 +12,7 @@ export default function ServicesSection() {
   const [services, setServices] = useState<Service[]>([]);
 
   useEffect(() => {
-    sanityClient
+    client
       .fetch(`*[_type == "service"]{_id, name, description, image}`)
       .then((data) => setServices(data));
   }, []);
