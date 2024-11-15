@@ -82,20 +82,22 @@ export default function AboutMe() {
                 Perfection That is Forever
               </h3>
               <p className="text-sm md:text-base text-gray-700">
-                I’m Iva, a concept artist turned tattoo artist. I’ve spent over
-                10 years bringing characters and worlds to life through
-                illustration, honing my skills in anatomy, textures, and
+                I&apos;m Iva, a concept artist turned tattoo artist. I&apos;ve
+                spent over 10 years bringing characters and worlds to life
+                through illustration, honing my skills in anatomy, textures, and
                 realism. After earning certifications in Character and
-                Environment Concept Art, I've embraced the world of tattooing –
-                blending my passion for art with the ancient craft of ink.
+                Environment Concept Art, I&apos;ve embraced the world of
+                tattooing – blending my passion for art with the ancient craft
+                of ink.
               </p>
               <p className="text-sm md:text-base text-gray-700">
                 Each tattoo I create is infused with the storytelling and
-                attention to detail I’ve developed over my career. Whether
-                you’re seeking a mystical touch with astrology and
+                attention to detail I&apos;ve developed over my career. Whether
+                you&apos;re seeking a mystical touch with astrology and
                 Tarot-inspired art, or a custom design that speaks to your
-                unique journey, I'm here to make it happen.
+                unique journey, I&apos;m here to make it happen.
               </p>
+
               <p className="text-lg font-bold italic text-right text-yellow-500">
                 - Ink Spell
               </p>
