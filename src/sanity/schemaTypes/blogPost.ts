@@ -1,5 +1,4 @@
 import { defineField, defineType } from "sanity";
-import { PortableTextBlock } from "@portabletext/types";
 
 export default defineType({
   name: "blogPost",
