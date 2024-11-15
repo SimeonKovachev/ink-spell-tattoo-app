@@ -38,13 +38,9 @@ export default function Services() {
   }
 
   const currentService = services[currentIndex];
-  const serviceImageUrl = currentService.image?.asset?.url
-    ? urlFor(currentService.image.asset)
-        .width(800)
-        .height(600)
-        .quality(80)
-        .url()
-    : "/images/placeholder.png";
+ const serviceImageUrl = currentService.image
+   ? urlFor(currentService.image).url()
+   : "/images/placeholder.png";
 
   return (
     <section className="bg-yellow-400 text-secondary py-12 px-4">
@@ -63,12 +59,14 @@ export default function Services() {
             <img
               src={
                 service.image?.asset?.url
-                  ? urlFor(service.image.asset)
-                      .width(100)
-                      .height(100)
-                      .quality(80)
-                      .url()
-                  : "/images/placeholder.png"
+                  ? service.image.asset.url
+                  : service.image
+                    ? urlFor(service.image)
+                        .width(100)
+                        .height(100)
+                        .quality(80)
+                        .url()
+                    : "/images/placeholder.png"
               }
               alt={service.name}
               className="w-24 h-24 object-cover rounded-md"
