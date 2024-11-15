@@ -25,12 +25,12 @@ export default function Header() {
             </div>
 
             <p className="text-lg md:text-xl mt-4 mb-8 text-gray-300 max-w-lg">
-              Hey! I'm Iva – a seasoned artist who’s traded canvas for skin.
-              With a decade in illustration and fresh tattoo skills from
-              Tattooing 101, I'm here to blend passion with ink. Whether you're
-              ready to rock some custom ink or curious about astrology and
-              Tarot, let’s turn your story into an unforgettable piece of art!
-              ✨
+              Hey! I&apos;m Iva – a seasoned artist who&apos;s traded canvas for
+              skin. With a decade in illustration and fresh tattoo skills from
+              Tattooing 101, I&apos;m here to blend passion with ink. Whether
+              you&apos;re ready to rock some custom ink or curious about
+              astrology and Tarot, let&apos;s turn your story into an
+              unforgettable piece of art! ✨
             </p>
 
             <div className="flex gap-6">

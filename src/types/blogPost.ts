@@ -1,0 +1,17 @@
+import { PortableTextBlock } from "@portabletext/types";
+
+export type BlogPost = {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  content: PortableTextBlock[];
+  excerpt: string;
+  mainImage: {
+    asset: { url: string };
+  } | null;
+  tags: string[];
+  publishedAt: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  isFeatured?: boolean;
+};
