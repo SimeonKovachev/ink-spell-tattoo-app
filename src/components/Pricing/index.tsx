@@ -1,7 +1,6 @@
 "use client";
 import SectionTitle from "../Common/SectionTitle";
 import PricingBox from "./PricingBox";
-import { pricingData } from "@/stripe/pricingData";
 
 const Pricing = () => {
   return (
@@ -19,11 +18,11 @@ const Pricing = () => {
           />
         </div>
 
-        <div className="-mx-4 flex flex-wrap justify-center">
+        {/* <div className="-mx-4 flex flex-wrap justify-center">
           {pricingData.map((product, i) => (
             <PricingBox key={i} product={product} />
           ))}     
-        </div>
+        </div> */}
       </div>
     </section>
   );
