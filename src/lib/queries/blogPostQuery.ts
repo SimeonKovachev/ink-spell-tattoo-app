@@ -1,13 +1,37 @@
-export const BLOG_POSTS_QUERY = `*[_type == "blogPost"]{
+export const BLOG_POSTS_QUERY = `*[_type == "blogPost"] | order(publishedAt desc) {
   _id,
   title,
   slug,
-  content,
   excerpt,
+  content,
   mainImage {
     asset->{
       url
     }
   },
-  publishedAt
-} | order(publishedAt desc)`;
+  tags,
+  publishedAt,
+  seoTitle,
+  seoDescription,
+  isFeatured
+}`;
+
+export const SINGLE_POST_QUERY = (
+  slug: string
+) => `*[_type == "blogPost" && slug.current == "${slug}"]{
+  _id,
+  title,
+  slug,
+  excerpt,
+  content,
+  mainImage {
+    asset->{
+      url
+    }
+  },
+  tags,
+  publishedAt,
+  seoTitle,
+  seoDescription,
+  isFeatured
+}[0]`;

@@ -8,6 +8,8 @@ import Link from "next/link";
 import Button from "./Button";
 import { BLOG_POSTS_QUERY } from "@/lib/queries/blogPostQuery";
 import { BlogPost } from "@/types/blogPost";
+import Image from "next/image";
+
 
 export default function BlogPosts() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -56,10 +58,12 @@ export default function BlogPosts() {
             }`}
             onClick={() => setCurrentIndex(index)}
           >
-            <img
+            <Image
               src={post.mainImage?.asset?.url || "/images/placeholder.png"}
               alt={post.title}
-              className="w-24 h-24 object-cover rounded-md"
+              width={100}
+              height={100}
+              className="rounded-md object-cover"
             />
             <p className="text-center text-sm mt-2">{post.title}</p>
           </div>
@@ -88,7 +92,7 @@ export default function BlogPosts() {
           <p className="text-sm mb-4">{currentPost.excerpt}</p>
           <div className="flex items-center gap-4 text-center">
             <Link href={`/blog/${currentPost.slug.current}`}>
-              <Button text="Read More" type="outlined" color="dark" />
+              <Button text="Read More" type="outlined"/>
             </Link>
           </div>
         </div>

@@ -8,6 +8,7 @@ import Link from "next/link";
 import Button from "./Button";
 import { SERVICES_QUERY } from "@/lib/queries/servicesQuery";
 import { Service } from "@/types/service";
+import Image from "next/image";
 
 export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
@@ -56,21 +57,19 @@ export default function Services() {
             }`}
             onClick={() => setCurrentIndex(index)}
           >
-            <img
-              src={
-                service.image?.asset?.url
-                  ? service.image.asset.url
-                  : service.image
-                    ? urlFor(service.image)
-                        .width(100)
-                        .height(100)
-                        .quality(80)
-                        .url()
-                    : "/images/placeholder.png"
-              }
-              alt={service.name}
-              className="w-24 h-24 object-cover rounded-md"
-            />
+            {service.image?.asset?.url && (
+              <Image
+                src={urlFor(service.image)
+                  .width(100)
+                  .height(100)
+                  .quality(80)
+                  .url()}
+                alt={service.name}
+                width={100}
+                height={100}
+                className="rounded-md object-cover"
+              />
+            )}
             <p className="text-center text-sm mt-2">{service.name}</p>
           </div>
         ))}
@@ -90,9 +89,11 @@ export default function Services() {
             </button>
 
             {serviceImageUrl && (
-              <img
+              <Image
                 src={serviceImageUrl}
                 alt={currentService.name}
+                width={800}
+                height={600}
                 className="w-full h-80 object-cover mb-6 rounded-lg"
               />
             )}
@@ -112,7 +113,6 @@ export default function Services() {
               <Button
                 text="Know More"
                 type="outlined"
-                color="dark"
                 onClick={() => console.log("Know More clicked")}
               />
             </Link>
@@ -120,7 +120,6 @@ export default function Services() {
             <Button
               text="Book Now"
               type="filled"
-              color="dark"
               onClick={() => console.log("Book Now clicked")}
             />
           </div>

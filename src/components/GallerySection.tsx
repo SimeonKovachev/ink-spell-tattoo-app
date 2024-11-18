@@ -7,6 +7,7 @@ import Link from "next/link";
 import Button from "./Button";
 import { GalleryItem } from "@/types/galleryItem";
 import { GALLERY_QUERY } from "@/lib/queries/galleryQuery";
+import Image from "next/image";
 
 export default function Gallery() {
   const [images, setImages] = useState<GalleryItem[]>([]);
@@ -40,19 +41,19 @@ export default function Gallery() {
             className="relative group"
           >
             <div className="overflow-hidden rounded-lg shadow-lg">
-              <img
-                src={
-                  img.image?.asset?.url
-                    ? urlFor(img.image.asset)
-                        .width(400)
-                        .height(400)
-                        .quality(80)
-                        .url()
-                    : "/images/placeholder.png"
-                }
-                alt={img.title}
-                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-              />
+              {img.image?.asset?.url && (
+                <Image
+                  src={urlFor(img.image)
+                    .width(400)
+                    .height(400)
+                    .quality(80)
+                    .url()}
+                  alt={img.title}
+                  width={400}
+                  height={400}
+                  className="w-full h-64 object-cover rounded-lg transition-transform duration-300 group-hover:scale-110"
+                />
+              )}
             </div>
 
             <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">

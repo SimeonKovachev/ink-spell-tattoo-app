@@ -1,7 +1,7 @@
 import Image from "next/image";
-import styles from "../../public/styles/AboutMe.module.css";
+import styles from "../../styles/AboutMe.module.css";
 
-export default function AboutMe() {
+export default function About() {
   return (
     <section id="about" className="relative py-16 text-black bg-white">
       <div

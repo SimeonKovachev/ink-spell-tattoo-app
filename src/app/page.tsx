@@ -1,4 +1,4 @@
-import AboutMe from "@/components/AboutSection";
+import About from "@/components/About";
 import BookNow from "@/components/BookNow";
 import Gallery from "@/components/GallerySection";
 import Header from "@/components/Header";
@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />
-      <AboutMe />
+      <About />
       <Services />
       <Gallery />
       {/* <Testimonials /> */}

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const colors = require("tailwindcss/colors");
 
 const config: Config = {
   content: [
@@ -9,11 +10,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        ...colors,
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "accent-purple": "#8b5cf6",
+        "dark-purple": "#4B0082",
+        "primary-bg": "#2D2D2D",
+        "text-color": "#F3F4F6",
+        "border-color": "#444444",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailgrids/plugin")],
 };
 export default config;

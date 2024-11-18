@@ -22,8 +22,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.2",
+    "react-hot-toast": "^2.4.1",
     "sanity": "^3.62.3",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "tailgrids": "^2.2.7"
   },
   "devDependencies": {
     "@types/node": "^20",

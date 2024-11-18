@@ -4,8 +4,8 @@ export type BlogPost = {
   _id: string;
   title: string;
   slug: { current: string };
-  content: PortableTextBlock[];
   excerpt: string;
+  content: PortableTextBlock[];
   mainImage: {
     asset: { url: string };
   } | null;
