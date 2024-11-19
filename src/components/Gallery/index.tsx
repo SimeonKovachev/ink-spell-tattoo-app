@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { client } from "../lib/client";
-import { urlFor } from "../lib/image";
 import Link from "next/link";
-import Button from "./Button";
 import { GalleryItem } from "@/types/galleryItem";
 import { GALLERY_QUERY } from "@/lib/queries/galleryQuery";
 import Image from "next/image";
+import { client } from "@/lib/client";
+import { urlFor } from "@/lib/image";
+import Button from "../Button";
 
 export default function Gallery() {
   const [images, setImages] = useState<GalleryItem[]>([]);

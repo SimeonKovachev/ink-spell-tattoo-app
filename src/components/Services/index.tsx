@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { client } from "../lib/client";
-import { urlFor } from "../lib/image";
 import { ArrowLeftSquare, ArrowRightSquare } from "lucide-react";
 import Link from "next/link";
-import Button from "./Button";
 import { SERVICES_QUERY } from "@/lib/queries/servicesQuery";
 import { Service } from "@/types/service";
 import Image from "next/image";
+import { client } from "@/lib/client";
+import { urlFor } from "@/lib/image";
+import Button from "../Button";
 
 export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
@@ -39,9 +39,9 @@ export default function Services() {
   }
 
   const currentService = services[currentIndex];
- const serviceImageUrl = currentService.image
-   ? urlFor(currentService.image).url()
-   : "/images/placeholder.png";
+  const serviceImageUrl = currentService.image
+    ? urlFor(currentService.image).url()
+    : "/images/placeholder.png";
 
   return (
     <section className="bg-yellow-400 text-secondary py-12 px-4">

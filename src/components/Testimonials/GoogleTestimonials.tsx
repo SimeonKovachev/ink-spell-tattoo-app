@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchGoogleReviews } from "../lib/fetchGoogleReviews";
-import Button from "./Button";
 import { GoogleReview } from "@/types/googleReview";
+import { fetchGoogleReviews } from "@/lib/fetchGoogleReviews";
+import Button from "../Button";
 
 const GOOGLE_PLACE_ID = process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID!;
 const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;
 
-export default function Testimonials() {
+export default function GoogleTestimonials() {
   const [reviews, setReviews] = useState<GoogleReview[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,9 +22,9 @@ export default function Testimonials() {
     getReviews();
   }, [GOOGLE_PLACE_ID, GOOGLE_API_KEY]);
 
-   if (loading) {
-     return <p className="text-center py-12">Loading reviews...</p>;
-   }
+  if (loading) {
+    return <p className="text-center py-12">Loading reviews...</p>;
+  }
 
   if (reviews.length === 0) {
     return <p className="text-center py-12">Loading reviews...</p>;

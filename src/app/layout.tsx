@@ -6,19 +6,19 @@ import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import ToasterContext from "./api/context/ToasterContext";
-import NavbarWrapper from "@/components/NavbarWrapper";
+import NavbarWrapper from "@/components/Navbar/NavbarWrapper";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-   const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
-   useEffect(() => {
-     setTimeout(() => setLoading(false), 1000);
-   }, []);
-   
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 2000);
+  }, []);
+
   return (
     <html suppressHydrationWarning={true} className="!scroll-smooth" lang="en">
       <head />
@@ -28,7 +28,7 @@ export default function RootLayout({
           <PreLoader />
         ) : (
           <>
-          <NavbarWrapper />
+            <NavbarWrapper />
             <ToasterContext />
             <main>{children}</main>
             <Footer />
