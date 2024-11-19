@@ -16,7 +16,7 @@
     "axios": "^1.7.7",
     "calendar-link": "^2.7.0",
     "lucide-react": "^0.456.0",
-    "next": "15.0.2",
+    "next": "^14.2.18",
     "next-sanity": "^9.8.8",
     "nodemailer": "^6.9.16",
     "react": "^18.2.0",
@@ -24,6 +24,7 @@
     "react-hook-form": "^7.53.2",
     "react-hot-toast": "^2.4.1",
     "sanity": "^3.62.3",
+    "stripe": "^17.3.1",
     "styled-components": "^6.1.13",
     "tailgrids": "^2.2.7"
   },

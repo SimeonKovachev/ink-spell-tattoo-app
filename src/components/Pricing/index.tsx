@@ -1,4 +1,5 @@
 "use client";
+import { pricingData } from "@/config/pricingData.config";
 import SectionTitle from "../Common/SectionTitle";
 import PricingBox from "./PricingBox";
 
@@ -18,11 +19,11 @@ const Pricing = () => {
           />
         </div>
 
-        {/* <div className="-mx-4 flex flex-wrap justify-center">
+        <div className="-mx-4 flex flex-wrap justify-center">
           {pricingData.map((product, i) => (
             <PricingBox key={i} product={product} />
           ))}     
-        </div> */}
+        </div>
       </div>
     </section>
   );

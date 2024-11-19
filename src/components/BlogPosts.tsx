@@ -82,9 +82,11 @@ export default function BlogPosts() {
 
         <div className="flex flex-col items-center text-secondary p-4 text-center w-full">
           {postImageUrl && (
-            <img
+             <Image
               src={postImageUrl}
               alt={currentPost.title}
+              width={800}
+              height={600}
               className="w-full h-80 object-cover mb-6 rounded-lg"
             />
           )}

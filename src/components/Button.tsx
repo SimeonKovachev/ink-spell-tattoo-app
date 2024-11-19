@@ -3,14 +3,12 @@ import React from "react";
 type ButtonProps = {
   text: string;
   type?: "filled" | "outlined";
-  color?: "purple" | "dark";
   onClick?: () => void;
 };
 
 export default function Button({
   text,
   type = "filled",
-  color = "purple",
   onClick,
 }: ButtonProps) {
   const buttonStyles =

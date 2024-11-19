@@ -9,6 +9,14 @@ export const BLOG_POSTS_QUERY = `*[_type == "blogPost"] | order(publishedAt desc
       url
     }
   },
+  author->{
+    name,
+    image {
+      asset->{
+        url
+      }
+    }
+  },
   tags,
   publishedAt,
   seoTitle,
@@ -27,6 +35,14 @@ export const SINGLE_POST_QUERY = (
   mainImage {
     asset->{
       url
+    }
+  },
+  author->{
+    name,
+    image {
+      asset->{
+        url
+      }
     }
   },
   tags,

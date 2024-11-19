@@ -5,7 +5,7 @@ import { Price } from "@/types/price";
 
 const PricingBox = ({ product }: { product: Price }) => {
   // POST request
-  const handleSubscription = async (e: any) => {
+  const handleSubscription = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { data } = await axios.post(
       "/api/payment",
@@ -16,7 +16,7 @@ const PricingBox = ({ product }: { product: Price }) => {
         headers: {
           "Content-Type": "application/json",
         },
-      },
+      }
     );
     window.location.assign(data);
   };

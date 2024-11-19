@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,6 +19,11 @@ const Navbar = () => {
   const [openIndex, setOpenIndex] = useState(-1);
   const handleSubmenu = (index: number) =>
     setOpenIndex(openIndex === index ? -1 : index);
+
+  type SubmenuItem = {
+    path?: string;
+    title: string;
+  };
 
   return (
     <>
@@ -114,15 +118,17 @@ const Navbar = () => {
                               openIndex === index ? "!-left-[25px]" : "hidden"
                             }`}
                           >
-                            {menuItem?.submenu?.map((submenuItem: any, i) => (
-                              <Link
-                                href={submenuItem.path}
-                                key={i}
-                                className={`block rounded px-4 py-[10px] text-sm text-dark-6 hover:text-primary`}
-                              >
-                                {submenuItem.title}
-                              </Link>
-                            ))}
+                            {menuItem?.submenu?.map(
+                              (submenuItem: SubmenuItem, i: number) => (
+                                <Link
+                                  href={submenuItem.path || "#"}
+                                  key={i}
+                                  className={`block rounded px-4 py-[10px] text-sm text-dark-6 hover:text-primary`}
+                                >
+                                  {submenuItem.title}
+                                </Link>
+                              )
+                            )}
                           </div>
                         </li>
                       )
