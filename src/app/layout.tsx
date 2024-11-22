@@ -20,7 +20,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html suppressHydrationWarning={true} className="!scroll-smooth" lang="en">
+    <html suppressHydrationWarning={true} lang="en">
       <head />
 
       <body>

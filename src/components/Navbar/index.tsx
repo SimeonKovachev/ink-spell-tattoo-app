@@ -8,7 +8,9 @@ import menuData from "./menuData";
 const Navbar = () => {
   const pathUrl = usePathname();
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const navbarToggleHandler = () => setNavbarOpen(!navbarOpen);
+  const navbarToggleHandler = () => {
+    setNavbarOpen((prev) => !prev);
+  };
 
   const [sticky, setSticky] = useState(false);
   const handleStickyNavbar = () => setSticky(window.scrollY >= 80);
@@ -73,7 +75,9 @@ const Navbar = () => {
                 </button>
                 <nav
                   id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-dark-3 bg-dark-2 px-6 py-4 duration-300 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100`}
+                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-dark-3 bg-dark-2 px-6 py-4 duration-300 ${
+                    navbarOpen ? "opacity-100 visible" : "invisible opacity-0"
+                  } lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100`}
                 >
                   <ul className="block lg:ml-8 lg:flex lg:gap-x-8 xl:ml-14 xl:gap-x-12">
                     {menuData.map((menuItem, index) =>

@@ -9,6 +9,7 @@ import Image from "next/image";
 import { client } from "@/lib/client";
 import { urlFor } from "@/lib/image";
 import Button from "../Button";
+import SectionTitle from "../Common/SectionTitle";
 
 export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
@@ -44,85 +45,103 @@ export default function Services() {
     : "/images/placeholder.png";
 
   return (
-    <section className="bg-yellow-400 text-secondary py-12 px-4">
-      <h2 className="text-4xl font-bold text-center mb-8">Our Services</h2>
+    <section className="bg-dark text-white py-16 lg:py-[120px]">
+      <div className="container mx-auto">
+        {/* Section Title */}
+        <div className="mb-12">
+          <SectionTitle
+            subtitle="Our Services"
+            title="Explore Our Offerings"
+            paragraph="Discover a range of services designed to meet your needs with precision and care."
+            width="640px"
+            center
+          />
+        </div>
 
-      {/* Thumbnails for all services */}
-      <div className="flex justify-center gap-4 mb-8 overflow-x-auto">
-        {services.map((service, index) => (
-          <div
-            key={service._id}
-            className={`cursor-pointer ${
-              index === currentIndex ? "border-b-4 border-secondary" : ""
-            }`}
-            onClick={() => setCurrentIndex(index)}
+        {/* Service Thumbnails */}
+        <div className="flex justify-center gap-4 mb-8 overflow-x-auto no-scrollbar max-h-[150px] py-2">
+          {services.map((service, index) => (
+            <div
+              key={service._id}
+              className={`cursor-pointer rounded-md transition-all duration-300 ${
+                index === currentIndex
+                  ? "scale-110 border-2 border-yellow-500"
+                  : ""
+              }`}
+              onClick={() => setCurrentIndex(index)}
+            >
+              {service.image?.asset?.url && (
+                <Image
+                  src={urlFor(service.image)
+                    .width(100)
+                    .height(100)
+                    .quality(80)
+                    .url()}
+                  alt={service.name}
+                  width={100}
+                  height={100}
+                  className="rounded-md object-cover"
+                />
+              )}
+              <p
+                className={`text-center text-sm mt-2 ${
+                  index === currentIndex ? "text-yellow-500" : "text-gray-400"
+                }`}
+              >
+                {service.name}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Main Service Details */}
+        <div className="relative flex items-center justify-center max-w-4xl mx-auto">
+          {/* Navigation Arrows */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-0 z-10 p-2 text-gray-300 hover:text-yellow-500"
           >
-            {service.image?.asset?.url && (
-              <Image
-                src={urlFor(service.image)
-                  .width(100)
-                  .height(100)
-                  .quality(80)
-                  .url()}
-                alt={service.name}
-                width={100}
-                height={100}
-                className="rounded-md object-cover"
-              />
-            )}
-            <p className="text-center text-sm mt-2">{service.name}</p>
-          </div>
-        ))}
-      </div>
+            <ArrowLeftSquare size={36} />
+          </button>
 
-      {/* Main service details */}
-      <div className="max-w-4xl mx-auto relative flex items-center">
-        {/* Navigation Arrows */}
-
-        <div className="flex flex-col items-center text-secondary p-4 text-center w-full">
-          <div className="flex items-center text-secondary p-20 text-center w-full relative">
-            <button onClick={handlePrev} className="absolute left-0 z-10 p-2">
-              <ArrowLeftSquare
-                size={36}
-                className="text-secondary hover:text-gray-700"
-              />
-            </button>
-
+          <div className="flex flex-col items-center">
             {serviceImageUrl && (
               <Image
                 src={serviceImageUrl}
                 alt={currentService.name}
                 width={800}
                 height={600}
-                className="w-full h-80 object-cover mb-6 rounded-lg"
+                className="w-full max-h-[500px] object-cover mb-6 rounded-lg shadow-lg"
               />
             )}
-
-            <button onClick={handleNext} className="absolute right-0 z-10 p-2">
-              <ArrowRightSquare
-                size={36}
-                className="text-secondary hover:text-gray-700"
-              />
-            </button>
-          </div>
-
-          <h3 className="text-2xl font-semibold mb-2">{currentService.name}</h3>
-          <p className="text-sm mb-4">{currentService.description}</p>
-          <div className="flex items-center gap-4 text-center">
-            <Link href={`/services/${currentService.slug.current}`}>
+            <h3 className="text-2xl font-semibold mb-2">
+              {currentService.name}
+            </h3>
+            <p className="text-sm text-gray-300 mb-4">
+              {currentService.description}
+            </p>
+            <div className="flex gap-4">
+              <Link href={`/services/${currentService.slug.current}`}>
+                <Button
+                  text="Know More"
+                  type="outlined"
+                  onClick={() => console.log("Know More clicked")}
+                />
+              </Link>
               <Button
-                text="Know More"
-                type="outlined"
-                onClick={() => console.log("Know More clicked")}
+                text="Book Now"
+                type="filled"
+                onClick={() => console.log("Book Now clicked")}
               />
-            </Link>
-
-            <Button
-              text="Book Now"
-              type="filled"
-              onClick={() => console.log("Book Now clicked")}
-            />
+            </div>
           </div>
+
+          <button
+            onClick={handleNext}
+            className="absolute right-0 z-10 p-2 text-gray-300 hover:text-yellow-500"
+          >
+            <ArrowRightSquare size={36} />
+          </button>
         </div>
       </div>
     </section>
