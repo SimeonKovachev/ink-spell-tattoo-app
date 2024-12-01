@@ -7,6 +7,13 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import ToasterContext from "./api/context/ToasterContext";
 import NavbarWrapper from "@/components/Navbar/NavbarWrapper";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-subheading",
+});
 
 export default function RootLayout({
   children,
@@ -20,7 +27,11 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html suppressHydrationWarning={true} lang="en">
+    <html
+      suppressHydrationWarning={true}
+      lang="en"
+      className={`${montserrat.variable}`}
+    >
       <head />
 
       <body>

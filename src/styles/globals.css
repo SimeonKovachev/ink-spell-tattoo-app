@@ -90,6 +90,17 @@ textarea {
   background-color: var(--dark-purple);
 }
 
+.shape-divider {
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.shape-divider svg {
+  display: block;
+}
+
 /* Responsive Typography */
 .text-heading {
   font-family: var(--font-heading);

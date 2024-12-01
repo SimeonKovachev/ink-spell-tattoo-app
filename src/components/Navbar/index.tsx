@@ -8,24 +8,44 @@ import menuData from "./menuData";
 const Navbar = () => {
   const pathUrl = usePathname();
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [sticky, setSticky] = useState(false);
+  const [openIndex, setOpenIndex] = useState(-1);
+
   const navbarToggleHandler = () => {
     setNavbarOpen((prev) => !prev);
   };
 
-  const [sticky, setSticky] = useState(false);
   const handleStickyNavbar = () => setSticky(window.scrollY >= 80);
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
+    return () => window.removeEventListener("scroll", handleStickyNavbar);
   }, []);
 
-  const [openIndex, setOpenIndex] = useState(-1);
-  const handleSubmenu = (index: number) =>
+  const toggleSubmenu = (index: number) => {
     setOpenIndex(openIndex === index ? -1 : index);
-
-  type SubmenuItem = {
-    path?: string;
-    title: string;
   };
+
+  const handleDropdownPosition = (index: number) => {
+    const dropdown = document.getElementById(`dropdown-${index}`);
+    if (!dropdown) return;
+
+    const dropdownRect = dropdown.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+
+    if (dropdownRect.right > viewportWidth) {
+      dropdown.style.left = "auto";
+      dropdown.style.right = "0";
+    } else if (dropdownRect.left < 0) {
+      dropdown.style.left = "0";
+      dropdown.style.right = "auto";
+    }
+  };
+
+  useEffect(() => {
+    if (openIndex !== -1) {
+      handleDropdownPosition(openIndex);
+    }
+  }, [openIndex]);
 
   return (
     <>
@@ -37,19 +57,19 @@ const Navbar = () => {
         }`}
       >
         <div className="container">
-          <div className="relative -mx-4 flex items-center justify-between">
+          <div className="relative flex items-center justify-between">
             <div className="w-80 max-w-full px-4">
-              <Link href="/" className="heading text-5xl text-yellow-500">
+              <Link href="/" className="heading text-5xl text-accent-purple">
                 Ink Spell
               </Link>
             </div>
-            <div className="flex w-full items-center justify-between px-4">
+            <div className="flex items-center px-4">
               <div>
                 <button
                   onClick={navbarToggleHandler}
                   id="navbarToggler"
                   aria-label="Mobile Menu"
-                  className="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
+                  className="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-accent-purple focus:ring-2 lg:hidden"
                 >
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${
@@ -79,7 +99,7 @@ const Navbar = () => {
                     navbarOpen ? "opacity-100 visible" : "invisible opacity-0"
                   } lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100`}
                 >
-                  <ul className="block lg:ml-8 lg:flex lg:gap-x-8 xl:ml-14 xl:gap-x-12">
+                  <ul className="block font-semibold uppercase lg:ml-8 lg:flex lg:gap-x-6 xl:ml-14 xl:gap-x-10">
                     {menuData.map((menuItem, index) =>
                       menuItem.path ? (
                         <li key={index} className="group relative">
@@ -87,18 +107,21 @@ const Navbar = () => {
                             onClick={navbarToggleHandler}
                             scroll={false}
                             href={menuItem.path}
-                            className={`ud-menu-scroll flex py-2 text-base text-white group-hover:text-primary lg:inline-flex lg:px-0 lg:py-6 ${
-                              pathUrl === menuItem?.path && "text-primary"
-                            }`}
+                            className={`ud-menu-scroll flex pb-2 my-2 text-base text-white group-hover:text-accent-purple lg:inline-flex lg:px-0 lg:my-6 relative transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-accent-purple after:transition-all after:duration-300 hover:after:w-full`}
                           >
                             {menuItem.title}
                           </Link>
                         </li>
                       ) : (
-                        <li className="submenu-item group relative" key={index}>
+                        <li
+                          key={index}
+                          className="submenu-item group relative"
+                          onMouseEnter={() => toggleSubmenu(index)}
+                          onMouseLeave={() => setOpenIndex(-1)}
+                        >
                           <button
-                            onClick={() => handleSubmenu(index)}
-                            className="ud-menu-scroll flex items-center justify-between py-2 text-base text-white group-hover:text-primary lg:inline-flex lg:px-0 lg:py-6"
+                            onClick={() => toggleSubmenu(index)}
+                            className="ud-menu-scroll flex items-center justify-between pb-2 my-2 uppercase text-base text-white group-hover:text-accent-purple lg:inline-flex lg:px-0 lg:my-6 relative transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-accent-purple after:transition-all after:duration-300 hover:after:w-full"
                           >
                             {menuItem.title}
                             <span className="pl-1">
@@ -117,23 +140,23 @@ const Navbar = () => {
                               </svg>
                             </span>
                           </button>
-                          <div
-                            className={`submenu relative left-0 top-full w-[250px] rounded-sm bg-dark-2 p-4 transition-[top] duration-300 group-hover:opacity-100 lg:invisible lg:absolute lg:top-[110%] lg:block lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
-                              openIndex === index ? "!-left-[25px]" : "hidden"
-                            }`}
-                          >
-                            {menuItem?.submenu?.map(
-                              (submenuItem: SubmenuItem, i: number) => (
-                                <Link
-                                  href={submenuItem.path || "#"}
-                                  key={i}
-                                  className={`block rounded px-4 py-[10px] text-sm text-dark-6 hover:text-primary`}
-                                >
-                                  {submenuItem.title}
-                                </Link>
-                              )
-                            )}
-                          </div>
+                          {openIndex === index && (
+                            <ul
+                              id={`dropdown-${index}`}
+                              className="absolute left-0 top-full w-[250px] rounded bg-dark-2 p-4 transition-all duration-300 opacity-100 visible"
+                            >
+                              {menuItem?.submenu?.map((submenuItem, i) => (
+                                <li key={i}>
+                                  <Link
+                                    href={submenuItem.path || "#"}
+                                    className="block rounded px-4 py-[10px] text-sm text-dark-6 hover:text-accent-purple"
+                                  >
+                                    {submenuItem.title}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </li>
                       )
                     )}

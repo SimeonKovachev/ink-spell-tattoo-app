@@ -14,7 +14,7 @@ const SingleTestimonial = ({ testimonial }: { testimonial: Testimonial }) => {
     ratingIcons.push(
       <span key={index} className="text-[#fbb040]">
         {starIcon}
-      </span>,
+      </span>
     );
   }
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 const SingleTeam = ({ team }: { team: TeamType }) => {
   const { image, name, designation, facebookLink, twitterLink, instagramLink } =
     team;
-    
+
   return (
     <div className="w-full px-4 sm:w-1/2 lg:w-1/4 xl:w-1/4">
       <div className="group mb-8 rounded-xl bg-white px-5 pb-10 pt-12 shadow-testimonial dark:bg-dark dark:shadow-none">

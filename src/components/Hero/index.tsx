@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Button from "../Button";
+import Button from "../Common/Button";
 
 const slides = [
   {
@@ -28,13 +28,12 @@ const slides = [
 export default function Header() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  const [initialRender, setInitialRender] = useState(true); // Flag for initial render
+  const [initialRender, setInitialRender] = useState(true);
 
   useEffect(() => {
-    // Remove the initial render flag after 1 frame to trigger the zoom effect
     const timeout = setTimeout(() => {
       setInitialRender(false);
-    }, 50); // Small delay to allow the first render to apply
+    }, 50);
 
     const interval = setInterval(() => {
       switchToNextSlide();
@@ -81,7 +80,7 @@ export default function Header() {
               transform:
                 currentSlide === index && !initialRender
                   ? "scale(1.2)"
-                  : "scale(1.1)", // Apply zoom only after the first render
+                  : "scale(1.1)",
             }}
             className={`transition-transform ${
               currentSlide === index && !initialRender
@@ -106,7 +105,7 @@ export default function Header() {
       </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black opacity-40"></div>
+      <div className="absolute inset-0 bg-black opacity-50"></div>
 
       {/* Content */}
       <div
@@ -114,14 +113,24 @@ export default function Header() {
           isFading ? "opacity-0" : "opacity-100"
         }`}
       >
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
+        <h1
+          className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
+          style={{
+            color: "var(--text-color)",
+          }}
+        >
           {slides[currentSlide].heading}
           <br />
-          <span className="text-yellow-400">
+          <span className="mt-2">
             {slides[currentSlide].subheading}
           </span>
         </h1>
-        <p className="mt-4 mb-8 text-gray-300 text-lg md:text-xl">
+        <p
+          className="mt-4 mb-8 text-lg md:text-xl text-gray-300"
+          style={{
+            fontFamily: "var(--font-body)",
+          }}
+        >
           {slides[currentSlide].description}
         </p>
         <div className="flex justify-center gap-4">
@@ -137,7 +146,7 @@ export default function Header() {
             key={index}
             className={`w-4 h-4 rounded-full border-2 ${
               currentSlide === index
-                ? "bg-gray-300 border-gray-300"
+                ? "bg-accent-purple border-accent-purple"
                 : "border-gray-500"
             }`}
             onClick={() => switchToSlide(index)}

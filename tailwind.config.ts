@@ -19,6 +19,9 @@ const config: Config = {
         "text-color": "#F3F4F6",
         "border-color": "#444444",
       },
+      fontFamily: {
+        subheading: "var(--font-subheading)",
+      },
     },
   },
   plugins: [require("tailgrids/plugin")],

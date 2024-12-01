@@ -1,18 +1,17 @@
 import About from "@/components/About";
 import HomeBlogSection from "@/components/Blog/HomeBlogSection";
 import Contact from "@/components/Contact";
-import BookNow from "@/components/Contact/BookNow";
-import Gallery from "@/components/Gallery";
+import HomeGallerySection from "@/components/Gallery";
 import Header from "@/components/Hero";
-import Services from "@/components/Services";
+import HomeServiceSection from "@/components/Services/HomeServiceSection";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />
       <About />
-      <Services />
-      <Gallery />
+      <HomeServiceSection />
+      <HomeGallerySection />
       <HomeBlogSection />
       <Contact />
     </div>

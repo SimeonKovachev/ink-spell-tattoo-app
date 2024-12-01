@@ -5,7 +5,6 @@ import axios from "axios";
 import { google, outlook, ics } from "calendar-link";
 import { BookingFormInputs } from "@/types/bookingForm";
 
-
 export default function BookNow() {
   const { register, handleSubmit, reset, formState } =
     useForm<BookingFormInputs>();

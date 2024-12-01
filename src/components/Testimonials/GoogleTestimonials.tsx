@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { GoogleReview } from "@/types/googleReview";
 import { fetchGoogleReviews } from "@/lib/fetchGoogleReviews";
-import Button from "../Button";
+import Button from "../Common/Button";
 
 const GOOGLE_PLACE_ID = process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID!;
 const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;

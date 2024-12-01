@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SingleBlog = ({ blog }: { blog: BlogPost }) => {
-   if (!blog) {
-     console.warn("No blog data passed to SingleBlog component.");
-     return null;
-   }
-   
+  if (!blog) {
+    console.warn("No blog data passed to SingleBlog component.");
+    return null;
+  }
+
   const { title, mainImage, excerpt, publishedAt, slug } = blog;
 
   return (

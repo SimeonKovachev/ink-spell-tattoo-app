@@ -18,8 +18,6 @@ export default function HomeBlogSection() {
 
         if (data.length === 0) {
           toast("No blog posts found!", { icon: "🛑" });
-        } else {
-          toast.success("Blog posts loaded successfully!");
         }
 
         setPosts(data);
