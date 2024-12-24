@@ -1,4 +1,3 @@
-// BookingForm.tsx
 "use client";
 
 import React from "react";
@@ -10,7 +9,14 @@ import { BookingFormInputs } from "@/types/bookingForm";
 import Button from "../Common/Button";
 import { useBookingSlots } from "@/lib/hooks/useBookingSlots";
 import { format } from "date-fns";
-import { Phone, Mail, MessageSquare, Calendar, Clock, User } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MessageSquare,
+  Calendar,
+  Clock,
+  User,
+} from "lucide-react";
 
 export const BookingForm: React.FC = () => {
   const {
@@ -45,7 +51,10 @@ export const BookingForm: React.FC = () => {
 
       if (!response.ok) throw new Error("Booking failed");
 
-      const blob = await response.blob();
+      const calendarContent = await response.text();
+      const blob = new Blob([calendarContent], {
+        type: "text/calendar;charset=utf-8",
+      });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -55,7 +64,9 @@ export const BookingForm: React.FC = () => {
       link.remove();
       window.URL.revokeObjectURL(url);
 
-      toast.success("Free consultation booked successfully!");
+      toast.success(
+        "Free consultation booked successfully! Check your email for confirmation."
+      );
     } catch (error) {
       console.error("Booking error:", error);
       toast.error("Failed to book consultation");
@@ -64,8 +75,25 @@ export const BookingForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {/* Add a style tag for DatePicker custom styling */}
+      <style>
+        {`
+          .react-datepicker-wrapper {
+            display: block;
+            width: 100%;
+          }
+          .react-datepicker__input-container {
+            display: block;
+            width: 100%;
+          }
+          .react-datepicker__input-container input {
+            width: 100%;
+          }
+        `}
+      </style>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="relative">
+        <div className="relative w-full">
           <label className="block mb-2 font-semibold text-white">Name</label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -83,7 +111,7 @@ export const BookingForm: React.FC = () => {
           )}
         </div>
 
-        <div className="relative">
+        <div className="relative w-full">
           <label className="block mb-2 font-semibold text-white">Email</label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -101,7 +129,7 @@ export const BookingForm: React.FC = () => {
           )}
         </div>
 
-        <div className="relative">
+        <div className="relative w-full">
           <label className="block mb-2 font-semibold text-white">Phone</label>
           <div className="relative">
             <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -119,11 +147,11 @@ export const BookingForm: React.FC = () => {
           )}
         </div>
 
-        <div className="relative">
+        <div className="relative w-full">
           <label className="block mb-2 font-semibold text-white">
             Consultation Date
           </label>
-          <div className="relative">
+          <div className="relative w-full">
             <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
             <Controller
               control={control}
@@ -149,7 +177,7 @@ export const BookingForm: React.FC = () => {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative w-full">
         <label className="block mb-2 font-semibold text-white">Message</label>
         <div className="relative">
           <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -175,7 +203,7 @@ export const BookingForm: React.FC = () => {
           Error loading available slots
         </div>
       ) : (
-        <div className="relative">
+        <div className="relative w-full">
           <label className="block mb-2 font-semibold text-white">
             Consultation Time
           </label>
