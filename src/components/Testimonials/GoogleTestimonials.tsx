@@ -1,12 +1,10 @@
-"use client";
+"use client"
 
 import { useEffect, useState } from "react";
+import { Star } from "lucide-react";
 import { GoogleReview } from "@/types/googleReview";
-import { fetchGoogleReviews } from "@/lib/fetchGoogleReviews";
 import Button from "../Common/Button";
-
-const GOOGLE_PLACE_ID = process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID!;
-const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;
+import { fetchGoogleReviews } from "@/lib/fetchGoogleReviews";
 
 export default function GoogleTestimonials() {
   const [reviews, setReviews] = useState<GoogleReview[]>([]);
@@ -14,63 +12,117 @@ export default function GoogleTestimonials() {
 
   useEffect(() => {
     const getReviews = async () => {
-      const data = await fetchGoogleReviews(GOOGLE_PLACE_ID, GOOGLE_API_KEY);
-      setReviews(data);
-      setLoading(false);
+      try {
+        const data = await fetchGoogleReviews();
+        setReviews(data);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getReviews();
-  }, [GOOGLE_PLACE_ID, GOOGLE_API_KEY]);
+  }, []);
 
   if (loading) {
-    return <p className="text-center py-12">Loading reviews...</p>;
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
   }
 
   if (reviews.length === 0) {
-    return <p className="text-center py-12">Loading reviews...</p>;
+    return (
+      <div className="text-center text-gray-400 py-12">
+        No reviews available at the moment
+      </div>
+    );
   }
 
-  return (
-    <section className="bg-gray-900 text-white py-16 px-8">
-      <h2 className="text-4xl font-bold text-center mb-16">
-        What Our Customers Say
-      </h2>
+  const renderStars = (rating: number) => {
+    return [...Array(5)].map((_, index) => (
+      <Star
+        key={index}
+        className={`w-4 h-4 ${
+          index < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-600"
+        }`}
+      />
+    ));
+  };
 
-      {/* Reviews Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {reviews.map((review, index) => (
-          <div key={index} className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <div className="flex items-center mb-4">
-              <img
-                src={review.profile_photo_url}
-                alt={review.author_name}
-                className="w-12 h-12 rounded-full mr-4"
-              />
-              <div>
-                <h3 className="text-xl font-bold">{review.author_name}</h3>
-                <p className="text-sm text-gray-400">
-                  {review.relative_time_description}
-                </p>
-              </div>
-            </div>
-            <p className="text-yellow-400 mb-2">⭐️ {review.rating}/5</p>
-            <p className="text-gray-300">{review.text}</p>
-          </div>
-        ))}
+  return (
+    <section className="relative py-24 lg:py-28 overflow-hidden">
+      {/* Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
+
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-40 left-0 w-[600px] h-[600px] animate-gradient-spin">
+          <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-600/20 via-fuchsia-500/20 to-pink-500/20 blur-[120px] animate-pulse-strong"></div>
+        </div>
       </div>
 
-      {/* Button to Leave a Review */}
-      <div className="text-center mt-12">
-        <Button
-          text="Leave a Review"
-          type="outlined"
-          onClick={() =>
-            window.open(
-              `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`,
-              "_blank"
-            )
-          }
-        />
+      {/* Content */}
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-2 rounded-full bg-purple-900/30 text-purple-300 font-semibold text-sm mb-6">
+            TESTIMONIALS
+          </span>
+          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+            What Our Clients Say
+          </h2>
+        </div>
+
+        {/* Reviews Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {reviews.map((review, index) => (
+            <div
+              key={index}
+              className="bg-gray-900/50 backdrop-blur-sm border border-purple-900/30 p-6 rounded-xl transform transition-all duration-300 hover:-translate-y-1 shadow-lg"
+            >
+              {/* Author Info */}
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-purple-700/30 flex items-center justify-center text-purple-300 font-semibold text-lg">
+                  {review.author_name?.charAt(0).toUpperCase()}
+                </div>
+                <div className="ml-4">
+                  <h4 className="text-white font-semibold">
+                    {review.author_name}
+                  </h4>
+                  <p className="text-gray-400 text-sm">
+                    {review.relative_time_description}
+                  </p>
+                </div>
+              </div>
+
+              {/* Rating */}
+              <div className="flex space-x-1 mb-4">
+                {renderStars(review.rating)}
+              </div>
+
+              {/* Review Text */}
+              <p className="text-gray-300 leading-relaxed mb-4">
+                {review.text}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center mt-12">
+          <Button
+            text="Leave a Review"
+            type="outlined"
+            onClick={() =>
+              window.open(
+                `https://search.google.com/local/writereview?placeid=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID}`,
+                "_blank"
+              )
+            }
+          />
+        </div>
       </div>
     </section>
   );

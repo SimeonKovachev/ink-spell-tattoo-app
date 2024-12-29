@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { client } from "@/lib/client";
 import { GALLERY_QUERY } from "@/lib/queries/galleryQuery";
 import { GalleryItem } from "@/types/galleryItem";
+import SectionTitle from "../Common/SectionTitle";
 import GalleryGrid from "./GalleryGrid";
 
-export default function Gallery() {
+export default function HomeGallerySection() {
   const [images, setImages] = useState<GalleryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,7 +38,16 @@ export default function Gallery() {
   return (
     <section className="relative bg-gradient-to-b from-black via-gray-900/95 to-gray-900 text-white py-20 lg:py-28 px-4 md:px-8 overflow-hidden">
       <div className="relative max-w-7xl mx-auto">
-        <GalleryGrid images={images} paginated={false} />
+        <div className="mb-12 animate-fadeIn">
+          <SectionTitle
+            subtitle="Gallery"
+            title="Showcase of my work"
+            paragraph="Explore my tattoo works that define artistry and precision."
+            width="640px"
+            center
+          />
+        </div>
+        <GalleryGrid images={images} paginated={true} />
       </div>
     </section>
   );

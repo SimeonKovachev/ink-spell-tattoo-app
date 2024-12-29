@@ -1,31 +1,62 @@
+import { ChevronDown, HelpCircle } from "lucide-react";
+import { useState } from "react";
+
 const SingleFaq = (props: { question: string; answer: string }) => {
   const { question, answer } = props;
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
-    <div className="mb-12 flex lg:mb-[70px]">
-            <div
-              className="bg-accent-purple mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]">
-              <svg width="32" height="32" viewBox="0 0 34 34" className="fill-current">
-                <path
-                  d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z" />
-                <path
-                  d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z" />
-                <path
-                  d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z" />
-              </svg>
-            </div>
-            <div className="w-full">
-              <h3 className="mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                {question}
-              </h3>
-              <p className="text-base text-body-color dark:text-dark-6">
-                {answer}
-              </p>
-            </div>
+    <div
+      className={`group flex h-full flex-col relative overflow-hidden rounded-xl border-2 transition-all duration-500 ease-in-out ${
+        isOpen
+          ? "border-accent-purple/50 bg-dark-2/90 shadow-lg shadow-accent-purple/5"
+          : "border-dark-3/20 bg-dark-2/50 hover:border-dark-3/40 hover:bg-dark-2/70"
+      }`}
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex min-h-[120px] w-full flex-1 items-center justify-between p-6 text-left transition-all duration-300"
+      >
+        <div className="flex items-center gap-5 flex-1 pr-6">
+          <div
+            className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-all duration-500 ${
+              isOpen
+                ? "bg-accent-purple text-white"
+                : "bg-accent-purple/10 text-accent-purple group-hover:bg-accent-purple/20"
+            }`}
+          >
+            <HelpCircle className="h-6 w-6" />
           </div>
-    
-    </>
+          <h3
+            className={`text-lg font-bold tracking-tight transition-all duration-300 md:text-xl ${
+              isOpen
+                ? "text-accent-purple"
+                : "text-white group-hover:text-accent-purple/90"
+            }`}
+          >
+            {question}
+          </h3>
+        </div>
+        <ChevronDown
+          className={`h-6 w-6 flex-shrink-0 transition-all duration-500 ${
+            isOpen
+              ? "rotate-180 text-accent-purple"
+              : "text-accent-purple/50 group-hover:text-accent-purple"
+          }`}
+        />
+      </button>
+      <div
+        className={`grid transition-all duration-500 ease-in-out ${
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="px-6 pb-6 pt-0 text-base leading-relaxed text-dark-6 md:text-lg">
+            {answer}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,23 +1,26 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import styles from "../../styles/Preloader.module.css";
 
 const PreLoader = () => {
-  const loadingTexts = [
-    "Inking your page...",
-    "Sketching perfection...",
-    "Ink in progress...",
-    "Art loading...",
-    "Drawing magic...",
-  ];
+  const loadingTexts = useMemo(
+    () => [
+      "Inking your page...",
+      "Sketching perfection...",
+      "Ink in progress...",
+      "Art loading...",
+      "Drawing magic...",
+    ],
+    []
+  );
 
   const [randomText, setRandomText] = useState<string>("");
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * loadingTexts.length);
     setRandomText(loadingTexts[randomIndex]);
-  }, []);
+  }, [loadingTexts]);
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-primary-bg text-text-color">

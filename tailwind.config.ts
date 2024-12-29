@@ -26,4 +26,5 @@ const config: Config = {
   },
   plugins: [require("tailgrids/plugin")],
 };
+
 export default config;

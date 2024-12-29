@@ -21,17 +21,15 @@
 }
 
 .mask-torn-edge {
-  -webkit-mask-image: url('/images/about/torn-edge.png');
+    -webkit-mask-image: url('/images/about/torn-edge.png');
   mask-image: url('/images/about/torn-edge.png');
-  -webkit-mask-size: cover;
-  mask-size: cover;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-size: cover;
   -webkit-mask-position: center;
   mask-position: center;
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
+  background-color: transparent;
 }
 
 .oldPaper {

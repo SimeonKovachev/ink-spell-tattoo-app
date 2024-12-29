@@ -121,9 +121,7 @@ export default function Header() {
         >
           {slides[currentSlide].heading}
           <br />
-          <span className="mt-2">
-            {slides[currentSlide].subheading}
-          </span>
+          <span className="mt-2">{slides[currentSlide].subheading}</span>
         </h1>
         <p
           className="mt-4 mb-8 text-lg md:text-xl text-gray-300"
@@ -134,8 +132,8 @@ export default function Header() {
           {slides[currentSlide].description}
         </p>
         <div className="flex justify-center gap-4">
-          <Button text="Book Now" />
-          <Button text="View Gallery" type="outlined" />
+          <Button text="Book Now" navigateTo="/contact" />
+          <Button text="View Gallery" type="outlined" navigateTo="/gallery" />
         </div>
       </div>
 

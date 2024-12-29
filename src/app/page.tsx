@@ -2,9 +2,10 @@ import About from "@/components/About";
 import HomeBlogSection from "@/components/Blog/HomeBlogSection";
 import Contact from "@/components/BookNow";
 import Faq from "@/components/Faq";
-import HomeGallerySection from "@/components/Gallery";
+import HomeGallerySection from "@/components/Gallery/HomeGallerySection";
 import Header from "@/components/Hero";
 import HomeServiceSection from "@/components/Services/HomeServiceSection";
+import GoogleTestimonials from "@/components/Testimonials/GoogleTestimonials";
 
 export default function Home() {
   return (
@@ -13,8 +14,9 @@ export default function Home() {
       <About />
       <HomeServiceSection />
       <HomeGallerySection />
-      <HomeBlogSection />
+      <GoogleTestimonials />
       <Faq />
+      <HomeBlogSection />
       <Contact />
     </div>
   );

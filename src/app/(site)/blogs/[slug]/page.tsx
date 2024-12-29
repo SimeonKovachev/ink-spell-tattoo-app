@@ -1,12 +1,13 @@
-import Newsletter from "@/components/Blog/Newsletter";
+import { Suspense } from "react";
 import PopularArticle from "@/components/Blog/PopularArticle";
 import SingleBlog from "@/components/Blog/SingleBlog";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { getAllPosts, getSinglePost } from "@/lib/fetchPosts";
-import { BlogPost } from "@/types/blogPost";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import { Calendar, Clock } from "lucide-react";
+import { PortableText } from "@portabletext/react";
 
 type PageParams = { slug: string };
 
@@ -15,25 +16,7 @@ export async function generateMetadata({ params }: { params: PageParams }) {
   const siteName = process.env.SITE_NAME || "Your Site Name";
   const authorName = process.env.AUTHOR_NAME || "Your Author Name";
 
-  if (post) {
-    return {
-      title: `${post.seoTitle || post.title} | ${siteName}`,
-      description: post.seoDescription || post.excerpt,
-      author: authorName,
-      robots: {
-        index: true,
-        follow: true,
-        nocache: true,
-        googleBot: {
-          index: true,
-          follow: false,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1,
-        },
-      },
-    };
-  } else {
+  if (!post) {
     return {
       title: "Not Found",
       description: "No blog article has been found",
@@ -52,13 +35,50 @@ export async function generateMetadata({ params }: { params: PageParams }) {
       },
     };
   }
+
+  return {
+    title: `${post.seoTitle || post.title} | ${siteName}`,
+    description: post.seoDescription || post.excerpt,
+    author: post.author?.name || authorName,
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: false,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+  };
 }
 
-export default async function Post({ params }: { params: PageParams }) {
-  const posts: BlogPost[] = await getAllPosts();
-  const post = await getSinglePost(params.slug);
+function LoadingState() {
+  return (
+    <div className="flex items-center justify-center min-h-[600px]">
+      <div className="w-8 h-8 border-4 border-gray-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
+}
 
-  if (!post) return <div>Post not found</div>;
+const defaultAuthorImage = "/images/blog/author-01.png";
+const defaultPostImage = "/images/blog/blog-01.jpg";
+
+export default async function Post({ params }: { params: PageParams }) {
+  const [posts, post] = await Promise.all([
+    getAllPosts(),
+    getSinglePost(params.slug),
+  ]);
+
+  if (!post) {
+    return (
+      <div className="flex items-center justify-center min-h-[600px] text-white">
+        Post not found
+      </div>
+    );
+  }
 
   return (
     <>
@@ -66,127 +86,130 @@ export default async function Post({ params }: { params: PageParams }) {
 
       <section className="pb-10 pt-20 bg-dark lg:pb-20 lg:pt-[120px]">
         <div className="container">
-          <div className="-mx-4 flex flex-wrap justify-center">
-            <div className="w-full px-4">
-              <div
-                className="wow fadeInUp relative z-20 mb-[60px] h-[300px] overflow-hidden rounded md:h-[400px] lg:h-[500px]"
-                data-wow-delay=".1s"
-              >
-                <Image
-                  src={post.mainImage?.asset?.url || "/placeholder.jpg"}
-                  alt={post.title}
-                  width={1288}
-                  height={500}
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute left-0 top-0 z-10 flex h-full w-full items-end bg-gradient-to-t from-dark-700 to-transparent">
-                  <div className="flex flex-wrap items-center p-4 pb-4 sm:p-8">
-                    <div className="mb-4 mr-5 flex items-center md:mr-10">
-                      <div className="mr-4 h-10 w-10 overflow-hidden rounded-full">
-                        <Image
-                          src={
-                            post.author?.image?.asset?.url ||
-                            "/default-author.jpg"
-                          }
-                          alt={post.author?.name || "Author"}
-                          width={40}
-                          height={40}
-                          className="w-full"
-                        />
-                      </div>
-                      <p className="text-base font-medium text-white">
-                        By{" "}
-                        <Link href="/#" className="text-white hover:opacity-70">
-                          {post.author?.name}
-                        </Link>
-                      </p>
-                    </div>
-                    <div className="mb-4 flex items-center">
-                      <p className="mr-5 flex items-center text-sm font-medium text-white md:mr-6">
-                        <span className="mr-3">
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="fill-current"
-                          >
-                            <path d="M13.9998 2.6499H12.6998V2.0999C12.6998 1.7999 12.4498 1.5249 12.1248 1.5249C11.7998 1.5249 11.5498 1.7749 11.5498 2.0999V2.6499H4.4248V2.0999C4.4248 1.7999 4.1748 1.5249 3.8498 1.5249C3.5248 1.5249 3.2748 1.7749 3.2748 2.0999V2.6499H1.9998C1.1498 2.6499 0.424805 3.3499 0.424805 4.2249V12.9249C0.424805 13.7749 1.1248 14.4999 1.9998 14.4999H13.9998C14.8498 14.4999 15.5748 13.7999 15.5748 12.9249V4.1999C15.5748 3.3499 14.8498 2.6499 13.9998 2.6499ZM1.5748 7.2999H3.6998V9.7749H1.5748V7.2999ZM4.8248 7.2999H7.4498V9.7749H4.8248V7.2999ZM7.4498 10.8999V13.3499H4.8248V10.8999H7.4498V10.8999ZM8.5748 10.8999H11.1998V13.3499H8.5748V10.8999ZM8.5748 9.7749V7.2999H11.1998V9.7749H8.5748ZM12.2998 7.2999H14.4248V9.7749H12.2998V7.2999ZM1.9998 3.7749H3.2998V4.2999C3.2998 4.5999 3.5498 4.8749 3.8748 4.8749C4.1998 4.8749 4.4498 4.6249 4.4498 4.2999V3.7749H11.5998V4.2999C11.5998 4.5999 11.8498 4.8749 12.1748 4.8749C12.4998 4.8749 12.7498 4.6249 12.7498 4.2999V3.7749H13.9998C14.2498 3.7749 14.4498 3.9749 14.4498 4.2249V6.1749H1.5748V4.2249C1.5748 3.9749 1.7498 3.7749 1.9998 3.7749ZM1.5748 12.8999V10.8749H3.6998V13.3249H1.9998C1.7498 13.3499 1.5748 13.1499 1.5748 12.8999ZM13.9998 13.3499H12.2998V10.8999H14.4248V12.9249C14.4498 13.1499 14.2498 13.3499 13.9998 13.3499Z" />
-                          </svg>
-                        </span>
-                        {format(new Date(post.publishedAt), "dd MMM yyyy")}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* Hero Section */}
+          <div className="relative mb-16 overflow-hidden rounded-2xl">
+            <div className="relative h-[300px] md:h-[400px] lg:h-[500px]">
+              <Image
+                src={post.mainImage?.asset?.url || defaultPostImage}
+                alt={post.title}
+                fill
+                className="object-cover transform hover:scale-105 transition-transform duration-700"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-transparent"></div>
+            </div>
 
-              {/* Blog Details & Popular Articles */}
-              <div className="-mx-4 flex flex-wrap">
-                <div className="w-full px-4 lg:w-8/12">
-                  <div className="blog-details xl:pr-10">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: post.content }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="w-full px-4 lg:w-4/12">
-                  <div>
-                    <Newsletter />
-
-                    <div className="-mx-4 mb-8 flex flex-wrap">
-                      <div className="w-full px-4">
-                        <h2
-                          className="wow fadeInUp relative pb-5 text-2xl font-semibold text-white sm:text-[28px]"
-                          data-wow-delay=".1s"
-                        >
-                          Popular Articles
-                        </h2>
-                        <span className="mb-10 inline-block h-[2px] w-20 bg-primary"></span>
-                      </div>
-                      {posts
-                        .filter((blog) => blog?.author?.name)
-                        .slice(0, 3)
-                        .map((blog, i) => (
-                          <PopularArticle
-                            key={i}
-                            image={
-                              blog?.mainImage?.asset?.url || "/placeholder.jpg"
-                            }
-                            title={blog?.title.slice(0, 30) || "Untitled"}
-                            name={blog?.author?.name || "Unknown Author"}
-                          />
-                        ))}
-                    </div>
-
-                    <div
-                      className="wow fadeInUp mb-12 overflow-hidden rounded"
-                      data-wow-delay=".1s"
-                    >
+            {/* Post Meta */}
+            <div className="absolute bottom-0 left-0 w-full p-6 md:p-8">
+              <div className="flex flex-wrap items-center gap-6 text-white/90">
+                {/* Author - Only show if author exists */}
+                {post.author && (
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-gray-700">
                       <Image
-                        src="/images/blog/bannder-ad.png"
-                        alt="image"
-                        className="w-full"
-                        width={408}
-                        height={254}
+                        src={
+                          post.author.image?.asset?.url || defaultAuthorImage
+                        }
+                        alt={post.author.name}
+                        width={40}
+                        height={40}
+                        className="h-full w-full object-cover"
                       />
                     </div>
+                    <span className="font-medium">
+                      By{" "}
+                      <Link
+                        href="/#"
+                        className="hover:text-gray-300 transition-colors"
+                      >
+                        {post.author.name}
+                      </Link>
+                    </span>
                   </div>
+                )}
+
+                {/* Date */}
+                {post.publishedAt && (
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-5 h-5" />
+                    <span>
+                      {format(new Date(post.publishedAt), "dd MMM yyyy")}
+                    </span>
+                  </div>
+                )}
+
+                {/* Reading Time */}
+                <div className="flex items-center gap-2">
+                  <Clock className="w-5 h-5" />
+                  <span>5 min read</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="-mx-4 flex flex-wrap">
-            <div
-              className="wow fadeInUp mt-14 w-full px-4"
-              data-wow-delay=".2s"
-            >
-              <h2 className="relative pb-5 text-2xl font-semibold text-white sm:text-[28px]">
+          <div className="flex flex-wrap -mx-4">
+            {/* Main Content */}
+            <div className="w-full px-4 lg:w-8/12">
+              <article className="prose prose-invert prose-lg max-w-none xl:pr-10">
+                <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-clip-text">
+                  {post.title}
+                </h1>
+                <div className="text-gray-300 leading-relaxed">
+                  <PortableText value={post.content} />
+                </div>
+              </article>
+            </div>
+
+            {/* Sidebar */}
+            <div className="w-full px-4 lg:w-4/12">
+              <aside className="space-y-8">
+                <Suspense fallback={<LoadingState />}>
+                  {/* <Newsletter /> */}
+
+                  {/* Popular Articles */}
+                  <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-500/20 rounded-xl p-6">
+                    <h2 className="text-2xl font-semibold text-transparent bg-clip-text text-white mb-6">
+                      Popular Articles
+                    </h2>
+                    <div className="space-y-6">
+                      {posts
+                        .filter((blog) => blog.title)
+                        .slice(0, 3)
+                        .map((blog, i) => (
+                          <PopularArticle
+                            key={i}
+                            image={
+                              blog.mainImage?.asset?.url || defaultPostImage
+                            }
+                            title={blog.title.slice(0, 30)}
+                            name={blog.author?.name || "Anonymous"}
+                          />
+                        ))}
+                    </div>
+                  </div>
+                 
+                  {/* Ad Banner */}
+                  {/* <div className="overflow-hidden rounded-xl">
+                    <Image
+                      src="/images/blog/banner-ad.png"
+                      alt="Advertisement"
+                      width={408}
+                      height={254}
+                      className="w-full transform hover:scale-105 transition-transform duration-500"
+                    />
+                  </div> */}
+                </Suspense>
+              </aside>
+            </div>
+          </div>
+
+          {/* Related Articles */}
+          <div className="-mx-4 flex flex-wrap mt-20">
+            <div className="wow fadeInUp w-full px-4" data-wow-delay=".2s">
+              <h2 className="text-3xl font-bold text-transparent bg-clip-text text-white mb-4">
                 Related Articles
               </h2>
-              <span className="mb-10 inline-block h-[2px] w-20 bg-primary"></span>
+              <div className="h-1 w-20 bg-accent-purple rounded-full mb-10"></div>
             </div>
 
             {posts.slice(0, 3).map((blog, key) => (

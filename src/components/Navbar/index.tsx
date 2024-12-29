@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import menuData from "./menuData";
 
@@ -9,17 +9,25 @@ const Navbar = () => {
   const pathUrl = usePathname();
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [openIndex, setOpenIndex] = useState(-1);
 
   const navbarToggleHandler = () => {
     setNavbarOpen((prev) => !prev);
   };
 
-  const handleStickyNavbar = () => setSticky(window.scrollY >= 80);
+  const handleScroll = useCallback(() => {
+    const currentScrollPos = window.scrollY;
+    setSticky(currentScrollPos >= 80);
+    setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 80);
+    setPrevScrollPos(currentScrollPos);
+  }, [prevScrollPos]);
+
   useEffect(() => {
-    window.addEventListener("scroll", handleStickyNavbar);
-    return () => window.removeEventListener("scroll", handleStickyNavbar);
-  }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   const toggleSubmenu = (index: number) => {
     setOpenIndex(openIndex === index ? -1 : index);
@@ -50,7 +58,9 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`ud-header left-0 top-0 z-40 flex w-full items-center ${
+        className={`ud-header left-0 top-0 z-40 flex w-full items-center transition-transform duration-300 ${
+          !visible ? "-translate-y-full" : "translate-y-0"
+        } ${
           sticky
             ? "shadow-nav fixed z-[999] border-b border-dark-3/20 bg-dark/80 backdrop-blur-[5px]"
             : "absolute bg-transparent"
@@ -59,8 +69,10 @@ const Navbar = () => {
         <div className="container">
           <div className="relative flex items-center justify-between">
             <div className="w-80 max-w-full px-4">
-              <Link href="/" className="heading text-5xl text-accent-purple">
-                Ink Spell
+              <Link href="/" className="inline-block group">
+                <h2 className="heading text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600 transition-all duration-300 group-hover:from-purple-500 group-hover:to-purple-700">
+                  Ink Spell
+                </h2>
               </Link>
             </div>
             <div className="flex items-center px-4">
@@ -124,39 +136,7 @@ const Navbar = () => {
                             className="ud-menu-scroll flex items-center justify-between pb-2 my-2 uppercase text-base text-white group-hover:text-accent-purple lg:inline-flex lg:px-0 lg:my-6 relative transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-accent-purple after:transition-all after:duration-300 hover:after:w-full"
                           >
                             {menuItem.title}
-                            <span className="pl-1">
-                              <svg
-                                className="duration-300 lg:group-hover:rotate-180"
-                                width="16"
-                                height="17"
-                                viewBox="0 0 16 17"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M8.00039 11.9C7.85039 11.9 7.72539 11.85 7.60039 11.75L1.85039 6.10005C1.62539 5.87505 1.62539 5.52505 1.85039 5.30005C2.07539 5.07505 2.42539 5.07505 2.65039 5.30005L8.00039 10.525L13.3504 5.25005C13.5754 5.02505 13.9254 5.02505 14.1504 5.25005C14.3754 5.47505 14.3754 5.82505 14.1504 6.05005L8.40039 11.7C8.27539 11.825 8.15039 11.9 8.00039 11.9Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
                           </button>
-                          {openIndex === index && (
-                            <ul
-                              id={`dropdown-${index}`}
-                              className="absolute left-0 top-full w-[250px] rounded bg-dark-2 p-4 transition-all duration-300 opacity-100 visible"
-                            >
-                              {menuItem?.submenu?.map((submenuItem, i) => (
-                                <li key={i}>
-                                  <Link
-                                    href={submenuItem.path || "#"}
-                                    className="block rounded px-4 py-[10px] text-sm text-dark-6 hover:text-accent-purple"
-                                  >
-                                    {submenuItem.title}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
                         </li>
                       )
                     )}

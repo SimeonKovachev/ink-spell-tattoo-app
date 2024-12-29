@@ -1,11 +1,14 @@
-export async function fetchGoogleReviews(placeId: string, apiKey: string) {
-  const url = `/api/google-reviews?placeId=${placeId}&apiKey=${apiKey}`;
-
+export async function fetchGoogleReviews() {
   try {
-    const response = await fetch(url);
+    const response = await fetch("/api/google-reviews", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
-      throw new Error("Failed to fetch Google reviews");
+      throw new Error("Failed to fetch reviews");
     }
 
     const data = await response.json();

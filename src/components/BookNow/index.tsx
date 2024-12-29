@@ -3,35 +3,71 @@
 import BookingForm from "./BookingForm";
 import { MapPin, Phone, Mail } from "lucide-react";
 
-export default function BookNow() {
+export default function Contact() {
   return (
-    <section id="contact" className="relative py-20 md:py-[120px]">
-      <div className="absolute left-0 top-0 -z-[1] h-full w-full bg-dark"></div>
-      <div
-        className="absolute left-0 top-0 -z-[1] h-1/2 w-full lg:h-[45%] xl:h-1/2"
-        style={{ backgroundColor: "#1c1231" }}
-      ></div>
-      <div className="container mx-auto px-4">
-        <div className="flex flex-wrap -mx-4 items-start lg:items-center">
-          <div className="w-full lg:w-1/2 px-4 mb-12 lg:mb-0">
+    <section id="contact" className="relative py-24 lg:py-32 overflow-hidden">
+      {/* Gradient Background*/}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
+
+      {/* Enhanced Decorative Elements with more noticeable animations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Animated gradient circles */}
+        <div className="absolute -top-40 right-0 w-[600px] h-[600px] animate-gradient-spin">
+          <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-600/30 via-fuchsia-500/30 to-pink-500/30 blur-[120px] animate-pulse-strong"></div>
+        </div>
+
+        {/* Floating particles with trails */}
+        <div className="absolute inset-0">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className={`absolute w-2 h-2 bg-purple-400/60 rounded-full blur-sm
+                animate-floating-particle particle-${i + 1}`}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${i * 2}s`,
+              }}
+            >
+              <div className="absolute inset-0 animate-particle-trail" />
+            </div>
+          ))}
+        </div>
+
+        {/* Glowing lines */}
+
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent animate-glow"></div>
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent animate-glow"></div>
+
+        {/* Ambient glow effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-fuchsia-900/20 animate-ambient"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-wrap justify-between">
+          {/* Left Column */}
+          <div className="w-full lg:w-[45%] flex flex-col">
             <div className="max-w-[570px] mx-auto lg:mx-0">
-              <div className="mb-12">
-                <span className="block text-accent-purple font-semibold mb-4">
+              <div className="mb-14">
+                <span className="inline-block px-4 py-2 rounded-full bg-purple-900/30 text-purple-300 font-semibold text-sm mb-6">
                   GET IN TOUCH
                 </span>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
                   Let&apos;s Discuss Your Ideas
                 </h2>
-                <p className="text-gray-400 text-lg">
+                <p className="text-gray-300 text-lg leading-relaxed">
                   Book a free 30-minute consultation to discuss your tattoo
                   ideas and get all your questions answered.
                 </p>
               </div>
 
-              <div className="space-y-8">
-                <div className="flex items-start">
-                  <MapPin className="w-6 h-6 text-accent-purple mt-1" />
-                  <div className="ml-4">
+              {/* Contact Information */}
+              <div className="space-y-10">
+                <div className="flex items-start group">
+                  <div className="p-3 bg-purple-900/20 rounded-lg group-hover:bg-purple-900/30 transition-colors">
+                    <MapPin className="w-6 h-6 text-purple-300" />
+                  </div>
+                  <div className="ml-5">
                     <h3 className="text-xl font-semibold text-white mb-2">
                       Our Studio
                     </h3>
@@ -39,7 +75,7 @@ export default function BookNow() {
                       href="https://maps.app.goo.gl/1g2w9ofvfqekiYKb8"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 underline hover:text-accent-purple"
+                      className="text-gray-300 hover:text-purple-300 transition-colors"
                     >
                       Pleven Center,
                       <br />
@@ -48,37 +84,42 @@ export default function BookNow() {
                   </div>
                 </div>
 
-                <div className="flex items-start">
-                  <Mail className="w-6 h-6 text-accent-purple mt-1" />
-                  <div className="ml-4">
+                <div className="flex items-start group">
+                  <div className="p-3 bg-purple-900/20 rounded-lg group-hover:bg-purple-900/30 transition-colors">
+                    <Mail className="w-6 h-6 text-purple-300" />
+                  </div>
+                  <div className="ml-5">
                     <h3 className="text-xl font-semibold text-white mb-2">
                       Email Us
                     </h3>
-                    <a
-                      href="mailto:support@ink-spell.com"
-                      className="text-gray-400 underline hover:text-accent-purple"
-                    >
-                      support@ink-spell.com
-                    </a>
-                    <br />
-                    <a
-                      href="mailto:iva.lazarova.draws@gmail.com"
-                      className="text-gray-400 underline hover:text-accent-purple"
-                    >
-                      iva.lazarova.draws@gmail.com
-                    </a>
+                    <div className="space-y-1">
+                      <a
+                        href="mailto:support@ink-spell.com"
+                        className="block text-gray-300 hover:text-purple-300 transition-colors"
+                      >
+                        support@ink-spell.com
+                      </a>
+                      <a
+                        href="mailto:iva.lazarova.draws@gmail.com"
+                        className="block text-gray-300 hover:text-purple-300 transition-colors"
+                      >
+                        iva.lazarova.draws@gmail.com
+                      </a>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-start">
-                  <Phone className="w-6 h-6 text-accent-purple mt-1" />
-                  <div className="ml-4">
+                <div className="flex items-start group">
+                  <div className="p-3 bg-purple-900/20 rounded-lg group-hover:bg-purple-900/30 transition-colors">
+                    <Phone className="w-6 h-6 text-purple-300" />
+                  </div>
+                  <div className="ml-5">
                     <h3 className="text-xl font-semibold text-white mb-2">
                       Call Us
                     </h3>
                     <a
                       href="tel:+359894300545"
-                      className="text-gray-400 underline hover:text-accent-purple"
+                      className="text-gray-300 hover:text-purple-300 transition-colors"
                     >
                       +359 89 430 0545
                     </a>
@@ -88,8 +129,9 @@ export default function BookNow() {
             </div>
           </div>
 
-          <div className="w-full lg:w-1/2 px-4">
-            <div className="bg-dark-2 rounded-2xl p-6 md:p-10 shadow-xl">
+          {/* Right Column - Form */}
+          <div className="w-full lg:w-[45%]">
+            <div className="bg-gray-900/50 backdrop-blur-xl rounded-2xl p-6 md:p-10 shadow-xl border border-accent-purple">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
                 Book Your Free Consultation
               </h3>
