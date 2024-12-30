@@ -1,5 +1,4 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import Faq from "@/components/Faq";
 import HomeServiceSection from "@/components/Services/HomeServiceSection";
 import { Metadata } from "next";
 

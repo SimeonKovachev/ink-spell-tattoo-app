@@ -27,7 +27,7 @@ export const footerLinks = {
   info: [
     { name: "FAQ", href: "/contact/#faq" },
     { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
+    // { name: "Terms of Service", href: "/terms" },
   ],
 };
 
