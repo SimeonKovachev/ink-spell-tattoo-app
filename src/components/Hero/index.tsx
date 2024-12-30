@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "../Common/Button";
+import { Calendar } from "lucide-react";
 
 const slides = [
   {
@@ -132,8 +133,19 @@ export default function Header() {
           {slides[currentSlide].description}
         </p>
         <div className="flex justify-center gap-4">
-          <Button text="Book Now" navigateTo="/contact" />
-          <Button text="View Gallery" type="outlined" navigateTo="/gallery" />
+          <Button
+            text="Book Now"
+            type="filled"
+            icon={<Calendar size={20} />}
+            size="md"
+            navigateTo="/contact"
+          />
+          <Button
+            text="View Gallery"
+            type="outlined"
+            size="md"
+            navigateTo="/gallery"
+          />
         </div>
       </div>
 

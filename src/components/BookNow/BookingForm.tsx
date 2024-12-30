@@ -75,7 +75,6 @@ export const BookingForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* Add a style tag for DatePicker custom styling */}
       <style>
         {`
           .react-datepicker-wrapper {
@@ -229,7 +228,12 @@ export const BookingForm: React.FC = () => {
         </div>
       )}
 
-      <Button text="Book Free Consultation" />
+      <Button
+        text="Book Free Consultation"
+        type="filled"
+        size="md"
+        icon={<Calendar size={20} />}
+      />
     </form>
   );
 };

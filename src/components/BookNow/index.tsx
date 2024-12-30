@@ -6,10 +6,9 @@ import { MapPin, Phone, Mail } from "lucide-react";
 export default function Contact() {
   return (
     <section id="contact" className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Gradient Background*/}
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
-      {/* Enhanced Decorative Elements with more noticeable animations */}
+      {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Animated gradient circles */}
         <div className="absolute -top-40 right-0 w-[600px] h-[600px] animate-gradient-spin">
@@ -43,9 +42,8 @@ export default function Contact() {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-fuchsia-900/20 animate-ambient"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div id="booknow" className="container mx-auto px-4 relative z-10">
         <div className="flex flex-wrap justify-between">
-          {/* Left Column */}
           <div className="w-full lg:w-[45%] flex flex-col">
             <div className="max-w-[570px] mx-auto lg:mx-0">
               <div className="mb-14">
@@ -129,7 +127,6 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right Column - Form */}
           <div className="w-full lg:w-[45%]">
             <div className="bg-gray-900/50 backdrop-blur-xl rounded-2xl p-6 md:p-10 shadow-xl border border-accent-purple">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-8">

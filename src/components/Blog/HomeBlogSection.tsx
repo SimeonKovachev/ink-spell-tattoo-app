@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import Link from "next/link";
 import { BlogPost } from "@/types/blogPost";
 import { getAllPosts } from "@/lib/fetchPosts";
 import { ArrowRight } from "lucide-react";
 import SingleBlog from "./SingleBlog";
+import Button from "../Common/Button";
 
 export default function HomeBlogSection() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -46,9 +46,7 @@ export default function HomeBlogSection() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-gray-800 text-gray-300 font-semibold text-sm mb-6">
             LATEST INSIGHTS
@@ -62,7 +60,6 @@ export default function HomeBlogSection() {
           </p>
         </div>
 
-        {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.slice(0, 3).map((post, index) => (
             <SingleBlog
@@ -75,13 +72,13 @@ export default function HomeBlogSection() {
         </div>
 
         <div className="text-center mt-16">
-          <Link
-            href="/blog"
-            className="inline-flex items-center space-x-2 px-6 py-3 bg-gray-800/50 hover:bg-gray-700 text-gray-300 rounded-full transition-all duration-300 border border-gray-700 hover:border-gray-600 group"
-          >
-            <span>View All Posts</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <Button
+            text="View All Posts"
+            type="outlined"
+            size="md"
+            icon={<ArrowRight className="ml-2" size={18} />}
+            navigateTo="/blog"
+          />
         </div>
       </div>
     </section>

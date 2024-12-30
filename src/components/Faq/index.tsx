@@ -3,10 +3,15 @@
 import { faqData } from "@/config/faqData.config";
 import SectionTitle from "../Common/SectionTitle";
 import SingleFaq from "./SingleFaq";
+import FaqForm from "./FaqForm";
 
-const Faq = () => {
+type FaqProps = {
+  isFormVisible?: boolean;
+};
+
+const Faq = ({ isFormVisible = true }: FaqProps) => {
   return (
-    <section className="relative z-20 overflow-hidden bg-gradient-to-b from-black to-dark py-20 lg:py-28">
+    <section id="faq" className="flex flex-col gap-16 relative z-20 overflow-hidden bg-gradient-to-b from-black to-dark py-20 lg:py-28">
       <div className="container">
         <SectionTitle
           subtitle="FAQ"
@@ -26,6 +31,12 @@ const Faq = () => {
           ))}
         </div>
       </div>
+
+      {isFormVisible && (
+        <div className="flex justify-center">
+          <FaqForm />
+        </div>
+      )}
     </section>
   );
 };

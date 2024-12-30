@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const ServicesPage = () => {
   return (
     <>
-      <Breadcrumb pageName="Gallery" />
+      <Breadcrumb pageName="My Gallery Page" />
       <Gallery />
     </>
   );

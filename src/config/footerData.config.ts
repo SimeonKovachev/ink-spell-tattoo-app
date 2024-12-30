@@ -1,40 +1,40 @@
 export const socialLinks = [
   {
     name: "Instagram",
-    href: "https://instagram.com/yourtattoo",
+    href: "https://www.instagram.com/inkspell.tattoo/",
     icon: "Instagram",
   },
   {
     name: "Facebook",
-    href: "https://facebook.com/yourtattoo",
+    href: "https://www.facebook.com/StudioInkSpell/",
     icon: "Facebook",
   },
   {
     name: "TikTok",
-    href: "https://tiktok.com/@yourtattoo",
+    href: "https://www.tiktok.com/@inkspell.tattoo",
     icon: "TikTok",
   },
 ];
 
 export const footerLinks = {
   studio: [
-    { name: "About Studio", href: "/about" },
-    { name: "Artists", href: "/artists" },
+    { name: "About Me", href: "/about" },
+    { name: "Services", href: "/services" },
     { name: "Gallery", href: "/gallery" },
     { name: "Contact", href: "/contact" },
+    { name: "Blog", href: "/blogs" },
   ],
   info: [
-    { name: "Booking Process", href: "/booking" },
-    { name: "FAQ", href: "/faq" },
+    { name: "FAQ", href: "/contact/#faq" },
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
   ],
 };
 
 export const studioInfo = {
-  name: "Ink Masters Studio",
-  address: "123 Tattoo Street, Art District",
-  city: "New York, NY 10001",
-  email: "contact@inkmaster.com",
-  phone: "+1 (555) 123-4567",
+  name: "Ink Spell Tattoo Studio",
+  address: 'Pleven Center, ul. "Vasil Aprilov" 48',
+  city: "Pleven",
+  email: "support@ink-spell.com",
+  phone: "+359 89 430 0545",
 };

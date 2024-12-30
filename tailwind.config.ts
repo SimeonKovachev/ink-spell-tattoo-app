@@ -14,6 +14,7 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         "accent-purple": "#8b5cf6",
+        "hover-purple": "#6f3ccf",
         "dark-purple": "#4B0082",
         "primary-bg": "#2D2D2D",
         "text-color": "#F3F4F6",

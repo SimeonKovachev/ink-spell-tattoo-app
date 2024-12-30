@@ -15,7 +15,7 @@ export default function Home() {
       <HomeServiceSection />
       <HomeGallerySection />
       <GoogleTestimonials />
-      <Faq />
+      <Faq isFormVisible={false} />
       <HomeBlogSection />
       <Contact />
     </div>

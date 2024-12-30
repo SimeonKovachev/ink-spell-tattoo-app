@@ -11,9 +11,8 @@ export const metadata: Metadata = {
 const ServicesPage = () => {
   return (
     <>
-      <Breadcrumb pageName="Services" />
+      <Breadcrumb pageName="Services Page" />
       <HomeServiceSection />
-      <Faq />
     </>
   );
 };

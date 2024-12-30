@@ -1,6 +1,7 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Contact from "@/components/BookNow";
 import { Metadata } from "next";
+import Faq from "@/components/Faq";
 
 export const metadata: Metadata = {
   title: "Contact Page",
@@ -10,9 +11,9 @@ export const metadata: Metadata = {
 const ContactPage = () => {
   return (
     <>
-      <Breadcrumb pageName="Contact Page" />
-
+      <Breadcrumb pageName="Contact Me Page" />
       <Contact />
+      <Faq/>
     </>
   );
 };

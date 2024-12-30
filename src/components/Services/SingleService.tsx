@@ -25,9 +25,12 @@ const SingleService = ({ service }: { service: Service }) => {
         <p className="text-gray-300 text-sm mb-4 line-clamp-3">
           {service.description}
         </p>
-        <Link href={`/services/${service.slug.current}`}>
-          <Button text="View More" type="filled" />
-        </Link>
+        <Button
+          text="View More"
+          type="filled"
+          size="md"
+          navigateTo={`/services/${service.slug.current}`}
+        />
       </div>
     </div>
   );
