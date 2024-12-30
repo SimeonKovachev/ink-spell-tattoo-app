@@ -22,7 +22,7 @@ export default function PrivacyPage() {
             <p className="text-lg mt-4">
               We use Your Personal data to provide and improve the Service. By
               using the Service, You agree to the collection and use of
-              information in accordance with this Privacy Policy. 
+              information in accordance with this Privacy Policy.
             </p>
           </div>
 
@@ -321,30 +321,32 @@ export default function PrivacyPage() {
               Use of Your Personal Data
             </h3>
             <p className="text-gray-300">
-              The Company may use Personal Data for the following purposes:
+              The Company only collects and uses Personal Data in limited
+              circumstances, specifically:
             </p>
 
             <ul className="space-y-4 list-disc pl-6">
               <li className="text-gray-300">
                 <strong className="text-white">
-                  To provide and maintain our Service
+                  When you book an appointment
                 </strong>
-                , including to monitor the usage of our Service.
+                : We collect and use the information you provide in our booking
+                forms solely for the purpose of managing and confirming your
+                appointment.
               </li>
               <li className="text-gray-300">
-                <strong className="text-white">To manage Your Account:</strong>{" "}
-                to manage Your registration as a user of the Service. The
-                Personal Data You provide can give You access to different
-                functionalities of the Service that are available to You as a
-                registered user.
+                <strong className="text-white">When you contact us:</strong> If
+                you send us a message through our contact form, we use your
+                provided information only to respond to your inquiry and
+                maintain communication regarding your request.
               </li>
               <li className="text-gray-300">
                 <strong className="text-white">
-                  For the performance of a contract:
+                  Important Note About Cookies:
                 </strong>{" "}
-                the development, compliance and undertaking of the purchase
-                contract for the products, items or services You have purchased
-                or of any other contract with Us through the Service.
+                We do not use cookies or tracking technologies to collect or
+                store your information. Your personal data is only collected
+                when you voluntarily submit it through our forms.
               </li>
             </ul>
           </section>
