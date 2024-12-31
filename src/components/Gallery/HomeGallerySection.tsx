@@ -41,7 +41,7 @@ export default function HomeGallerySection() {
         <div className="mb-12 animate-fadeIn">
           <SectionTitle
             subtitle="Gallery"
-            title="Showcase of my work"
+            title="Showcase Of My Work"
             paragraph="Explore my tattoo works that define artistry and precision."
             width="640px"
             center

@@ -11,12 +11,12 @@ type FaqProps = {
 
 const Faq = ({ isFormVisible = true }: FaqProps) => {
   return (
-    <section id="faq" className="flex flex-col gap-16 relative z-20 overflow-hidden bg-gradient-to-b from-black to-dark py-20 lg:py-28">
+    <section id="faq" className="flex flex-col gap-16 relative z-20 overflow-hidden bg-dark py-20 lg:py-28">
       <div className="container">
         <SectionTitle
           subtitle="FAQ"
           title="Frequently Asked Questions"
-          paragraph="Here are some answers to common questions about Ink Spell Tattoo Studio and my services. If you have more questions, feel free to contact me."
+          paragraph="Here are some answers to common questions about Ink Spell and my services. If you have more questions, feel free to contact me."
           width="640px"
           center
         />

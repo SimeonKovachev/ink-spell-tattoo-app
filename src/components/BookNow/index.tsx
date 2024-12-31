@@ -1,5 +1,6 @@
 "use client";
 
+import SectionTitle from "../Common/SectionTitle";
 import BookingForm from "./BookingForm";
 import { MapPin, Phone, Mail } from "lucide-react";
 
@@ -47,16 +48,12 @@ export default function Contact() {
           <div className="w-full lg:w-[45%] flex flex-col">
             <div className="max-w-[570px] mx-auto lg:mx-0">
               <div className="mb-14">
-                <span className="inline-block px-4 py-2 rounded-full bg-purple-900/30 text-purple-300 font-semibold text-sm mb-6">
-                  GET IN TOUCH
-                </span>
-                <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
-                  Let&apos;s Discuss Your Ideas
-                </h2>
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  Book a free 30-minute consultation to discuss your tattoo
-                  ideas and get all your questions answered.
-                </p>
+                <SectionTitle
+                  subtitle="Get in touch"
+                  title="Let's Discuss Your Ideas"
+                  paragraph=" Book a free 30-minute consultation to discuss your tattoo
+                  ideas and get all your questions answered."
+                />
               </div>
 
               {/* Contact Information */}

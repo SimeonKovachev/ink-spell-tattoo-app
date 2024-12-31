@@ -20,12 +20,45 @@ export default defineType({
         rule.required().max(200).warning("Keep the description concise"),
     }),
     defineField({
+      name: "detailedDescription",
+      type: "array",
+      title: "Detailed Description",
+      of: [{ type: "block" }],
+    }),
+    defineField({
       name: "image",
       type: "image",
       title: "Service Image",
       options: { hotspot: true },
       validation: (rule) =>
         rule.required().error("A service image is required"),
+    }),
+    defineField({
+      name: "gallery",
+      type: "array",
+      title: "Gallery",
+      of: [{ type: "image", options: { hotspot: true } }],
+    }),
+    defineField({
+      name: "features",
+      type: "array",
+      title: "Features",
+      of: [{ type: "string" }],
+    }),
+    defineField({
+      name: "duration",
+      type: "string",
+      title: "Duration",
+    }),
+    defineField({
+      name: "seo",
+      type: "object",
+      title: "SEO Metadata",
+      fields: [
+        { name: "metaTitle", type: "string", title: "Meta Title" },
+        { name: "metaDescription", type: "text", title: "Meta Description" },
+        { name: "metaKeywords", type: "array", of: [{ type: "string" }] },
+      ],
     }),
     defineField({
       name: "slug",

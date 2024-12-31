@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useEffect, useState } from "react";
 import { Service } from "@/types/service";
@@ -11,6 +11,25 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export default function HomeServiceSection() {
   const [services, setServices] = useState<Service[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getItemsPerView = () => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    return 3;
+  };
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -30,17 +49,27 @@ export default function HomeServiceSection() {
   }, []);
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? services.length - 1 : prev - 1));
+    setCurrentIndex((prev) => {
+      const itemsPerView = getItemsPerView();
+      const newIndex = prev - itemsPerView;
+      return newIndex < 0
+        ? Math.max(services.length - itemsPerView, 0)
+        : newIndex;
+    });
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === services.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => {
+      const itemsPerView = getItemsPerView();
+      const newIndex = prev + itemsPerView;
+      return newIndex >= services.length ? 0 : newIndex;
+    });
   };
 
   return (
-    <section className="relative bg-gradient-to-b from-gray-900 via-gray-900/95 to-black text-white py-24 px-4 md:px-8 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-gray-900 via-gray-900/95 to-black text-white py-12 md:py-24 px-4 overflow-hidden">
       <div className="container mx-auto">
-        <div className="mb-[60px] text-center">
+        <div className="mb-8 md:mb-12">
           <SectionTitle
             subtitle="Our Services"
             title="Explore Our Offerings"
@@ -50,36 +79,70 @@ export default function HomeServiceSection() {
           />
         </div>
 
-        {/* Services Carousel */}
         {services.length > 0 ? (
-          <div className="relative flex items-center gap-6">
-            <button
-              onClick={handlePrev}
-              className="text-gray-500 hover:text-gray-300 transition-colors p-2 rounded-full bg-gray-800/70 hover:bg-gray-800/50"
-            >
-              <ChevronLeft size={36} />
-            </button>
-
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mx-auto">
-              {services
-                .slice(currentIndex, currentIndex + 3)
-                .map((service, index) => (
-                  <SingleService
-                    key={`${service._id}-${index}`}
-                    service={service}
-                  />
-                ))}
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 md:-left-4 flex items-center">
+              <button
+                onClick={handlePrev}
+                className="transform -translate-x-1/2 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                aria-label="Previous services"
+              >
+                <ChevronLeft size={24} />
+              </button>
             </div>
 
-            <button
-              onClick={handleNext}
-              className="text-gray-500 hover:text-gray-300 transition-colors p-2 rounded-full bg-gray-800/70 hover:bg-gray-800/50"
-            >
-              <ChevronRight size={36} />
-            </button>
+            <div className="absolute inset-y-0 right-0 md:-right-4 flex items-center">
+              <button
+                onClick={handleNext}
+                className="transform translate-x-1/2 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                aria-label="Next services"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+
+            <div className="overflow-hidden px-4 md:px-8">
+              <div
+                className="flex transition-transform duration-500 ease-out gap-4 md:gap-6"
+                style={{
+                  transform: `translateX(-${currentIndex * (100 / getItemsPerView())}%)`,
+                }}
+              >
+                {services.map((service, index) => (
+                  <div
+                    key={`${service._id}-${index}`}
+                    className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0"
+                  >
+                    <SingleService service={service} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-center mt-6 gap-2">
+              {Array.from({
+                length: Math.ceil(services.length / getItemsPerView()),
+              }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index * getItemsPerView())}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    Math.floor(currentIndex / getItemsPerView()) === index
+                      ? "bg-purple-500 w-4"
+                      : "bg-gray-600 hover:bg-gray-500"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         ) : (
-          <p className="text-center py-12">Loading Services...</p>
+          <div className="flex items-center justify-center min-h-[300px]">
+            <div className="animate-pulse flex flex-col items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-gray-700" />
+              <div className="h-4 w-48 bg-gray-700 rounded" />
+            </div>
+          </div>
         )}
       </div>
     </section>

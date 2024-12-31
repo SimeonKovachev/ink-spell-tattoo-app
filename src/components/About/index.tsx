@@ -3,20 +3,18 @@
 import Image from "next/image";
 import styles from "../../styles/AboutMe.module.css";
 import { PaperclipIcon, Heart } from "lucide-react";
+import SectionTitle from "../Common/SectionTitle";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-24 lg:py-28 overflow-hidden">
+    <section id="about" className="relative py-24 pb-28 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
-      {/* Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Floating glowing circles */}
         <div className="absolute -top-40 right-0 w-[600px] h-[600px] animate-gradient-spin">
           <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-600/30 via-fuchsia-500/30 to-pink-500/30 blur-[120px] animate-pulse-strong"></div>
         </div>
 
-        {/* Floating particles */}
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
@@ -29,33 +27,25 @@ export default function AboutSection() {
           ></div>
         ))}
 
-        {/* Glowing lines */}
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent animate-glow"></div>
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent animate-glow"></div>
       </div>
 
-      {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-wrap justify-between items-center">
-          {/* Left Column - Bio */}
           <div className="w-full lg:w-[45%]">
             <div className="max-w-[570px] mx-auto lg:mx-0">
               <div className="mb-14">
-                <span className="inline-block px-4 py-2 rounded-full bg-purple-900/30 text-purple-300 font-semibold text-sm mb-6">
-                  INTRODUCTION
-                </span>
-                <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight">
-                  Perfection That is Forever
-                </h2>
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  I’m Iva, a concept artist turned tattoo artist with over a
+                <SectionTitle
+                  subtitle="INTRODUCTION"
+                  title="Perfection That is Forever"
+                  paragraph="I’m Iva, a concept artist turned tattoo artist with over a
                   decade of experience. I blend storytelling and artistic
                   precision to create custom tattoos that reflect your journey
-                  and vision.
-                </p>
+                  and vision."
+                />
               </div>
               <div className="space-y-8">
-                {/* Info Cards */}
                 <div className="flex items-center space-x-4">
                   <Heart className="w-6 h-6 text-rose-400" />
                   <span className="text-gray-300">Tattoo Artist</span>
@@ -72,7 +62,6 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Right Column - Images */}
           <div className="w-full lg:w-[45%]">
             <div className="relative group">
               <div
@@ -87,9 +76,11 @@ export default function AboutSection() {
                 />
               </div>
 
-              {/* Portfolio Samples */}
               <div className="relative mt-8">
-                <div className="relative z-10 transform rotate-12">
+                <div
+                  className="relative z-10 transform rotate-12"
+                  style={{ left: "-50px" }}
+                >
                   <Image
                     src="/images/about/tattoo-sample2.jpg"
                     alt="Tattoo Sample 1"
@@ -105,7 +96,7 @@ export default function AboutSection() {
                     className="absolute -top-3 -left-3 transform -rotate-45"
                   />
                 </div>
-                <div className="absolute top-12 -right-4 z-0 transform -rotate-3">
+                <div className="absolute top-12 -right-8 z-0 transform -rotate-12">
                   <Image
                     src="/images/about/tattoo-sample1.jpg"
                     alt="Tattoo Sample 2"

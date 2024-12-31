@@ -4,7 +4,6 @@ import { SERVICES_QUERY, SINGLE_SERVICE_QUERY } from "./queries/servicesQuery";
 
 export const getAllServices = async (): Promise<Service[]> => {
   try {
-    console.log("Fetching all services...");
     const services = await client.fetch(SERVICES_QUERY);
     if (!services || services.length === 0) {
       console.warn("No services found");
@@ -21,7 +20,6 @@ export const getSingleService = async (
   slug: string
 ): Promise<Service | null> => {
   try {
-    console.log(`Fetching service with slug: "${slug}"`);
     const query = SINGLE_SERVICE_QUERY(slug);
     const service = await client.fetch(query);
     if (!service) {

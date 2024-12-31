@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { GoogleReview } from "@/types/googleReview";
 import Button from "../Common/Button";
 import { fetchGoogleReviews } from "@/lib/fetchGoogleReviews";
+import SectionTitle from "../Common/SectionTitle";
 
 export default function GoogleTestimonials() {
   const [reviews, setReviews] = useState<GoogleReview[]>([]);
@@ -64,25 +65,23 @@ export default function GoogleTestimonials() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 rounded-full bg-purple-900/30 text-purple-300 font-semibold text-sm mb-6">
-            TESTIMONIALS
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-            What Our Clients Say
-          </h2>
+        <div className="mb-14">
+          <SectionTitle
+            subtitle="TESTIMONIALS"
+            title="What Our Clients Say"
+            paragraph="Discover what makes Ink Spell a favorite through the words of our happy clients."
+            width="640px"
+            center
+          />
         </div>
 
-        {/* Reviews Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {reviews.map((review, index) => (
             <div
               key={index}
               className="bg-gray-900/50 backdrop-blur-sm border border-purple-900/30 p-6 rounded-xl transform transition-all duration-300 hover:-translate-y-1 shadow-lg"
             >
-              {/* Author Info */}
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 rounded-full bg-purple-700/30 flex items-center justify-center text-purple-300 font-semibold text-lg">
                   {review.author_name?.charAt(0).toUpperCase()}
@@ -97,12 +96,10 @@ export default function GoogleTestimonials() {
                 </div>
               </div>
 
-              {/* Rating */}
               <div className="flex space-x-1 mb-4">
                 {renderStars(review.rating)}
               </div>
 
-              {/* Review Text */}
               <p className="text-gray-300 leading-relaxed mb-4">
                 {review.text}
               </p>
@@ -110,7 +107,6 @@ export default function GoogleTestimonials() {
           ))}
         </div>
 
-        {/* CTA Button */}
         <div className="text-center mt-12">
           <Button
             text="Leave a Review"

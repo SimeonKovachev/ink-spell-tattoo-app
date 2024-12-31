@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import ToasterContext from "./api/context/ToasterContext";
-import NavbarWrapper from "@/components/Navbar/NavbarWrapper";
 import { Montserrat } from "next/font/google";
+import Head from "./head";
+import { usePathname } from "next/navigation";
+import Navbar from "@/components/Navbar";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -20,11 +22,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [loading, setLoading] = useState<boolean>(true);
-
+  const [loading, setLoading] = useState(true);
+  const pathname = usePathname();
+  
   useEffect(() => {
     setTimeout(() => setLoading(false), 2000);
   }, []);
+
+  const isStudio = pathname.startsWith("/studio");
 
   return (
     <html
@@ -32,18 +37,20 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable}`}
     >
-      <head />
+      <head>
+        <Head />
+      </head>
 
       <body>
         {loading ? (
           <PreLoader />
         ) : (
           <>
-            <NavbarWrapper />
+            {!isStudio && <Navbar />}
             <ToasterContext />
             <main>{children}</main>
-            <Footer />
-            <ScrollToTop />
+            {!isStudio && <Footer />}
+            {!isStudio && <ScrollToTop />}
           </>
         )}
       </body>
