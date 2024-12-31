@@ -110,12 +110,12 @@ export default function Header() {
 
       {/* Content */}
       <div
-        className={`relative z-10 px-6 md:px-12 lg:px-20 text-center max-w-4xl transition-opacity duration-500 ${
+        className={`relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 text-center max-w-4xl mx-auto transition-opacity duration-500 ${
           isFading ? "opacity-0" : "opacity-100"
         }`}
       >
         <h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
+          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-2 sm:mb-4"
           style={{
             color: "var(--text-color)",
           }}
@@ -125,14 +125,14 @@ export default function Header() {
           <span className="mt-2">{slides[currentSlide].subheading}</span>
         </h1>
         <p
-          className="mt-4 mb-8 text-lg md:text-xl text-gray-300"
+          className="mt-2 sm:mt-4 mb-6 sm:mb-8 text-base sm:text-lg md:text-xl text-gray-300"
           style={{
             fontFamily: "var(--font-body)",
           }}
         >
           {slides[currentSlide].description}
         </p>
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <Button
             text="Book Now"
             type="filled"
@@ -149,17 +149,34 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Pagination Dots */}
-      <div className="absolute right-8 top-1/2 transform -translate-y-1/2 z-20 flex flex-col gap-3">
+      {/* Pagination Dots - Mobile */}
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-3 sm:hidden z-20">
         {slides.map((_, index) => (
           <button
             key={index}
-            className={`w-4 h-4 rounded-full border-2 ${
+            className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
               currentSlide === index
-                ? "bg-accent-purple border-accent-purple"
-                : "border-gray-500"
+                ? "bg-accent-purple border-accent-purple scale-110"
+                : "border-gray-500 hover:border-accent-purple"
             }`}
             onClick={() => switchToSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+
+      {/* Pagination Dots - Desktop */}
+      <div className="absolute right-8 top-1/2 transform -translate-y-1/2 z-20 hidden sm:flex flex-col gap-3">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
+              currentSlide === index
+                ? "bg-accent-purple border-accent-purple scale-110"
+                : "border-gray-500 hover:border-accent-purple"
+            }`}
+            onClick={() => switchToSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
           ></button>
         ))}
       </div>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { Service } from "@/types/service";
@@ -11,25 +11,20 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export default function HomeServiceSection() {
   const [services, setServices] = useState<Service[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+      setScreenWidth(window.innerWidth);
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const getItemsPerView = () => {
-    if (isMobile) return 1;
-    if (isTablet) return 2;
-    return 3;
-  };
+  const itemsPerView = screenWidth < 768 ? 1 : screenWidth < 1024 ? 2 : 3;
+  const itemWidth = 100 / itemsPerView;
+  const maxIndex = services.length - itemsPerView;
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -44,26 +39,19 @@ export default function HomeServiceSection() {
         toast.error("Failed to load services.");
       }
     };
-
     fetchServices();
   }, []);
 
+  useEffect(() => {
+    setCurrentIndex((prev) => Math.min(prev, Math.max(0, maxIndex)));
+  }, [screenWidth, maxIndex]);
+
   const handlePrev = () => {
-    setCurrentIndex((prev) => {
-      const itemsPerView = getItemsPerView();
-      const newIndex = prev - itemsPerView;
-      return newIndex < 0
-        ? Math.max(services.length - itemsPerView, 0)
-        : newIndex;
-    });
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => {
-      const itemsPerView = getItemsPerView();
-      const newIndex = prev + itemsPerView;
-      return newIndex >= services.length ? 0 : newIndex;
-    });
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
 
   return (
@@ -80,38 +68,39 @@ export default function HomeServiceSection() {
         </div>
 
         {services.length > 0 ? (
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 md:-left-4 flex items-center">
+          <div className="relative px-8">
+            {currentIndex > 0 && (
               <button
                 onClick={handlePrev}
-                className="transform -translate-x-1/2 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                 aria-label="Previous services"
               >
                 <ChevronLeft size={24} />
               </button>
-            </div>
+            )}
 
-            <div className="absolute inset-y-0 right-0 md:-right-4 flex items-center">
+            {currentIndex < maxIndex && (
               <button
                 onClick={handleNext}
-                className="transform translate-x-1/2 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                 aria-label="Next services"
               >
                 <ChevronRight size={24} />
               </button>
-            </div>
+            )}
 
-            <div className="overflow-hidden px-4 md:px-8">
+            <div className="overflow-hidden">
               <div
-                className="flex transition-transform duration-500 ease-out gap-4 md:gap-6"
+                className="flex transition-transform duration-500 ease-out"
                 style={{
-                  transform: `translateX(-${currentIndex * (100 / getItemsPerView())}%)`,
+                  transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
                 }}
               >
-                {services.map((service, index) => (
+                {services.map((service) => (
                   <div
-                    key={`${service._id}-${index}`}
-                    className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0"
+                    key={service._id}
+                    className="px-4"
+                    style={{ width: `${itemWidth}%`, flexShrink: 0 }}
                   >
                     <SingleService service={service} />
                   </div>
@@ -120,14 +109,12 @@ export default function HomeServiceSection() {
             </div>
 
             <div className="flex justify-center mt-6 gap-2">
-              {Array.from({
-                length: Math.ceil(services.length / getItemsPerView()),
-              }).map((_, index) => (
+              {Array.from({ length: maxIndex + 1 }).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentIndex(index * getItemsPerView())}
+                  onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    Math.floor(currentIndex / getItemsPerView()) === index
+                    currentIndex === index
                       ? "bg-purple-500 w-4"
                       : "bg-gray-600 hover:bg-gray-500"
                   }`}
