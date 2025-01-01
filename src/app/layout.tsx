@@ -38,10 +38,7 @@ export default function RootLayout({
       className={`${montserrat.variable}`}
     >
       <Head>
-        {/* Page Title */}
         <title>Ink Spell Tattoo Studio | Премиум татуиране в България</title>
-
-        {/* Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
@@ -53,8 +50,9 @@ export default function RootLayout({
         />
         <meta name="author" content="Ink Spell Tattoo Studio" />
 
-        {/* Favicon */}
         <link rel="icon" href="/images/favicon.ico" />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <link rel="robots" href="/robots.txt" />
 
         {/* Open Graph Meta Tags */}
         <meta
@@ -81,16 +79,14 @@ export default function RootLayout({
           href="https://www.ink-spell.com"
         />
 
-        {/* Robots Meta */}
-        <meta name="robots" content="index, follow" />
+        {/* <meta name="robots" content="index, follow" />
         <meta
           name="googlebot"
           content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
-        />
+        /> */}
 
-        {/* Verification Meta Tags */}
-        <meta name="google-site-verification" content="" />
-        <meta name="yandex-verification" content="" />
+        {/* <meta name="google-site-verification" content="" />
+        <meta name="yandex-verification" content="" /> */}
 
         {/* Structured Data (JSON-LD) */}
         <script
