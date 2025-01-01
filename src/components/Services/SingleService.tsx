@@ -31,11 +31,15 @@ const SingleService = ({ service }: { service: Service }) => {
             <Button
               text="Explore Service"
               type="filled"
-              size="md"
+              responsiveSize={{
+                sm: "sm",
+                md: "md",
+                lg: "md",
+              }}
               icon={
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 ease-out hover:translate-x-1" />
+                <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 ease-out" />
               }
-              navigateTo={`/services/${service.slug.current}`}       
+              navigateTo={`/services/${service.slug.current}`}
             />
           </div>
         </div>

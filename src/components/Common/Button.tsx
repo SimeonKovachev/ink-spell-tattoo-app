@@ -4,6 +4,15 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { ButtonProps } from "@/types/buttonProps";
 
+// Updated ButtonProps type
+interface ResponsiveButtonProps extends ButtonProps {
+  responsiveSize?: {
+    sm?: "sm" | "md" | "lg";
+    md?: "sm" | "md" | "lg";
+    lg?: "sm" | "md" | "lg";
+  };
+}
+
 export default function Button({
   text,
   type = "filled",
@@ -11,8 +20,9 @@ export default function Button({
   navigateTo,
   icon,
   size = "md",
+  responsiveSize,
   className = "",
-}: ButtonProps) {
+}: ResponsiveButtonProps) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -36,11 +46,27 @@ export default function Button({
       "border-2 border-accent-purple text-accent-purple shadow-md hover:bg-accent-purple hover:text-white",
   };
 
+  const responsiveSizeClasses = responsiveSize
+    ? `
+      ${responsiveSize.sm ? sizeStyles[responsiveSize.sm] : sizeStyles[size]} 
+      ${
+        responsiveSize.md
+          ? `sm:${sizeStyles[responsiveSize.md]}`
+          : `sm:${sizeStyles[size]}`
+      }
+      ${
+        responsiveSize.lg
+          ? `lg:${sizeStyles[responsiveSize.lg]}`
+          : `lg:${sizeStyles[size]}`
+      }
+    `
+    : sizeStyles[size];
+
   const baseStyles = `
     inline-flex items-center justify-center
     font-semibold rounded-lg
     transition-all duration-300
-    ${sizeStyles[size]}
+    ${responsiveSizeClasses}
     ${typeStyles[type]}
     ${className}
   `;

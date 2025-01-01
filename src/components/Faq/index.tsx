@@ -11,12 +11,15 @@ type FaqProps = {
 
 const Faq = ({ isFormVisible = true }: FaqProps) => {
   return (
-    <section id="faq" className="flex flex-col gap-16 relative z-20 overflow-hidden bg-dark py-20 lg:py-28">
+    <section
+      id="faq"
+      className="flex flex-col gap-16 relative z-20 overflow-hidden bg-dark py-20 lg:py-24"
+    >
       <div className="container">
         <SectionTitle
-          subtitle="FAQ"
-          title="Frequently Asked Questions"
-          paragraph="Here are some answers to common questions about Ink Spell and my services. If you have more questions, feel free to contact me."
+          subtitle="ЧЕСТО ЗАДАВАНИ ВЪПРОСИ"
+          title="Всичко, което искате да знаете"
+          paragraph="Тук ще намерите отговори на най-често задаваните въпроси за Ink Spell и моите услуги. Ако имате допълнителни въпроси, не се колебайте да се свържете с мен."
           width="640px"
           center
         />

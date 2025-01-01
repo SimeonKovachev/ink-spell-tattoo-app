@@ -1,32 +1,32 @@
 export const faqData = [
   {
-    question: "How do I book a tattoo appointment?",
+    question: "Как да си запиша час за татуировка?",
     answer:
-      "You can easily book an appointment through my online booking system on the website or by calling me directly. Visit the 'Book Now' section for more details.",
+      "Можете лесно да си запишете час чрез онлайн системата ни за резервации или като ме потърсите директно по телефона. Натиснете бутона 'Безплатна Консултация' или посетете страницата 'Контакти' за повече информация.",
   },
   {
-    question: "What should I do to prepare for my tattoo session?",
+    question: "Как да се подготвя за сесията?",
     answer:
-      "Make sure to eat a good meal, stay hydrated, and get enough rest before your session. Avoid alcohol or blood-thinning substances 24 hours prior to your appointment.",
+      "Важно е да се нахраните добре, да сте добре хидратирани и отпочинали преди процедурата. Избягвайте алкохол и разреждащи кръвта вещества 24 часа преди часа си.",
   },
   {
-    question: "Do tattoos hurt?",
+    question: "Боли ли при татуиране?",
     answer:
-      "Pain levels vary from person to person and depend on the tattoo's placement. I strive to make your experience as comfortable as possible.",
+      "Усещането за болка е строго индивидуално и зависи от мястото на татуировката. Стремя се да направя преживяването възможно най-комфортно за вас.",
   },
   {
-    question: "How do I care for my new tattoo?",
+    question: "Как да се грижа за новата си татуировка?",
     answer:
-      "After your session, I will provide you with detailed aftercare instructions. Following these guidelines is crucial to ensure proper healing and vibrant results.",
+      "След сесията ще получите подробни инструкции за грижа. Спазването им е от ключово значение за правилното заздравяване и трайността на татуировката.",
   },
   {
-    question: "Can I bring my own design?",
+    question: "Мога ли да донеса свой дизайн?",
     answer:
-      "Absolutely! I encourage clients to bring their ideas or designs. I can also work with you to create a custom design that matches your vision.",
+      "Разбира се! Насърчавам клиентите да споделят своите идеи и дизайни. Мога също така да работя с вас за създаването на персонализиран дизайн, отговарящ на вашата визия.",
   },
   {
-    question: "What is the cost of a tattoo?",
+    question: "Каква е цената на татуировка?",
     answer:
-      "Tattoo prices depend on the size, complexity, and placement of the design. Contact me for a consultation to get an accurate estimate.",
+      "Цената зависи от размера, сложността и разположението на дизайна. Свържете се с мен за консултация и точна оценка.",
   },
 ];

@@ -37,26 +37,34 @@ export default function AboutSection() {
             <div className="max-w-[570px] mx-auto lg:mx-0">
               <div className="mb-14">
                 <SectionTitle
-                  subtitle="INTRODUCTION"
-                  title="Perfection That is Forever"
-                  paragraph="I’m Iva, a concept artist turned tattoo artist with over a
-                  decade of experience. I blend storytelling and artistic
-                  precision to create custom tattoos that reflect your journey
-                  and vision."
+                  subtitle="ВЪВЕДЕНИЕ"
+                  title="Изкуство, Което Остава Завинаги"
+                  paragraph="Здравейте, аз съм Ива - артист с душа и въображение, превърнала
+                  страстта си към изкуството в професия. Започнах като концептуален
+                  художник, вдъхновена от магията на дигиталното изкуство, а днес
+                  създавам уникални татуировки, които разказват вашите истории.
+                  Всяка линия, която рисувам, е отражение на вашата индивидуалност
+                  и моята артистична визия."
                 />
               </div>
               <div className="space-y-8">
                 <div className="flex items-center space-x-4">
                   <Heart className="w-6 h-6 text-rose-400" />
-                  <span className="text-gray-300">Tattoo Artist</span>
+                  <span className="text-gray-300">
+                    Татуист с творческа душа
+                  </span>
                 </div>
                 <div className="flex items-center space-x-4">
                   <PaperclipIcon className="w-6 h-6 text-yellow-400" />
-                  <span className="text-gray-300">Concept Artist</span>
+                  <span className="text-gray-300">
+                    Концептуален художник с богато въображение
+                  </span>
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="w-6 h-6 bg-purple-500 rounded-full"></div>
-                  <span className="text-gray-300">10+ Years Experience</span>
+                  <span className="text-gray-300">
+                    Над 10 години опит в изкуството
+                  </span>
                 </div>
               </div>
             </div>
@@ -69,7 +77,7 @@ export default function AboutSection() {
               >
                 <Image
                   src="/images/about/portrait.jpg"
-                  alt="Portrait of Iva"
+                  alt="Портрет на Ива"
                   layout="fill"
                   objectFit="contain"
                   className="animate-fade-in"
@@ -83,14 +91,14 @@ export default function AboutSection() {
                 >
                   <Image
                     src="/images/about/tattoo-sample2.jpg"
-                    alt="Tattoo Sample 1"
+                    alt="Пример за татуировка 1"
                     width={300}
                     height={300}
                     className={`rounded-lg shadow-lg ${styles["mask-torn-edge"]}`}
                   />
                   <Image
                     src="/images/about/tape.png"
-                    alt="Tape"
+                    alt="Декоративна лента"
                     width={80}
                     height={80}
                     className="absolute -top-3 -left-3 transform -rotate-45"
@@ -99,14 +107,14 @@ export default function AboutSection() {
                 <div className="absolute top-12 -right-8 z-0 transform -rotate-12">
                   <Image
                     src="/images/about/tattoo-sample1.jpg"
-                    alt="Tattoo Sample 2"
+                    alt="Пример за татуировка 2"
                     width={250}
                     height={250}
                     className={`rounded-lg shadow-lg ${styles["mask-torn-edge"]}`}
                   />
                   <Image
                     src="/images/about/tape.png"
-                    alt="Tape"
+                    alt="Декоративна лента"
                     width={80}
                     height={80}
                     className="absolute -top-5 -right-5 transform rotate-45"

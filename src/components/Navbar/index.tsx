@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu as MenuIcon, X, Calendar } from "lucide-react";
 import menuData from "./menuData";
 import Button from "../Common/Button";
 
 const Navbar = () => {
   const pathUrl = usePathname();
+  const router = useRouter();
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
   const [visible, setVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (navbarOpen) {
       document.body.style.overflow = "hidden";
@@ -36,6 +36,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const handleBookNowClick = () => {
+    setNavbarOpen(false);
+    router.push("/contact/#booknow");
+  };
+
   return (
     <>
       <header
@@ -47,7 +52,6 @@ const Navbar = () => {
       >
         <div className="relative container mx-auto px-4">
           <nav className="flex items-center justify-between py-4">
-            {/* Logo */}
             <Link href="/" className="group relative z-50">
               <h2 className="heading text-3xl lg:text-5xl">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600 group-hover:from-purple-500 group-hover:to-purple-700 transition-all duration-500">
@@ -57,14 +61,13 @@ const Navbar = () => {
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-purple-600 group-hover:w-full transition-all duration-300" />
             </Link>
 
-            {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               {menuData.map((item) => (
                 <Link
                   key={item.id}
                   href={item.path!}
                   target={item.newTab ? "_blank" : "_self"}
-                  className={`relative font-medium text-lg text-white hover:text-purple-400 transition-colors duration-300 
+                  className={`relative font-medium text-base text-white hover:text-purple-400 transition-colors duration-300 
                     after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-0.5 
                     after:bg-gradient-to-r after:from-purple-400 after:to-purple-600 
                     after:transition-all after:duration-300 hover:after:w-full
@@ -75,15 +78,14 @@ const Navbar = () => {
               ))}
 
               <Button
-                text="Book Now"
+                text="Безплатна Консултация"
                 type="filled"
                 icon={<Calendar size={20} />}
                 size="sm"
-                navigateTo="/contact/#booknow"
+                onClick={handleBookNowClick}
               />
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setNavbarOpen(!navbarOpen)}
               className="lg:hidden p-2 rounded-lg hover:bg-purple-500/10 transition-colors duration-300 z-50"
@@ -99,7 +101,6 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Mobile Navigation */}
       <div
         className={`lg:hidden fixed inset-0 z-40 transition-transform duration-300 ${
           navbarOpen ? "translate-x-0" : "translate-x-full"
@@ -109,7 +110,6 @@ const Navbar = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent" />
         <div className="absolute inset-0 backdrop-blur-lg" />
 
-        {/* Content layer */}
         <div className="relative h-full flex flex-col items-center justify-center min-h-screen gap-8 px-4">
           {menuData.map((item) => (
             <Link
@@ -126,12 +126,11 @@ const Navbar = () => {
 
           <div className="mt-4">
             <Button
-              text="Book Now"
+              text="Безплатна Консултация"
               type="filled"
               icon={<Calendar size={20} />}
               size="md"
-              navigateTo="/contact/#booknow"
-              onClick={() => setNavbarOpen(false)}
+              onClick={handleBookNowClick}
             />
           </div>
         </div>

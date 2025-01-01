@@ -49,7 +49,7 @@ export const BookingForm: React.FC = () => {
         body: JSON.stringify(formattedData),
       });
 
-      if (!response.ok) throw new Error("Booking failed");
+      if (!response.ok) throw new Error("Грешка при резервацията");
 
       const calendarContent = await response.text();
       const blob = new Blob([calendarContent], {
@@ -65,11 +65,11 @@ export const BookingForm: React.FC = () => {
       window.URL.revokeObjectURL(url);
 
       toast.success(
-        "Free consultation booked successfully! Check your email for confirmation."
+        "Безплатната консултация е резервирана успешно! Проверете имейла си за потвърждение."
       );
     } catch (error) {
       console.error("Booking error:", error);
-      toast.error("Failed to book consultation");
+      toast.error("Грешка при резервацията на консултация");
     }
   };
 
@@ -93,13 +93,13 @@ export const BookingForm: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="relative w-full">
-          <label className="block mb-2 font-semibold text-white">Name</label>
+          <label className="block mb-2 font-semibold text-white">Име</label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="text"
-              {...register("name", { required: "Name is required" })}
-              placeholder="Your full name"
+              {...register("name", { required: "Името е задължително" })}
+              placeholder="Вашето име"
               className="w-full border border-accent-purple bg-transparent p-3 pl-10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-purple transition-all duration-200"
             />
           </div>
@@ -111,13 +111,13 @@ export const BookingForm: React.FC = () => {
         </div>
 
         <div className="relative w-full">
-          <label className="block mb-2 font-semibold text-white">Email</label>
+          <label className="block mb-2 font-semibold text-white">Имейл</label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="email"
-              {...register("email", { required: "Email is required" })}
-              placeholder="your@email.com"
+              {...register("email", { required: "Имейлът е задължителен" })}
+              placeholder="вашият@имейл.com"
               className="w-full border border-accent-purple bg-transparent p-3 pl-10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-purple transition-all duration-200"
             />
           </div>
@@ -129,13 +129,15 @@ export const BookingForm: React.FC = () => {
         </div>
 
         <div className="relative w-full">
-          <label className="block mb-2 font-semibold text-white">Phone</label>
+          <label className="block mb-2 font-semibold text-white">Телефон</label>
           <div className="relative">
             <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="tel"
-              {...register("phone", { required: "Phone number is required" })}
-              placeholder="Your phone number"
+              {...register("phone", {
+                required: "Телефонният номер е задължителен",
+              })}
+              placeholder="Вашият телефонен номер"
               className="w-full border border-accent-purple bg-transparent p-3 pl-10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-purple transition-all duration-200"
             />
           </div>
@@ -148,14 +150,14 @@ export const BookingForm: React.FC = () => {
 
         <div className="relative w-full">
           <label className="block mb-2 font-semibold text-white">
-            Consultation Date
+            Дата за консултация
           </label>
           <div className="relative w-full">
             <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
             <Controller
               control={control}
               name="appointmentDate"
-              rules={{ required: "Consultation date is required" }}
+              rules={{ required: "Датата за консултация е задължителна" }}
               render={({ field }) => (
                 <DatePicker
                   selected={field.value}
@@ -163,7 +165,7 @@ export const BookingForm: React.FC = () => {
                   className="w-full border border-accent-purple bg-transparent p-3 pl-10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-purple transition-all duration-200"
                   dateFormat="yyyy-MM-dd"
                   minDate={new Date()}
-                  placeholderText="Select date"
+                  placeholderText="Изберете дата"
                 />
               )}
             />
@@ -177,18 +179,18 @@ export const BookingForm: React.FC = () => {
       </div>
 
       <div className="relative w-full">
-        <label className="block mb-2 font-semibold text-white">Message</label>
+        <label className="block mb-2 font-semibold text-white">Съобщение</label>
         <div className="relative">
           <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
           <textarea
             {...register("message", { maxLength: 500 })}
             className="w-full border border-accent-purple bg-transparent p-3 pl-10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-purple transition-all duration-200 min-h-[100px]"
-            placeholder="Tell us about your tattoo idea or any questions you have..."
+            placeholder="Разкажете ни за вашата идея за татуировка или задайте въпросите си..."
           />
         </div>
         {errors.message && (
           <span className="text-red-500 text-sm mt-1 block">
-            Message is too long (max 500 characters)
+            Съобщението е твърде дълго (максимум 500 знака)
           </span>
         )}
       </div>
@@ -199,20 +201,20 @@ export const BookingForm: React.FC = () => {
         </div>
       ) : error ? (
         <div className="text-red-500 text-center p-4">
-          Error loading available slots
+          Грешка при зареждане на свободните часове
         </div>
       ) : (
         <div className="relative w-full">
           <label className="block mb-2 font-semibold text-white">
-            Consultation Time
+            Час за консултация
           </label>
           <div className="relative">
             <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             <select
-              {...register("timeSlot", { required: "Time slot is required" })}
+              {...register("timeSlot", { required: "Часът е задължителен" })}
               className="w-full border border-accent-purple bg-transparent p-3 pl-10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-purple transition-all duration-200 appearance-none"
             >
-              <option value="">Select time</option>
+              <option value="">Изберете час</option>
               {availableSlots.map((slot) => (
                 <option key={slot} value={slot} className="bg-dark text-white">
                   {slot}
@@ -229,9 +231,13 @@ export const BookingForm: React.FC = () => {
       )}
 
       <Button
-        text="Book Free Consultation"
+        text="Запиши безплатна консултация"
         type="filled"
-        size="md"
+        responsiveSize={{
+          sm: "sm",
+          md: "md",
+          lg: "md",
+        }}
         icon={<Calendar size={20} />}
       />
     </form>

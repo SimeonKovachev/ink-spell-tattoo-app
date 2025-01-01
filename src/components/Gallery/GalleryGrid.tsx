@@ -8,8 +8,8 @@ import Modal from "react-modal";
 
 interface GalleryGridProps {
   images: GalleryItem[];
-  paginated?: boolean; // For enabling pagination
-  imagesPerPage?: number; // Number of images per page
+  paginated?: boolean;
+  imagesPerPage?: number;
 }
 
 export default function GalleryGrid({
@@ -30,7 +30,6 @@ export default function GalleryGrid({
 
   return (
     <>
-      {/* Image Grid */}
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
         {paginatedImages.map((img, index) => (
           <button
@@ -77,7 +76,6 @@ export default function GalleryGrid({
         ))}
       </div>
 
-      {/* Pagination */}
       {paginated && totalPages > 1 && (
         <div className="flex justify-center items-center mt-12 gap-6">
           <button

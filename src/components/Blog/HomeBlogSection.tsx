@@ -75,8 +75,12 @@ export default function HomeBlogSection() {
           <Button
             text="View All Posts"
             type="outlined"
-            size="md"
-            icon={<ArrowRight className="ml-2" size={18} />}
+            responsiveSize={{
+              sm: "sm",
+              md: "md",
+              lg: "md",
+            }}
+            icon={<ArrowRight size={18} />}
             navigateTo="/blog"
           />
         </div>

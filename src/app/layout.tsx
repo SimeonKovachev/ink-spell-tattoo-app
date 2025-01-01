@@ -7,9 +7,9 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import ToasterContext from "./api/context/ToasterContext";
 import { Montserrat } from "next/font/google";
-import Head from "./head";
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import AppHead from "./head";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -34,13 +34,10 @@ export default function RootLayout({
   return (
     <html
       suppressHydrationWarning={true}
-      lang="en"
+      lang="bg"
       className={`${montserrat.variable}`}
     >
-      <head>
-        <Head />
-      </head>
-
+      <AppHead />
       <body>
         {loading ? (
           <PreLoader />

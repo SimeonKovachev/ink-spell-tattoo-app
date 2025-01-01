@@ -3,37 +3,37 @@ import { Menu } from "@/types/menu";
 const menuData: Menu[] = [
   {
     id: 1,
-    title: "Home",
+    title: "Начало",
     path: "/",
     newTab: false,
   },
   {
     id: 2,
-    title: "About Me",
+    title: "За Мен",
     path: "/about",
     newTab: false,
   },
   {
     id: 3,
-    title: "Gallery",
+    title: "Галерия",
     path: "/gallery",
     newTab: false,
   },
   {
     id: 4,
-    title: "Services",
+    title: "Услуги",
     path: "/services",
     newTab: false,
   },
   {
     id: 5,
-    title: "Contact Me",
+    title: "Контакти",
     path: "/contact",
     newTab: false,
   },
   {
     id: 6,
-    title: "Blog",
+    title: "Блог",
     path: "/blogs",
     newTab: false,
   },

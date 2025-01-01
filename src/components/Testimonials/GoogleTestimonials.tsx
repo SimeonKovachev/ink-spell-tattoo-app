@@ -17,7 +17,7 @@ export default function GoogleTestimonials() {
         const data = await fetchGoogleReviews();
         setReviews(data);
       } catch (error) {
-        console.error("Error fetching reviews:", error);
+        console.error("Грешка при зареждане на отзивите:", error);
       } finally {
         setLoading(false);
       }
@@ -37,7 +37,7 @@ export default function GoogleTestimonials() {
   if (reviews.length === 0) {
     return (
       <div className="text-center text-gray-400 py-12">
-        No reviews available at the moment
+        Няма налични отзиви в момента
       </div>
     );
   }
@@ -55,10 +55,8 @@ export default function GoogleTestimonials() {
 
   return (
     <section className="relative py-24 lg:py-28 overflow-hidden">
-      {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
-      {/* Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-40 left-0 w-[600px] h-[600px] animate-gradient-spin">
           <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-600/20 via-fuchsia-500/20 to-pink-500/20 blur-[120px] animate-pulse-strong"></div>
@@ -68,9 +66,9 @@ export default function GoogleTestimonials() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="mb-14">
           <SectionTitle
-            subtitle="TESTIMONIALS"
-            title="What Our Clients Say"
-            paragraph="Discover what makes Ink Spell a favorite through the words of our happy clients."
+            subtitle="ОТЗИВИ"
+            title="Какво казват нашите клиенти"
+            paragraph="Прочетете мненията на доволните клиенти и открийте защо Ink Spell е техният избор номер едно."
             width="640px"
             center
           />
@@ -109,8 +107,13 @@ export default function GoogleTestimonials() {
 
         <div className="text-center mt-12">
           <Button
-            text="Leave a Review"
+            text="Оставете отзив"
             type="outlined"
+            responsiveSize={{
+              sm: "sm",
+              md: "md",
+              lg: "md",
+            }}
             onClick={() =>
               window.open(
                 `https://search.google.com/local/writereview?placeid=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID}`,
