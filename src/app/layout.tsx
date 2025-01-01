@@ -50,9 +50,15 @@ export default function RootLayout({
         />
         <meta name="author" content="Ink Spell Tattoo Studio" />
 
-        <link rel="icon" href="/images/favicon.ico" />
+        {/* Robots and Sitemap */}
+        <meta name="robots" content="index, follow" />
+        <meta
+          name="googlebot"
+          content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+        />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="robots" href="/robots.txt" />
+        <link rel="icon" href="/images/favicon.ico" />
 
         {/* Open Graph Meta Tags */}
         <meta
@@ -67,9 +73,10 @@ export default function RootLayout({
           property="og:image"
           content="https://www.ink-spell.com/images/ink-spell-full-colored-logo.jpg"
         />
-        <meta property="og:url" content="https://ink-spell.com" />
+        <meta property="og:url" content="https://www.ink-spell.com" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Ink Spell Tattoo Studio" />
+        <meta property="og:locale" content="bg_BG" />
 
         {/* Alternate Links */}
         <link rel="canonical" href="https://www.ink-spell.com" />
@@ -79,15 +86,6 @@ export default function RootLayout({
           href="https://www.ink-spell.com"
         />
 
-        {/* <meta name="robots" content="index, follow" />
-        <meta
-          name="googlebot"
-          content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
-        /> */}
-
-        {/* <meta name="google-site-verification" content="" />
-        <meta name="yandex-verification" content="" /> */}
-
         {/* Structured Data (JSON-LD) */}
         <script
           type="application/ld+json"
@@ -96,9 +94,10 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "TattooParlor",
               name: "Ink Spell Tattoo Studio",
-              image: "https://www.ink-spell.com/images/studio.jpg",
+              image:
+                "https://www.ink-spell.com/images/ink-spell-full-colored-logo.jpg",
               description:
-                "Професионално студио за художествени татуировки в Плевен",
+                "Professional tattoo studio in Pleven, Bulgaria specializing in unique, artistic tattoos, including astrology and tarot-inspired designs.",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "ул. Васил Априлов 48",
@@ -109,8 +108,8 @@ export default function RootLayout({
               },
               geo: {
                 "@type": "GeoCoordinates",
-                latitude: "ВАШАТА_ШИРИНА",
-                longitude: "ВАШАТА_ДЪЛЖИНА",
+                latitude: "43.4168", // Replace with actual latitude
+                longitude: "24.6062", // Replace with actual longitude
               },
               url: "https://www.ink-spell.com",
               telephone: "+359894300545",
