@@ -3,8 +3,9 @@ import HomeServiceSection from "@/components/Services/HomeServiceSection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Services Page",
-  description: "This is services page description",
+  title: "Услуги | Татуировки и Татуиране в Плевен",
+  description:
+    "Разгледайте услугите на Ink Spell Tattoo Studio в Плевен. Специализирани в татуиране, корекции и персонализирани дизайни.",
 };
 
 const ServicesPage = () => {

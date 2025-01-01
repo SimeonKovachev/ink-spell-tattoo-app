@@ -9,14 +9,11 @@ export default function Contact() {
     <section id="contact" className="relative py-24 lg:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
-      {/* Декоративни елементи */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Анимирани градиентни кръгове */}
         <div className="absolute -top-40 right-0 w-[600px] h-[600px] animate-gradient-spin">
           <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-600/30 via-fuchsia-500/30 to-pink-500/30 blur-[120px] animate-pulse-strong"></div>
         </div>
 
-        {/* Плаващи частици със следи */}
         <div className="absolute inset-0">
           {[...Array(6)].map((_, i) => (
             <div
@@ -34,11 +31,9 @@ export default function Contact() {
           ))}
         </div>
 
-        {/* Светещи линии */}
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent animate-glow"></div>
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent animate-glow"></div>
 
-        {/* Амбиентни светлинни ефекти */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-fuchsia-900/20 animate-ambient"></div>
       </div>
 
@@ -49,7 +44,7 @@ export default function Contact() {
               <div className="mb-14">
                 <SectionTitle
                   subtitle="Свържете се с нас"
-                  title="Нека обсъдим вашите идеи"
+                  title="Запишете час за вашата мечтана татуировка"
                   paragraph="Запишете се за безплатна 30-минутна консултация, за да обсъдим вашите идеи за татуировка и да отговорим на всички ваши въпроси."
                 />
               </div>

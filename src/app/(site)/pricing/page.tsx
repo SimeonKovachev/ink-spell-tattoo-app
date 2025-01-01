@@ -4,9 +4,9 @@ import Pricing from "@/components/Pricing";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title:
-    "Pricing Page | Play SaaS Starter Kit and Boilerplate for Next.js",
-  description: "This is pricing page description",
+  title: "Цени за татуировки | Ink Spell Tattoo Studio",
+  description:
+    "Вижте цени за татуировки в Ink Spell Tattoo Studio. Конкурентни цени за уникални и персонализирани дизайни.",
 };
 
 const PricingPage = () => {

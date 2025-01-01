@@ -4,8 +4,9 @@ import { Metadata } from "next";
 import Faq from "@/components/Faq";
 
 export const metadata: Metadata = {
-  title: "Contact Page",
-  description: "This is contact page description",
+  title: "Контакти | Ink Spell Tattoo Studio в Плевен",
+  description:
+    "Свържете се с Ink Spell Tattoo Studio за консултация. Разположено в Плевен, нашето студио създава татуировки, които разказват истории.",
 };
 
 const ContactPage = () => {
