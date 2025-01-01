@@ -107,10 +107,6 @@ export default function SiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="bg">
-      <body>
-        <RootLayout>{children}</RootLayout>
-      </body>
-    </html>
+    <RootLayout>{children}</RootLayout>
   );
 }
