@@ -88,20 +88,6 @@ export default function AppHead() {
           }),
         }}
       />
-
-      {/* Google Analytics */}
-      <script
-        src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"
-        async
-      ></script>
-      <script id="google-analytics" async>
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'YOUR-GA-ID');
-        `}
-      </script>
     </Head>
   );
 }

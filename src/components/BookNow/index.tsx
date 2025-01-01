@@ -72,7 +72,7 @@ export default function Contact() {
                     >
                       Плевен Център,
                       <br />
-                      ул. „Васил Априлов" 48
+                      ул. &quot;Васил Априлов&quot; 48
                     </a>
                   </div>
                 </div>
