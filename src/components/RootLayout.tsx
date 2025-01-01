@@ -44,17 +44,21 @@ export default function RootLayout({
         <link rel="icon" href="/images/favicon.ico" />
       </head>
       <body>
-        {loading ? (
-          <PreLoader />
-        ) : (
-          <>
-            {!isStudio && <Navbar />}
-            <ToasterContext />
-            <main>{children}</main>
-            {!isStudio && <Footer />}
-            {!isStudio && <ScrollToTop />}
-          </>
-        )}
+        <div
+          className={
+            loading
+              ? "opacity-0"
+              : "opacity-100 transition-opacity duration-300"
+          }
+        >
+          {!isStudio && <Navbar />}
+          <ToasterContext />
+          <main>{children}</main>
+          {!isStudio && <Footer />}
+          {!isStudio && <ScrollToTop />}
+        </div>
+
+        {loading && <PreLoader />}
 
         <script
           type="application/ld+json"
@@ -77,8 +81,8 @@ export default function RootLayout({
               },
               geo: {
                 "@type": "GeoCoordinates",
-                latitude: "43.4168", // Replace with actual latitude
-                longitude: "24.6062", // Replace with actual longitude
+                latitude: "43.4168",
+                longitude: "24.6062",
               },
               url: "https://www.ink-spell.com",
               telephone: "+359894300545",

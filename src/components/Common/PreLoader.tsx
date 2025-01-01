@@ -29,22 +29,10 @@ const PreLoader = () => {
   }, [loadingTexts]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-gray-900 to-black">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,rgba(124,58,237,0.1),rgba(0,0,0,0))]" />
-        <div className="absolute -inset-[10px] opacity-50">
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/20 to-transparent blur-xl animate-pulse-strong"
-              style={{
-                transform: `translateY(${i * 33.33}%)`,
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
+    <div
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-gray-900 to-black"
+      aria-hidden="true"
+    >
       <div className="relative flex flex-col items-center">
         <div className={styles.pencil}>
           <div className={styles.pencil__ball_point} />
@@ -80,4 +68,5 @@ const PreLoader = () => {
     </div>
   );
 };
+
 export default PreLoader;
