@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import styles from "../../styles/AboutMe.module.css";
 import { PaperclipIcon, Heart } from "lucide-react";
 import SectionTitle from "../Common/SectionTitle";
 
@@ -73,14 +72,15 @@ export default function AboutSection() {
           <div className="w-full lg:w-[45%]">
             <div className="relative group">
               <div
-                className={`relative w-full h-[400px] lg:h-[500px] ${styles["mask-torn-edge"]}`}
+                className="relative w-full h-[400px] lg:h-[500px] mask-torn-edge"
               >
                 <Image
                   src="/images/about/portrait.jpg"
                   alt="Портрет на Ива"
                   layout="fill"
                   objectFit="contain"
-                  className="animate-fade-in"
+                  quality={85}
+                  priority={true}
                 />
               </div>
 
@@ -94,7 +94,7 @@ export default function AboutSection() {
                     alt="Пример за татуировка 1"
                     width={300}
                     height={300}
-                    className={`rounded-lg shadow-lg ${styles["mask-torn-edge"]}`}
+                    className="rounded-lg shadow-lg mask-torn-edge"
                   />
                   <Image
                     src="/images/about/tape.png"
@@ -110,7 +110,7 @@ export default function AboutSection() {
                     alt="Пример за татуировка 2"
                     width={250}
                     height={250}
-                    className={`rounded-lg shadow-lg ${styles["mask-torn-edge"]}`}
+                    className="rounded-lg shadow-lg mask-torn-edge"
                   />
                   <Image
                     src="/images/about/tape.png"
