@@ -10,12 +10,114 @@ import { Montserrat } from "next/font/google";
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-subheading",
 });
+
+export const metadata = {
+  title: {
+    default: "Ink Spell Tattoo Studio | Премиум татуиране в България",
+    template: "%s | Ink Spell Tattoo Studio",
+  },
+  description:
+    "Ink Spell Tattoo Studio в Плевен, където талантливата художничка Ива създава уникални татуировки с артистичен подход. Специализирани в персонализирани дизайни, астрологична символика и Таро изкуство. Създаваме значими татуировки, които разказват вашата лична история.",
+  keywords: [
+    // Основни брандирани ключови думи
+    "Ink Spell Tattoo Studio",
+    "тату студио Плевен",
+    "татуировки Плевен",
+    "Ива Лазарова татуировки",
+
+    // Високо търсени ключови думи
+    "цени на татуировки Плевен",
+    "студио за татуировки Плевен",
+    "художествени татуировки",
+    "татуист Плевен",
+
+    // Специализирани услуги
+    "персонализирани татуировки",
+    "дизайн на татуировки",
+    "уникални татуировки",
+    "цветни татуировки Плевен",
+
+    // Стилове
+    "фини линии татуировки",
+    "минималистични татуировки",
+    "геометрични татуировки",
+    "илюстративни татуировки",
+
+    // Тематични
+    "астрологични татуировки",
+    "таро татуировки",
+    "символични татуировки",
+    "мистични татуировки",
+
+    // Услуги
+    "консултация за татуировка",
+    "коригиране на татуировки",
+    "дизайн на custom татуировки",
+
+    // Английски варианти
+    "tattoo studio Pleven",
+    "custom tattoo Pleven",
+    "professional tattoo artist Bulgaria",
+    "artistic tattoos Bulgaria",
+  ],
+  alternates: {
+    canonical: "https://www.ink-spell.com",
+    languages: {
+      "bg-BG": "https://www.ink-spell.com",
+    },
+  },
+  openGraph: {
+    title: "Ink Spell Tattoo Studio | Премиум татуиране в България",
+    description:
+      "Открийте уникалното изкуство на татуирането в Плевен. Персонализирани дизайни, астрология и художествени татуировки от професионален артист с background в илюстрацията.",
+    url: "https://ink-spell.com",
+    type: "website",
+    siteName: "Ink Spell Tattoo Studio",
+    locale: "bg_BG",
+    images: [
+      {
+        url: "https://www.ink-spell.com/images/ink-spell-full-colored-logo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ink Spell Tattoo Studio - Премиум татуиране",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ink Spell Tattoo Studio | Премиум татуиране в България",
+    description:
+      "Открийте уникалното изкуство на татуирането в Плевен. Персонализирани дизайни, астрология и художествени татуировки от професионален артист с background в илюстрацията.",
+    images: [
+      "https://www.ink-spell.com/images/ink-spell-full-colored-logo.jpg",
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "",
+    yandex: "",
+  },
+  icons: {
+    icon: "/images/favicon.ico",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -24,7 +126,7 @@ export default function RootLayout({
 }) {
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
-  
+
   useEffect(() => {
     setTimeout(() => setLoading(false), 2000);
   }, []);
@@ -37,56 +139,25 @@ export default function RootLayout({
       lang="bg"
       className={`${montserrat.variable}`}
     >
-      <Head>
-        <title>Ink Spell Tattoo Studio | Премиум татуиране в България</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="description"
-          content="Ink Spell Tattoo Studio в Плевен, където талантливата художничка Ива създава уникални татуировки с артистичен подход. Специализирани в персонализирани дизайни, астрологична символика и Таро изкуство. Създаваме значими татуировки, които разказват вашата лична история."
-        />
-        <meta
-          name="keywords"
-          content="Ink Spell Tattoo Studio, тату студио Плевен, татуировки Плевен, Ива Лазарова татуировки, цени на татуировки Плевен, студио за татуировки Плевен, художествени татуировки, татуист Плевен, персонализирани татуировки, дизайн на татуировки, уникални татуировки, цветни татуировки Плевен, фини линии татуировки, минималистични татуировки, геометрични татуировки, илюстративни татуировки, астрологични татуировки, таро татуировки, символични татуировки, мистични татуировки, консултация за татуировка, коригиране на татуировки, дизайн на custom татуировки, tattoo studio Pleven, custom tattoo Pleven, professional tattoo artist Bulgaria, artistic tattoos Bulgaria"
-        />
-        <meta name="author" content="Ink Spell Tattoo Studio" />
-
-        {/* Robots and Sitemap */}
-        <meta name="robots" content="index, follow" />
-        <meta
-          name="googlebot"
-          content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
-        />
+      <GoogleAnalytics gaId="G-JFDSDGDFG" />
+      <head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="robots" href="/robots.txt" />
         <link rel="icon" href="/images/favicon.ico" />
+      </head>
+      <body>
+        {loading ? (
+          <PreLoader />
+        ) : (
+          <>
+            {!isStudio && <Navbar />}
+            <ToasterContext />
+            <main>{children}</main>
+            {!isStudio && <Footer />}
+            {!isStudio && <ScrollToTop />}
+          </>
+        )}
 
-        {/* Open Graph Meta Tags */}
-        <meta
-          property="og:title"
-          content="Ink Spell Tattoo Studio | Премиум татуиране в България"
-        />
-        <meta
-          property="og:description"
-          content="Открийте уникалното изкуство на татуирането в Плевен. Персонализирани дизайни, астрология и художествени татуировки от професионален артист с background в илюстрацията."
-        />
-        <meta
-          property="og:image"
-          content="https://www.ink-spell.com/images/ink-spell-full-colored-logo.jpg"
-        />
-        <meta property="og:url" content="https://www.ink-spell.com" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Ink Spell Tattoo Studio" />
-        <meta property="og:locale" content="bg_BG" />
-
-        {/* Alternate Links */}
-        <link rel="canonical" href="https://www.ink-spell.com" />
-        <link
-          rel="alternate"
-          hrefLang="bg-BG"
-          href="https://www.ink-spell.com"
-        />
-
-        {/* Structured Data (JSON-LD) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -122,19 +193,6 @@ export default function RootLayout({
             }),
           }}
         />
-      </Head>
-      <body>
-        {loading ? (
-          <PreLoader />
-        ) : (
-          <>
-            {!isStudio && <Navbar />}
-            <ToasterContext />
-            <main>{children}</main>
-            {!isStudio && <Footer />}
-            {!isStudio && <ScrollToTop />}
-          </>
-        )}
       </body>
     </html>
   );
