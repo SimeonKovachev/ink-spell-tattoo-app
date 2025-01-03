@@ -3,14 +3,15 @@ import NotFound from "@/components/NotFound";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "404 Page | Play SaaS Starter Kit and Boilerplate for Next.js",
+  title: "404 | Страницата не е намерена - Ink Spell Tattoo Studio",
+  description:
+    "Съжаляваме, но страницата която търсите не съществува. Върнете се към началната страница на Ink Spell Tattoo Studio.",
 };
 
 const ErrorPage = () => {
   return (
     <>
-      <Breadcrumb pageName="404 Page" />
-
+      <Breadcrumb pageName="Страницата не е намерена" />
       <NotFound />
     </>
   );
