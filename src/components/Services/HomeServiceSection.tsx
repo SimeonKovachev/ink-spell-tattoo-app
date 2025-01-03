@@ -31,12 +31,12 @@ export default function HomeServiceSection() {
       try {
         const data = await getAllServices();
         if (data.length === 0) {
-          toast("No services found!", { icon: "🛑" });
+          toast("Не са намерени услуги!", { icon: "🛑" });
         }
         setServices(data);
       } catch (error) {
         console.error("Error fetching services:", error);
-        toast.error("Failed to load services.");
+        toast.error("Възникна проблем при зареждането на услугите.");
       }
     };
     fetchServices();
@@ -55,13 +55,13 @@ export default function HomeServiceSection() {
   };
 
   return (
-    <section className="relative bg-gradient-to-b from-gray-900 via-gray-900/95 to-black text-white py-12 md:py-24 px-4 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-gray-900 via-gray-900/95 to-black text-white py-12 md:py-24 overflow-hidden">
       <div className="container mx-auto">
         <div className="mb-8 md:mb-12">
           <SectionTitle
-            subtitle="Our Services"
-            title="Explore Our Offerings"
-            paragraph="Discover a range of services tailored to meet your needs."
+            subtitle="Нашите Услуги"
+            title="Открийте Стиловете Татуировки"
+            paragraph="Разгледайте нашите художествени стилове татуировки - от минималистични до сложни геометрични дизайни. Предлагаме безплатна консултация за вашата идея."
             width="640px"
             center
           />
@@ -73,7 +73,7 @@ export default function HomeServiceSection() {
               <button
                 onClick={handlePrev}
                 className="absolute left-0 top-1/2 -translate-y-1/2 z-10 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                aria-label="Previous services"
+                aria-label="Предишни стилове татуировки"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -83,7 +83,7 @@ export default function HomeServiceSection() {
               <button
                 onClick={handleNext}
                 className="absolute right-0 top-1/2 -translate-y-1/2 z-10 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                aria-label="Next services"
+                aria-label="Следващи стилове татуировки"
               >
                 <ChevronRight size={24} />
               </button>
@@ -118,7 +118,7 @@ export default function HomeServiceSection() {
                       ? "bg-purple-500 w-4"
                       : "bg-gray-600 hover:bg-gray-500"
                   }`}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Преглед на стил ${index + 1}`}
                 />
               ))}
             </div>

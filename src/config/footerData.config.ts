@@ -17,24 +17,25 @@ export const socialLinks = [
 ];
 
 export const footerLinks = {
-  studio: [
-    { name: "About Me", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Gallery", href: "/gallery" },
-    { name: "Contact", href: "/contact" },
-    { name: "Blog", href: "/blogs" },
+  студио: [
+    { name: "За Мен", href: "/about" },
+    { name: "Услуги", href: "/services" },
+    { name: "Галерия", href: "/gallery" },
+    { name: "Контакти", href: "/contact" },
+    { name: "Блог", href: "/blogs" },
   ],
-  info: [
-    { name: "FAQ", href: "/contact/#faq" },
-    { name: "Privacy Policy", href: "/privacy" },
+  инфо: [
+    { name: "ЧЗВ", href: "/contact/#faq" },
+    { name: "Политика за поверителност", href: "/privacy" },
+    { name: "Имате други въпроси?", href: "/contact/#report" },
     // { name: "Terms of Service", href: "/terms" },
   ],
-};
+};  
 
 export const studioInfo = {
   name: "Ink Spell Tattoo Studio",
-  address: 'Pleven Center, ul. "Vasil Aprilov" 48',
-  city: "Pleven",
+  address: 'Плевен Център, ул. "Васил Априлов" 48',
+  city: "Плевен",
   email: "support@ink-spell.com",
   phone: "+359 89 430 0545",
 };

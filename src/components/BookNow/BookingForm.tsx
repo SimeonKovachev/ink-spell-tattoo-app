@@ -74,24 +74,27 @@ export const BookingForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-6 flex flex-col items-center md:items-stretch"
+    >
       <style>
         {`
-          .react-datepicker-wrapper {
-            display: block;
-            width: 100%;
-          }
-          .react-datepicker__input-container {
-            display: block;
-            width: 100%;
-          }
-          .react-datepicker__input-container input {
-            width: 100%;
-          }
-        `}
+      .react-datepicker-wrapper {
+        display: block;
+        width: 100%;
+      }
+      .react-datepicker__input-container {
+        display: block;
+        width: 100%;
+      }
+      .react-datepicker__input-container input {
+        width: 100%;
+      }
+    `}
       </style>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 w-full md:grid-cols-2">
         <div className="relative w-full">
           <label className="block mb-2 font-semibold text-white">Име</label>
           <div className="relative">
@@ -195,51 +198,43 @@ export const BookingForm: React.FC = () => {
         )}
       </div>
 
-      {isLoading ? (
-        <div className="flex items-center justify-center p-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-purple"></div>
+      <div className="relative w-full">
+        <label className="block mb-2 font-semibold text-white">
+          Час за консултация
+        </label>
+        <div className="relative">
+          <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <select
+            {...register("timeSlot", { required: "Часът е задължителен" })}
+            className="w-full border border-accent-purple bg-transparent p-3 pl-10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-purple transition-all duration-200 appearance-none"
+          >
+            <option value="">Изберете час</option>
+            {availableSlots.map((slot) => (
+              <option key={slot} value={slot} className="bg-dark text-white">
+                {slot}
+              </option>
+            ))}
+          </select>
         </div>
-      ) : error ? (
-        <div className="text-red-500 text-center p-4">
-          Грешка при зареждане на свободните часове
-        </div>
-      ) : (
-        <div className="relative w-full">
-          <label className="block mb-2 font-semibold text-white">
-            Час за консултация
-          </label>
-          <div className="relative">
-            <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <select
-              {...register("timeSlot", { required: "Часът е задължителен" })}
-              className="w-full border border-accent-purple bg-transparent p-3 pl-10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-purple transition-all duration-200 appearance-none"
-            >
-              <option value="">Изберете час</option>
-              {availableSlots.map((slot) => (
-                <option key={slot} value={slot} className="bg-dark text-white">
-                  {slot}
-                </option>
-              ))}
-            </select>
-          </div>
-          {errors.timeSlot && (
-            <span className="text-red-500 text-sm mt-1 block">
-              {errors.timeSlot.message}
-            </span>
-          )}
-        </div>
-      )}
+        {errors.timeSlot && (
+          <span className="text-red-500 text-sm mt-1 block">
+            {errors.timeSlot.message}
+          </span>
+        )}
+      </div>
 
-      <Button
-        text="Запиши безплатна консултация"
-        type="filled"
-        responsiveSize={{
-          sm: "sm",
-          md: "md",
-          lg: "md",
-        }}
-        icon={<Calendar size={20} />}
-      />
+      <div className="flex justify-center w-full">
+        <Button
+          text="Запиши безплатна консултация"
+          type="filled"
+          responsiveSize={{
+            sm: "sm",
+            md: "md",
+            lg: "md",
+          }}
+          icon={<Calendar size={20} />}
+        />
+      </div>
     </form>
   );
 };

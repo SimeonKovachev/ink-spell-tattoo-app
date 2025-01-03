@@ -5,6 +5,7 @@ import { getSingleService } from "@/lib/fetchServices";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { Metadata } from "next";
 import { ArrowLeft, Clock, ListChecks } from "lucide-react";
+import Script from "next/script";
 
 type PageParams = { slug: string };
 
@@ -15,18 +16,53 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const service = await getSingleService(params.slug);
 
-  if (!service)
+  if (!service) {
     return {
-      title: "Service Not Found",
-      description: "No service details are available",
+      title: "Услугата не е намерена",
+      description: "Няма налична информация за тази услуга",
       robots: { index: false, follow: false },
     };
+  }
 
   return {
-    title:
-      service.seo?.metaTitle || `${service.name} | ${process.env.SITE_NAME}`,
+    title: `${service.name} | Услуги от Ink Spell Tattoo Studio`,
     description: service.seo?.metaDescription || service.description,
-    keywords: service.seo?.metaKeywords,
+    keywords: service.seo?.metaKeywords || [
+      "услуги за татуировки",
+      "татуировка Плевен",
+      "Ink Spell Tattoo Studio услуги",
+      "уникални татуировки",
+      "персонализирани дизайни татуировки",
+    ],
+    openGraph: {
+      title: `${service.name} | Услуги от Ink Spell Tattoo Studio`,
+      description:
+        service.seo?.metaDescription ||
+        `Открийте повече за услугата ${service.name} в Ink Spell Tattoo Studio. Специализираме се в персонализирани татуировки.`,
+      url: `https://www.ink-spell.com/services/${params.slug}`,
+      type: "article",
+      siteName: "Ink Spell Tattoo Studio",
+      images: [
+        {
+          url: service.image?.asset?.url || "/images/placeholder.jpg",
+          width: 1200,
+          height: 630,
+          alt: service.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.name} | Услуги от Ink Spell Tattoo Studio`,
+      description:
+        service.seo?.metaDescription ||
+        `Открийте повече за услугата ${service.name} в Ink Spell Tattoo Studio.`,
+      images: [service.image?.asset?.url || "/images/placeholder.jpg"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -38,14 +74,14 @@ export default async function ServicePage({ params }: { params: PageParams }) {
       <div className="min-h-[60vh] flex items-center justify-center bg-gradient-to-b from-dark to-gray-900">
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full">
           <p className="text-center text-xl text-gray-300">
-            Service not found.
+            Услугата не е намерена.
           </p>
         </div>
       </div>
     );
   }
 
- const portableTextComponents: PortableTextReactComponents = {
+const portableTextComponents: PortableTextReactComponents = {
   block: {
     normal: ({ children }) => <p className="text-gray-300">{children}</p>,
   },
@@ -61,13 +97,13 @@ export default async function ServicePage({ params }: { params: PageParams }) {
   hardBreak: () => <br />,
   unknownBlockStyle: ({ children }) => (
     <p className="text-gray-300">{children}</p>
-  ), 
+  ),
   unknownList: ({ children }) => (
     <ul className="list-disc ml-5 space-y-2">{children}</ul>
   ),
   unknownListItem: ({ children }) => <li>{children}</li>,
   unknownMark: ({ children }) => <span>{children}</span>,
-  types: {}, 
+  types: {},
   unknownType: ({ value }) => (
     <div className="text-red-500">
       Unknown type: {JSON.stringify(value, null, 2)}
@@ -99,7 +135,9 @@ export default async function ServicePage({ params }: { params: PageParams }) {
                 <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700/50">
                   <div className="flex items-center gap-2 mb-4">
                     <ListChecks className="text-accent-purple" />
-                    <h2 className="text-xl font-bold text-white">Features</h2>
+                    <h2 className="text-xl font-bold text-white">
+                      Характеристики
+                    </h2>
                   </div>
                   <ul className="list-inside list-disc space-y-2 text-gray-300">
                     {service.features.map((feature, index) => (
@@ -116,7 +154,9 @@ export default async function ServicePage({ params }: { params: PageParams }) {
                 <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700/50">
                   <div className="flex items-center gap-2 mb-4">
                     <Clock className="text-accent-purple" />
-                    <h2 className="text-xl font-bold text-white">Duration</h2>
+                    <h2 className="text-xl font-bold text-white">
+                      Продължителност
+                    </h2>
                   </div>
                   <p className="text-gray-300">{service.duration}</p>
                 </div>
@@ -143,7 +183,7 @@ export default async function ServicePage({ params }: { params: PageParams }) {
 
             {service.gallery?.length > 0 && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white">Gallery</h2>
+                <h2 className="text-2xl font-bold text-white">Галерия</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {service.gallery.map((image, index) => (
                     <div
@@ -170,11 +210,25 @@ export default async function ServicePage({ params }: { params: PageParams }) {
                 size={20}
                 className="transition-transform group-hover:-translate-x-1"
               />
-              <span>Back to Services</span>
+              <span>Назад към услугите</span>
             </Link>
           </section>
         </div>
       </main>
+
+      <Script id="service-page-structured-data" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: service.name,
+          description: service.description,
+          provider: {
+            "@type": "TattooParlor",
+            name: "Ink Spell Tattoo Studio",
+            image: service.image?.asset?.url || "/images/placeholder.jpg",
+          },
+        })}
+      </Script>
     </div>
   );
 }

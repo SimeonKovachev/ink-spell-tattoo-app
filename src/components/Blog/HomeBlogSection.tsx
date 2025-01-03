@@ -19,8 +19,8 @@ export default function HomeBlogSection() {
         const data = await getAllPosts();
         setPosts(data);
       } catch (err) {
-        console.error("Error fetching blog posts:", err);
-        toast.error("Failed to load blog posts.");
+        console.error("Грешка при зареждане на блог публикациите:", err);
+        toast.error("Неуспешно зареждане на публикациите.");
       } finally {
         setLoading(false);
       }
@@ -38,8 +38,7 @@ export default function HomeBlogSection() {
   }
 
   return (
-    <section className="pb-10 pt-20 bg-gradient-to-b from-dark to-black lg:pb-20 lg:pt-[120px] overflow-hidden">
-      {/* Decorative Elements */}
+    <section className="py-12 md:py-24 lg:py-28 bg-gradient-to-b from-dark to-black overflow-hidden">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-40 left-0 w-[600px] h-[600px]">
           <div className="w-full h-full rounded-full bg-gradient-to-r from-gray-800/20 via-gray-700/20 to-gray-600/20 blur-[120px] animate-pulse"></div>
@@ -49,14 +48,14 @@ export default function HomeBlogSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-gray-800 text-gray-300 font-semibold text-sm mb-6">
-            LATEST INSIGHTS
+            НАШИТЕ ПОСЛЕДНИ ПУБЛИКАЦИИ
           </span>
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-            Explore Our Blog
+            Разгледайте нашия блог
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Discover the latest trends, insights, and stories from our world of
-            tattooing and art.
+            Открийте най-новите тенденции, вдъхновения и истории от света на
+            татуировките и изкуството.
           </p>
         </div>
 
@@ -73,7 +72,7 @@ export default function HomeBlogSection() {
 
         <div className="text-center mt-16">
           <Button
-            text="View All Posts"
+            text="Вижте всички публикации"
             type="outlined"
             responsiveSize={{
               sm: "sm",

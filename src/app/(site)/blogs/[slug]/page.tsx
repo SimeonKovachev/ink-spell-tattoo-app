@@ -13,14 +13,14 @@ type PageParams = { slug: string };
 
 export async function generateMetadata({ params }: { params: PageParams }) {
   const post = await getSinglePost(params.slug);
-  const siteName = process.env.SITE_NAME || "Your Site Name";
-  const authorName = process.env.AUTHOR_NAME || "Your Author Name";
+  const siteName = process.env.SITE_NAME;
+  const defaultAuthor = process.env.AUTHOR_NAME;
 
   if (!post) {
     return {
-      title: "Not Found",
-      description: "No blog article has been found",
-      author: authorName,
+      title: "Статията не е намерена | Ink Spell Tattoo Studio",
+      description:
+        "Не можем да намерим желаната статия. Вижте други интересни публикации на нашия блог.",
       robots: {
         index: false,
         follow: false,
@@ -38,15 +38,42 @@ export async function generateMetadata({ params }: { params: PageParams }) {
 
   return {
     title: `${post.seoTitle || post.title} | ${siteName}`,
-    description: post.seoDescription || post.excerpt,
-    author: post.author?.name || authorName,
+    description:
+      post.seoDescription ||
+      post.excerpt ||
+      "Открийте нашите най-нови статии за татуировки, изкуство и дизайн.",
+    author: post.author?.name || defaultAuthor,
+    alternates: {
+      canonical: `https://www.ink-spell.com/blog/${params.slug}`,
+    },
+    openGraph: {
+      title: post.seoTitle || post.title,
+      description: post.seoDescription || post.excerpt,
+      url: `https://www.ink-spell.com/blog/${params.slug}`,
+      type: "article",
+      siteName,
+      images: [
+        {
+          url: post.mainImage?.asset?.url || "/images/blog/blog-01.jpg",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.seoTitle || post.title,
+      description: post.seoDescription || post.excerpt,
+      images: [post.mainImage?.asset?.url || "/images/blog/blog-01.jpg"],
+    },
     robots: {
       index: true,
       follow: true,
-      nocache: true,
+      nocache: false,
       googleBot: {
         index: true,
-        follow: false,
+        follow: true,
         "max-video-preview": -1,
         "max-image-preview": "large",
         "max-snippet": -1,
@@ -75,14 +102,14 @@ export default async function Post({ params }: { params: PageParams }) {
   if (!post) {
     return (
       <div className="flex items-center justify-center min-h-[600px] text-white">
-        Post not found
+        Статията не е намерена
       </div>
     );
   }
 
   return (
     <>
-      <Breadcrumb pageName="Blog Details" />
+      <Breadcrumb pageName="Детайли за блог статия" />
 
       <section className="pb-10 pt-20 bg-dark lg:pb-20 lg:pt-[120px]">
         <div className="container">
@@ -102,7 +129,6 @@ export default async function Post({ params }: { params: PageParams }) {
             {/* Post Meta */}
             <div className="absolute bottom-0 left-0 w-full p-6 md:p-8">
               <div className="flex flex-wrap items-center gap-6 text-white/90">
-                {/* Author - Only show if author exists */}
                 {post.author && (
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-gray-700">
@@ -117,7 +143,7 @@ export default async function Post({ params }: { params: PageParams }) {
                       />
                     </div>
                     <span className="font-medium">
-                      By{" "}
+                      От{" "}
                       <Link
                         href="/#"
                         className="hover:text-gray-300 transition-colors"
@@ -127,8 +153,6 @@ export default async function Post({ params }: { params: PageParams }) {
                     </span>
                   </div>
                 )}
-
-                {/* Date */}
                 {post.publishedAt && (
                   <div className="flex items-center gap-2">
                     <Calendar className="w-5 h-5" />
@@ -137,18 +161,15 @@ export default async function Post({ params }: { params: PageParams }) {
                     </span>
                   </div>
                 )}
-
-                {/* Reading Time */}
                 <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5" />
-                  <span>5 min read</span>
+                  <span>5 мин четене</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="flex flex-wrap -mx-4">
-            {/* Main Content */}
             <div className="w-full px-4 lg:w-8/12">
               <article className="prose prose-invert prose-lg max-w-none xl:pr-10">
                 <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-clip-text">
@@ -160,16 +181,12 @@ export default async function Post({ params }: { params: PageParams }) {
               </article>
             </div>
 
-            {/* Sidebar */}
             <div className="w-full px-4 lg:w-4/12">
               <aside className="space-y-8">
                 <Suspense fallback={<LoadingState />}>
-                  {/* <Newsletter /> */}
-
-                  {/* Popular Articles */}
                   <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-500/20 rounded-xl p-6">
                     <h2 className="text-2xl font-semibold text-transparent bg-clip-text text-white mb-6">
-                      Popular Articles
+                      Популярни статии
                     </h2>
                     <div className="space-y-6">
                       {posts
@@ -182,12 +199,12 @@ export default async function Post({ params }: { params: PageParams }) {
                               blog.mainImage?.asset?.url || defaultPostImage
                             }
                             title={blog.title.slice(0, 30)}
-                            name={blog.author?.name || "Anonymous"}
+                            name={blog.author?.name || "Анонимен"}
                           />
                         ))}
                     </div>
                   </div>
-                 
+                  
                   {/* Ad Banner */}
                   {/* <div className="overflow-hidden rounded-xl">
                     <Image
@@ -203,11 +220,10 @@ export default async function Post({ params }: { params: PageParams }) {
             </div>
           </div>
 
-          {/* Related Articles */}
           <div className="-mx-4 flex flex-wrap mt-20">
             <div className="wow fadeInUp w-full px-4" data-wow-delay=".2s">
               <h2 className="text-3xl font-bold text-transparent bg-clip-text text-white mb-4">
-                Related Articles
+                Свързани статии
               </h2>
               <div className="h-1 w-20 bg-accent-purple rounded-full mb-10"></div>
             </div>

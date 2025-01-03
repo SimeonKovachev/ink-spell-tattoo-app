@@ -14,7 +14,7 @@ const SingleBlog = ({
   onMouseEnter?: () => void;
 }) => {
   if (!blog) {
-    console.warn("No blog data passed to SingleBlog component.");
+    console.warn("Липсват данни за блог публикацията в компонента SingleBlog.");
     return null;
   }
 
@@ -47,12 +47,12 @@ const SingleBlog = ({
           <div className="flex items-center text-gray-400 text-sm">
             <Calendar className="w-4 h-4 mr-2" />
             <time dateTime={publishedAt}>
-              {format(new Date(publishedAt), "MMM dd, yyyy")}
+              {format(new Date(publishedAt), "dd MMM, yyyy")}
             </time>
           </div>
           <div className="flex items-center text-gray-400 text-sm">
             <Clock className="w-4 h-4 mr-2" />
-            <span>5 min read</span>
+            <span>5 минути четене</span>
           </div>
         </div>
 
@@ -71,12 +71,11 @@ const SingleBlog = ({
           href={`/blogs/${slug.current}`}
           className="inline-flex items-center text-gray-300 hover:text-white transition-colors duration-300 group/link"
         >
-          <span>Read More</span>
+          <span>Прочетете повече</span>
           <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-2 transition-transform duration-300" />
         </Link>
       </div>
 
-      {/* Hover Effect Overlay */}
       <div className="absolute inset-0 border-2 border-transparent group-hover:border-gray-700 rounded-xl transition-colors duration-300 pointer-events-none"></div>
     </article>
   );

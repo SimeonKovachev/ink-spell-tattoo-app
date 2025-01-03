@@ -34,7 +34,7 @@ const FaqForm = () => {
   };
 
   return (
-    <div className="max-w-xl w-full bg-dark-2 p-8 rounded-lg shadow-lg border border-dark-3">
+    <div id="report" className="max-w-xl w-full bg-dark-2 p-8 rounded-lg shadow-lg border border-dark-3">
       <h3 className="text-2xl font-semibold text-white mb-6">
         Имате въпроси? Свържете се с нас!
       </h3>

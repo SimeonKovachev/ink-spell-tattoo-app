@@ -10,19 +10,29 @@ export default function Header() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
-
+  
   useEffect(() => {
+    // Set correct viewport height
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    setVH(); // Set initial value
+    window.addEventListener('resize', setVH);
+
     const timeout = setTimeout(() => {
       setInitialRender(false);
     }, 50);
 
     const interval = setInterval(() => {
       switchToNextSlide();
-    }, 5000);
+    }, 7000);
 
     return () => {
       clearTimeout(timeout);
       clearInterval(interval);
+      window.removeEventListener('resize', setVH);
     };
   }, [currentSlide]);
 
@@ -43,7 +53,8 @@ export default function Header() {
   };
 
   return (
-    <header className="relative h-screen flex items-center justify-center bg-black text-white overflow-hidden">
+    <header className="relative flex items-center justify-center bg-black text-white overflow-hidden" style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
+      {/* Rest of your header content remains exactly the same */}
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -86,7 +97,7 @@ export default function Header() {
       <div className="absolute inset-0 bg-black opacity-50"></div>
 
       <div
-        className={`relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 text-center max-w-4xl mx-auto transition-opacity duration-500 ${
+        className={`relative z-10 px-8 md:px-16 lg:px-20 text-center max-w-4xl mx-auto transition-opacity duration-500 ${
           isFading ? "opacity-0" : "opacity-100"
         }`}
       >

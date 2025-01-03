@@ -6,7 +6,10 @@ import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-24 lg:py-32 overflow-hidden">
+    <section
+      id="contact"
+      className="relative py-12 md:py-24 lg:py-28 overflow-hidden"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -37,8 +40,8 @@ export default function Contact() {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-fuchsia-900/20 animate-ambient"></div>
       </div>
 
-      <div id="zapisi-se" className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-wrap justify-between">
+      <div id="book-now" className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-wrap justify-between gap-10">
           <div className="w-full lg:w-[45%] flex flex-col">
             <div className="max-w-[570px] mx-auto lg:mx-0">
               <div className="mb-14">

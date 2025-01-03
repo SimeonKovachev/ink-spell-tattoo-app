@@ -11,6 +11,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "GothicCyr";
+  src: url("/fonts/gothiccyr_normal.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --font-heading: "Cinzel", serif;
   --font-subheading: "Montserrat", sans-serif;
@@ -77,6 +84,11 @@ textarea {
 
 .heading {
   font-family: Fire Flight;
+}
+
+
+.cyrillic-heading {
+  font-family: GothicCyr;
 }
 
 .bg-accent-purple {

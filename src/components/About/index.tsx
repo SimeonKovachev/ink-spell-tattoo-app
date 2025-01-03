@@ -6,7 +6,7 @@ import SectionTitle from "../Common/SectionTitle";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-24 pb-28 overflow-hidden">
+    <section id="about" className="relative py-16 pb-20 lg:py-24 lg:pb-28 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -71,54 +71,68 @@ export default function AboutSection() {
 
           <div className="w-full lg:w-[45%]">
             <div className="relative group">
-              <div
-                className="relative w-full h-[400px] lg:h-[500px] mask-torn-edge"
-              >
+              <div className="relative w-full h-[400px] lg:h-[500px] mask-torn-edge">
                 <Image
                   src="/images/about/portrait.jpg"
-                  alt="Портрет на Ива"
-                  layout="fill"
-                  objectFit="contain"
+                  alt="Ива Лазарова - професионален татуист и концептуален художник в Ink Spell Tattoo Studio Плевен"
+                  fill
                   quality={85}
-                  priority={true}
+                  priority
+                  className="object-contain animate-fade-in"
                 />
               </div>
 
-              <div className="relative mt-8">
-                <div
-                  className="relative z-10 transform rotate-12"
-                  style={{ left: "-50px" }}
+            <div className="relative mt-8">
+                {/* First image container */}
+                <div 
+                  className="relative z-10 transform 
+                    rotate-6 translate-x-[0px] 
+                    md:rotate-9 md:translate-x-[-35px] 
+                    lg:rotate-12 lg:translate-x-[-50px]"
                 >
-                  <Image
-                    src="/images/about/tattoo-sample2.jpg"
-                    alt="Пример за татуировка 1"
-                    width={300}
-                    height={300}
-                    className="rounded-lg shadow-lg mask-torn-edge"
-                  />
-                  <Image
-                    src="/images/about/tape.png"
-                    alt="Декоративна лента"
-                    width={80}
-                    height={80}
-                    className="absolute -top-3 -left-3 transform -rotate-45"
-                  />
+                  <div className="w-[200px] md:w-[250px] lg:w-[300px]">
+                    <Image
+                      src="/images/about/tattoo-sample2.jpg"
+                      alt="Художествена татуировка с фини линии и минималистичен дизайн от Ink Spell Tattoo Studio"
+                      width={300}
+                      height={300}
+                      quality={85}
+                      className="rounded-lg shadow-lg mask-torn-edge w-full h-auto"
+                    />
+                    <Image
+                      src="/images/about/tape.png"
+                      alt="Декоративна лента"
+                      width={80}
+                      height={80}
+                      className="absolute -top-3 -left-3 transform -rotate-45 w-[60px] md:w-[70px] lg:w-[80px]"
+                    />
+                  </div>
                 </div>
-                <div className="absolute top-12 -right-8 z-0 transform -rotate-12">
-                  <Image
-                    src="/images/about/tattoo-sample1.jpg"
-                    alt="Пример за татуировка 2"
-                    width={250}
-                    height={250}
-                    className="rounded-lg shadow-lg mask-torn-edge"
-                  />
-                  <Image
-                    src="/images/about/tape.png"
-                    alt="Декоративна лента"
-                    width={80}
-                    height={80}
-                    className="absolute -top-5 -right-5 transform rotate-45"
-                  />
+
+                {/* Second image container */}
+                <div 
+                  className="absolute z-0 transform 
+                    top-12 right-4 -rotate-6
+                    md:top-10 md:-right-6 md:-rotate-6
+                    lg:top-12 lg:-right-8 lg:-rotate-12"
+                >
+                  <div className="w-[160px] md:w-[200px] lg:w-[250px]">
+                    <Image
+                      src="/images/about/tattoo-sample1.jpg"
+                      alt="Персонализирана геометрична татуировка създадена в тату студио Ink Spell Плевен"
+                      width={250}
+                      height={250}
+                      quality={85}
+                      className="rounded-lg shadow-lg mask-torn-edge w-full h-auto"
+                    />
+                    <Image
+                      src="/images/about/tape.png"
+                      alt="Декоративна лента"
+                      width={80}
+                      height={80}
+                      className="absolute -top-5 -right-5 transform rotate-45 w-[60px] md:w-[70px] lg:w-[80px]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

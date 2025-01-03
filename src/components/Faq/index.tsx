@@ -13,7 +13,7 @@ const Faq = ({ isFormVisible = true }: FaqProps) => {
   return (
     <section
       id="faq"
-      className="flex flex-col gap-16 relative z-20 overflow-hidden bg-dark py-20 lg:py-24"
+      className="flex flex-col gap-16 relative z-20 overflow-hidden bg-dark py-12 md:py-24 lg:py-28"
     >
       <div className="container">
         <SectionTitle
