@@ -41,7 +41,7 @@ export default function RootLayout({
       <head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="robots" href="/robots.txt" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
         <div

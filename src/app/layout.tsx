@@ -85,7 +85,7 @@ export const metadata = {
     yandex: "",
   },
   icons: {
-    icon: "/images/favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 

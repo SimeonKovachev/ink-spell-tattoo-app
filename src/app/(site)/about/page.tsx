@@ -55,7 +55,7 @@ export const metadata: Metadata = {
 const AboutPage = () => {
   return (
     <main>
-      <Breadcrumb pageName="За мен" />
+      <Breadcrumb pageName="За Мен" />
       <About />
       <GoogleTestimonials />
 

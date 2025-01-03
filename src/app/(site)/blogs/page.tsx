@@ -7,22 +7,21 @@ import { BlogPost } from "@/types/blogPost";
 import { getAllPosts } from "@/lib/fetchPosts";
 import toast from "react-hot-toast";
 import Script from "next/script";
+import { Search, Tag } from "lucide-react";
 
 export default function Blog() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const data = await getAllPosts();
-
         if (data.length === 0) {
           toast("Няма намерени публикации!", { icon: "🛑" });
-        } else {
-          toast.success("Блог публикациите бяха заредени успешно!");
         }
-
         setPosts(data);
       } catch (err) {
         console.error("Грешка при зареждане на блог публикации:", err);
@@ -31,30 +30,96 @@ export default function Blog() {
         setLoading(false);
       }
     };
-
     fetchPosts();
   }, []);
 
+  const allTags = [...new Set(posts.flatMap((post) => post.tags))];
+
+  const filteredPosts = posts.filter(
+    (post) =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (!selectedTag || post.tags.includes(selectedTag))
+  );
+
   if (loading) {
-    return null;
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
   }
 
   return (
     <>
       <Breadcrumb pageName="Блог" />
 
-      <section className="pb-10 pt-20 lg:pb-20 lg:pt-[120px]">
-        <div className="container">
-          <h1 className="text-center text-4xl font-bold mb-8">
-            Последни Публикации
-          </h1>
-          <div className="-mx-4 flex flex-wrap justify-center">
-            {posts.map((blog, i) => (
-              <div key={i} className="w-full px-4 md:w-2/3 lg:w-1/2 xl:w-1/3">
+      <section className="relative pb-10 lg:pb-20 bg-gradient-to-b from-gray-900 via-[#1c1231] to-[#1a0b2e]">
+        <div className="container px-4 mx-auto">
+          <div className="max-w-3xl mx-auto mb-12">
+            <div className="flex flex-col gap-4 bg-gray-800/50 rounded-lg p-4 backdrop-blur-sm border border-purple-500/10">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Търсене в блога..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full bg-gray-900/50 text-gray-200 rounded-lg pl-10 pr-4 py-2 border border-purple-500/20 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setSelectedTag(null)}
+                  className={`px-3 py-1 rounded-full text-sm ${
+                    !selectedTag
+                      ? "bg-purple-500 text-white"
+                      : "bg-gray-700/50 text-gray-300 hover:bg-gray-700"
+                  } transition-colors`}
+                >
+                  Всички
+                </button>
+                {allTags.map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => setSelectedTag(tag)}
+                    className={`px-3 py-1 rounded-full text-sm ${
+                      selectedTag === tag
+                        ? "bg-purple-500 text-white"
+                        : "bg-gray-700/50 text-gray-300 hover:bg-gray-700"
+                    } transition-colors`}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredPosts.map((blog, i) => (
+              <div
+                key={i}
+                className="transform hover:-translate-y-2 transition-all duration-300"
+              >
                 <SingleBlog blog={blog} />
               </div>
             ))}
           </div>
+
+          {filteredPosts.length === 0 && (
+            <div className="text-center py-20">
+              <div className="text-purple-500 mb-4">
+                <Tag className="w-12 h-12 mx-auto" />
+              </div>
+              <h3 className="text-xl text-gray-200 mb-2">
+                Няма намерени публикации
+              </h3>
+              <p className="text-gray-400">
+                Опитайте с различни критерии за търсене
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
