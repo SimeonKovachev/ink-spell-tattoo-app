@@ -28,11 +28,7 @@ export const BookingForm: React.FC = () => {
   } = useForm<BookingFormInputs>();
 
   const selectedDate = watch("appointmentDate");
-  const {
-    slots: availableSlots,
-    isLoading,
-    error,
-  } = useBookingSlots(selectedDate);
+  const { slots: availableSlots } = useBookingSlots(selectedDate);
 
   const onSubmit = async (data: BookingFormInputs) => {
     try {
