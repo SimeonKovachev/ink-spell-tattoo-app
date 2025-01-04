@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 const ErrorPage = () => {
   return (
     <>
-      <Breadcrumb pageName="Страницата не е намерена" />
       <NotFound />
     </>
   );
