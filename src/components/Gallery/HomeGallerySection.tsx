@@ -43,7 +43,7 @@ export default function HomeGallerySection() {
             subtitle="Галерия"
             title="Изкуството на татуировките"
             paragraph="Потопете се в света на уникалните татуировки, създадени с внимание към детайла и страст към изкуството."
-            width="640px"
+            width="840px"
             center
           />
         </div>

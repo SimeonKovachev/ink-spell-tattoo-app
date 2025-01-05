@@ -1,10 +1,13 @@
-export async function fetchGoogleReviews() {
+import { cache } from "react";
+
+export const fetchGoogleReviews = cache(async () => {
   try {
     const response = await fetch("/api/google-reviews", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 3600 },
     });
 
     if (!response.ok) {
@@ -17,4 +20,4 @@ export async function fetchGoogleReviews() {
     console.error("Error fetching Google reviews:", error);
     return [];
   }
-}
+});

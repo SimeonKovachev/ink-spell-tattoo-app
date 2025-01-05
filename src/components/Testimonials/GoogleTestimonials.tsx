@@ -1,35 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { GoogleReview } from "@/types/googleReview";
 import Button from "../Common/Button";
 import { fetchGoogleReviews } from "@/lib/fetchGoogleReviews";
 import SectionTitle from "../Common/SectionTitle";
+import { useQuery } from "@tanstack/react-query";
 
 export default function GoogleTestimonials() {
-  const [reviews, setReviews] = useState<GoogleReview[]>([]);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: reviews = [] as GoogleReview[],
+    isLoading,
+    error,
+  } = useQuery<GoogleReview[], Error>({
+    queryKey: ["google-reviews"],
+    queryFn: fetchGoogleReviews,
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60 * 24,
+    retry: 2,
+  });
 
-  useEffect(() => {
-    const getReviews = async () => {
-      try {
-        const data = await fetchGoogleReviews();
-        setReviews(data);
-      } catch (error) {
-        console.error("Грешка при зареждане на отзивите:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getReviews();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    console.error("Грешка при зареждане на отзивите:", error);
+    return (
+      <div className="text-center text-gray-400 py-12">
+        Възникна грешка при зареждане на отзивите
       </div>
     );
   }
@@ -69,7 +72,7 @@ export default function GoogleTestimonials() {
             subtitle="ОТЗИВИ"
             title="Какво казват нашите клиенти"
             paragraph="Прочетете мненията на доволните клиенти и открийте защо Ink Spell е техният избор номер едно."
-            width="640px"
+            width="840px"
             center
           />
         </div>

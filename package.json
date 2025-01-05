@@ -16,6 +16,8 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/types": "^3.64.1",
     "@sanity/vision": "^3.62.3",
+    "@tanstack/react-query": "^5.62.15",
+    "@tanstack/react-query-devtools": "^5.62.15",
     "axios": "^1.7.9",
     "calendar-link": "^2.7.0",
     "date-fns": "^4.1.0",

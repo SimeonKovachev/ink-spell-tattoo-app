@@ -12,6 +12,7 @@ const SingleService = ({ service }: { service: Service }) => {
             src={service.image?.asset?.url || "/images/placeholder.jpg"}
             alt={service.name}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-all duration-700 ease-out scale-105 group-hover:scale-110"
             priority
           />

@@ -3,10 +3,30 @@
 import Image from "next/image";
 import { PaperclipIcon, Heart } from "lucide-react";
 import SectionTitle from "../Common/SectionTitle";
+import { useEffect, useState } from "react";
+import { ParticlePosition } from "@/types/particlePosition";
 
 export default function AboutSection() {
+  const [particlePositions, setParticlePositions] = useState<
+      ParticlePosition[]
+    >([]);
+
+  useEffect(() => {
+    const positions = Array(6)
+      .fill(null)
+      .map((_, i) => ({
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDelay: `${i * 2}s`,
+      }));
+    setParticlePositions(positions);
+  }, []);
+
   return (
-    <section id="about" className="relative z-10 py-16 pb-20 lg:py-24 lg:pb-28 overflow-hidden">
+    <section
+      id="about"
+      className="relative z-10 py-16 pb-20 lg:py-24 lg:pb-28 overflow-hidden"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -14,17 +34,17 @@ export default function AboutSection() {
           <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-600/30 via-fuchsia-500/30 to-pink-500/30 blur-[120px] animate-pulse-strong"></div>
         </div>
 
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-2 h-2 bg-yellow-400/20 rounded-full blur-sm animate-floating-particle`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 2}s`,
-            }}
-          ></div>
-        ))}
+        <div className="absolute inset-0">
+          {particlePositions.map((position, i) => (
+            <div
+              key={i}
+              className={`absolute w-2 h-2 bg-yellow-400/20 rounded-full blur-sm animate-floating-particle particle-${i + 1}`}
+              style={position}
+            >
+              <div className="absolute inset-0 animate-particle-trail" />
+            </div>
+          ))}
+        </div>
 
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent animate-glow"></div>
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent animate-glow"></div>
@@ -76,20 +96,15 @@ export default function AboutSection() {
                   src="/images/about/portrait.jpg"
                   alt="Ива Лазарова - професионален татуист и концептуален художник в Ink Spell Tattoo Studio Плевен"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   quality={85}
                   priority
                   className="object-contain animate-fade-in"
                 />
               </div>
 
-            <div className="relative mt-8">
-                {/* First image container */}
-                <div 
-                  className="relative z-10 transform 
-                    rotate-6 translate-x-[0px] 
-                    md:rotate-9 md:translate-x-[-35px] 
-                    lg:rotate-12 lg:translate-x-[-50px]"
-                >
+              <div className="relative mt-8">
+                <div className="relative z-10 transform rotate-6 translate-x-[0px] md:rotate-9 md:translate-x-[-35px] lg:rotate-12 lg:translate-x-[-50px]">
                   <div className="w-[200px] md:w-[250px] lg:w-[300px]">
                     <Image
                       src="/images/about/tattoo-sample2.jpg"
@@ -109,13 +124,7 @@ export default function AboutSection() {
                   </div>
                 </div>
 
-                {/* Second image container */}
-                <div 
-                  className="absolute z-0 transform 
-                    top-12 right-4 -rotate-6
-                    md:top-10 md:-right-6 md:-rotate-6
-                    lg:top-12 lg:-right-8 lg:-rotate-12"
-                >
+                <div className="absolute z-0 transform top-12 right-4 -rotate-6 md:top-10 md:-right-6 md:-rotate-6 lg:top-12 lg:-right-8 lg:-rotate-12">
                   <div className="w-[160px] md:w-[200px] lg:w-[250px]">
                     <Image
                       src="/images/about/tattoo-sample1.jpg"

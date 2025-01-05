@@ -1,5 +1,7 @@
 "use client";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PreLoader from "@/components/Common/PreLoader";
 import "../styles/globals.css";
 import { useEffect, useState } from "react";
@@ -18,6 +20,37 @@ const montserrat = Montserrat({
   variable: "--font-subheading",
 });
 
+// Create a client
+function makeQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        // Default stale time of 5 minutes
+        staleTime: 1000 * 60 * 5,
+        // Default cache time of 24 hours
+        gcTime: 1000 * 60 * 60 * 24,
+        // Retry failed requests 1 time after the initial failure
+        retry: 1,
+        // Refetch on window focus
+        refetchOnWindowFocus: true,
+      },
+    },
+  });
+}
+
+let browserQueryClient: QueryClient | undefined = undefined;
+
+function getQueryClient() {
+  if (typeof window === "undefined") {
+    // Server: always make a new client
+    return makeQueryClient();
+  } else {
+    // Browser: make a new client if we don't already have one
+    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    return browserQueryClient;
+  }
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -25,6 +58,7 @@ export default function RootLayout({
 }) {
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
+  const [queryClient] = useState(() => getQueryClient());
 
   useEffect(() => {
     document.body.classList.add("no-scroll");
@@ -44,7 +78,7 @@ export default function RootLayout({
 
   return (
     <html
-      suppressHydrationWarning={true}
+      suppressHydrationWarning
       lang="bg"
       className={`${montserrat.variable}`}
     >
@@ -55,57 +89,63 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
-        <div
-          className={
-            loading
-              ? "opacity-0"
-              : "opacity-100 transition-opacity duration-300"
-          }
-        >
-          {!isStudio && <Navbar />}
-          <ToasterContext />
-          <main>{children}</main>
-          {!isStudio && <Footer />}
-          {!isStudio && <ScrollToTop />}
-        </div>
+        <QueryClientProvider client={queryClient}>
+          <div
+            className={
+              loading
+                ? "opacity-0"
+                : "opacity-100 transition-opacity duration-300"
+            }
+          >
+            {!isStudio && <Navbar />}
+            <ToasterContext />
+            <main>{children}</main>
+            {!isStudio && <Footer />}
+            {!isStudio && <ScrollToTop />}
+          </div>
 
-        {loading && <PreLoader />}
+          {loading && <PreLoader />}
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "TattooParlor",
-              name: "Ink Spell Tattoo Studio",
-              image:
-                "https://www.ink-spell.com/images/ink-spell-full-colored-logo.jpg",
-              description:
-                "Professional tattoo studio in Pleven, Bulgaria specializing in unique, artistic tattoos, including astrology and tarot-inspired designs.",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "ул. Васил Априлов 48",
-                addressLocality: "Плевен",
-                addressRegion: "Плевен",
-                postalCode: "5800",
-                addressCountry: "BG",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: "43.4168",
-                longitude: "24.6062",
-              },
-              url: "https://www.ink-spell.com",
-              telephone: "+359894300545",
-              openingHours: "Mo-Sa 10:00-19:00",
-              priceRange: "$$",
-              sameAs: [
-                "https://www.facebook.com/StudioInkSpell",
-                "https://www.instagram.com/inkspell.tattoo",
-              ],
-            }),
-          }}
-        />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "TattooParlor",
+                name: "Ink Spell Tattoo Studio",
+                image:
+                  "https://www.ink-spell.com/images/ink-spell-full-colored-logo.jpg",
+                description:
+                  "Professional tattoo studio in Pleven, Bulgaria specializing in unique, artistic tattoos, including astrology and tarot-inspired designs.",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "ул. Васил Априлов 48",
+                  addressLocality: "Плевен",
+                  addressRegion: "Плевен",
+                  postalCode: "5800",
+                  addressCountry: "BG",
+                },
+                geo: {
+                  "@type": "GeoCoordinates",
+                  latitude: "43.4168",
+                  longitude: "24.6062",
+                },
+                url: "https://www.ink-spell.com",
+                telephone: "+359894300545",
+                openingHours: "Mo-Sa 10:00-19:00",
+                priceRange: "$$",
+                sameAs: [
+                  "https://www.facebook.com/StudioInkSpell",
+                  "https://www.instagram.com/inkspell.tattoo",
+                ],
+              }),
+            }}
+          />
+          {/* Add React Query Devtools - will only show in development */}
+          {process.env.NODE_ENV === "development" && (
+            <ReactQueryDevtools initialIsOpen={false} />
+          )}
+        </QueryClientProvider>
       </body>
     </html>
   );

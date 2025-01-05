@@ -27,7 +27,7 @@ export default function Header() {
 
     const interval = setInterval(() => {
       switchToNextSlide();
-    }, 7000);
+    }, 5000);
 
     return () => {
       clearTimeout(timeout);

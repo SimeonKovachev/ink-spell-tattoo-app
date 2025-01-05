@@ -1,10 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
 import BookingForm from "./BookingForm";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { ParticlePosition } from "@/types/particlePosition";
 
 export default function Contact() {
+  const [particlePositions, setParticlePositions] = useState<
+    ParticlePosition[]
+  >([]);
+
+  useEffect(() => {
+    const positions = Array(6)
+      .fill(null)
+      .map((_, i) => ({
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDelay: `${i * 2}s`,
+      }));
+    setParticlePositions(positions);
+  }, []);
+
   return (
     <section
       id="contact"
@@ -18,16 +35,12 @@ export default function Contact() {
         </div>
 
         <div className="absolute inset-0">
-          {[...Array(6)].map((_, i) => (
+          {particlePositions.map((position, i) => (
             <div
               key={i}
               className={`absolute w-2 h-2 bg-purple-400/60 rounded-full blur-sm
                 animate-floating-particle particle-${i + 1}`}
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${i * 2}s`,
-              }}
+              style={position}
             >
               <div className="absolute inset-0 animate-particle-trail" />
             </div>
