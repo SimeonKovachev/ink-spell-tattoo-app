@@ -29,7 +29,7 @@ const SingleService = ({ service }: { service: Service }) => {
 
           <div className="relative">
             <Button
-              text="Explore Service"
+              text="Разгледай услугата"
               type="filled"
               responsiveSize={{
                 sm: "sm",
@@ -45,7 +45,6 @@ const SingleService = ({ service }: { service: Service }) => {
         </div>
       </div>
 
-      {/* Bottom accent line */}
       <div className="absolute bottom-0 left-0 w-full h-1 rounded-b-xl bg-gradient-to-r from-purple-500/0 via-purple-500 to-purple-500/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
     </div>
   );

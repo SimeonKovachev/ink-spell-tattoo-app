@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import { Metadata } from "next";
 import { ArrowLeft, Clock, ListChecks } from "lucide-react";
 import Script from "next/script";
+import portableTextComponents from "@/components/Common/PortableTextComponents";
 
 type PageParams = { slug: string };
 
@@ -80,36 +81,6 @@ export default async function ServicePage({ params }: { params: PageParams }) {
       </div>
     );
   }
-
-const portableTextComponents: PortableTextReactComponents = {
-  block: {
-    normal: ({ children }) => <p className="text-gray-300">{children}</p>,
-  },
-  list: {
-    bullet: ({ children }) => (
-      <ul className="list-disc ml-5 space-y-2">{children}</ul>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }) => <li>{children}</li>,
-  },
-  marks: {},
-  hardBreak: () => <br />,
-  unknownBlockStyle: ({ children }) => (
-    <p className="text-gray-300">{children}</p>
-  ),
-  unknownList: ({ children }) => (
-    <ul className="list-disc ml-5 space-y-2">{children}</ul>
-  ),
-  unknownListItem: ({ children }) => <li>{children}</li>,
-  unknownMark: ({ children }) => <span>{children}</span>,
-  types: {},
-  unknownType: ({ value }) => (
-    <div className="text-red-500">
-      Unknown type: {JSON.stringify(value, null, 2)}
-    </div>
-  ),
-};
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-dark via-gray-900 to-black">

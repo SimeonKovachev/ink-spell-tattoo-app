@@ -4,11 +4,11 @@ import styles from "../../styles/Preloader.module.css";
 const PreLoader = () => {
   const loadingTexts = useMemo(
     () => [
-      "Inking your page...",
-      "Sketching perfection...",
-      "Ink in progress...",
-      "Art loading...",
-      "Drawing magic...",
+      "Скицираме вашата страница...",
+      "Нанасяме перфектния щрих...",
+      "Мастилото е в действие...",
+      "Изкуството се зарежда...",
+      "Рисуваме магия...",
     ],
     []
   );
