@@ -1,4 +1,4 @@
-import { PortableText, PortableTextReactComponents } from "@portabletext/react";
+import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 import { getSingleService } from "@/lib/fetchServices";

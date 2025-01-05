@@ -1,4 +1,5 @@
 import { PortableTextReactComponents } from "@portabletext/react";
+import Image from "next/image";
 
 const portableTextComponents: PortableTextReactComponents = {
   block: {
@@ -66,9 +67,11 @@ const portableTextComponents: PortableTextReactComponents = {
   types: {
     image: ({ value }) => (
       <div className="my-6">
-        <img
+        <Image
           src={value.asset.url}
           alt={value.alt || ""}
+          width={40}
+          height={40}
           className="rounded-lg max-w-full h-auto"
         />
       </div>
