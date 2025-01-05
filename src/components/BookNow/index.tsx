@@ -53,7 +53,7 @@ export default function Contact() {
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-fuchsia-900/20 animate-ambient"></div>
       </div>
 
-      <div id="book-now" className="container mx-auto px-4 relative z-10">
+      <div id="booknow" className="container mx-auto px-4 relative z-10">
         <div className="flex flex-wrap justify-between gap-10">
           <div className="w-full lg:w-[45%] flex flex-col">
             <div className="max-w-[570px] mx-auto lg:mx-0">
