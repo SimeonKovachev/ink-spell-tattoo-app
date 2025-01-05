@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import ToasterContext from "@/app/api/context/ToasterContext";
+import Head from "next/head";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -26,7 +27,17 @@ export default function RootLayout({
   const pathname = usePathname();
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1500);
+    document.body.classList.add("no-scroll");
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+      document.body.classList.remove("no-scroll");
+    }, 1500);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.classList.remove("no-scroll");
+    };
   }, []);
 
   const isStudio = pathname.startsWith("/studio");
@@ -38,11 +49,11 @@ export default function RootLayout({
       className={`${montserrat.variable}`}
     >
       <GoogleAnalytics gaId="G-JFDSDGDFG" />
-      <head>
+      <Head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="robots" href="/robots.txt" />
         <link rel="icon" href="/favicon.ico" />
-      </head>
+      </Head>
       <body>
         <div
           className={

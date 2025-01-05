@@ -53,7 +53,10 @@ export default function Header() {
   };
 
   return (
-    <header className="relative flex items-center justify-center bg-black text-white overflow-hidden" style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
+    <header
+      className="relative z-10 flex items-center justify-center bg-black text-white overflow-hidden"
+      style={{ height: "calc(var(--vh, 1vh) * 100)" }}
+    >
       {/* Rest of your header content remains exactly the same */}
       {slides.map((slide, index) => (
         <div

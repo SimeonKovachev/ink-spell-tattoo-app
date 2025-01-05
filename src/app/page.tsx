@@ -1,6 +1,7 @@
 import About from "@/components/About";
 import HomeBlogSection from "@/components/Blog/HomeBlogSection";
 import Contact from "@/components/BookNow";
+import WaveDivider from "@/components/Common/ShapeDivider";
 import Faq from "@/components/Faq";
 import HomeGallerySection from "@/components/Gallery/HomeGallerySection";
 import Header from "@/components/Hero";
@@ -14,10 +15,16 @@ export default function Home() {
       <About />
       <HomeServiceSection />
       <HomeGallerySection />
-      <GoogleTestimonials />
+      <div className="relative">
+        <WaveDivider position="top" height={150} type="wave" color="#111827" />
+        <GoogleTestimonials />
+      </div>
       <Faq isFormVisible={false} />
       <HomeBlogSection />
-      <Contact />
+      <div className="relative">
+        <WaveDivider position="top" height={150} type="wave" color="#000000" />
+        <Contact />
+      </div>
     </div>
   );
 }

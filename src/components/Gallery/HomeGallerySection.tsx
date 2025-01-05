@@ -40,9 +40,9 @@ export default function HomeGallerySection() {
       <div className="relative max-w-7xl mx-auto">
         <div className="mb-12 animate-fadeIn">
           <SectionTitle
-            subtitle="Gallery"
-            title="Showcase Of My Work"
-            paragraph="Explore my tattoo works that define artistry and precision."
+            subtitle="Галерия"
+            title="Изкуството на татуировките"
+            paragraph="Потопете се в света на уникалните татуировки, създадени с внимание към детайла и страст към изкуството."
             width="640px"
             center
           />

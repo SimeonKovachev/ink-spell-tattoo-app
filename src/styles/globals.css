@@ -157,6 +157,10 @@ textarea {
 }
 
 /* Custom Scrollbar for Most Browsers */
+.no-scroll {
+  overflow: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

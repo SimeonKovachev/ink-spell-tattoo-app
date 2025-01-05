@@ -7,6 +7,7 @@ import { getAllPosts } from "@/lib/fetchPosts";
 import { ArrowRight } from "lucide-react";
 import SingleBlog from "./SingleBlog";
 import Button from "../Common/Button";
+import SectionTitle from "../Common/SectionTitle";
 
 export default function HomeBlogSection() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -46,20 +47,15 @@ export default function HomeBlogSection() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 rounded-full bg-gray-800 text-gray-300 font-semibold text-sm mb-6">
-            НАШИТЕ ПОСЛЕДНИ ПУБЛИКАЦИИ
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-            Разгледайте нашия блог
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            Открийте най-новите тенденции, вдъхновения и истории от света на
-            татуировките и изкуството.
-          </p>
-        </div>
+        <SectionTitle
+          subtitle="НАШИТЕ ПОСЛЕДНИ ПУБЛИКАЦИИ"
+          title="Разгледайте нашия блог"
+          paragraph="Открийте най-новите тенденции, вдъхновения и истории от света на
+            татуировките и изкуството."
+          center
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.slice(0, 3).map((post, index) => (
             <SingleBlog
               key={post.slug.current}

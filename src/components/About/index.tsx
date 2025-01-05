@@ -6,7 +6,7 @@ import SectionTitle from "../Common/SectionTitle";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-16 pb-20 lg:py-24 lg:pb-28 overflow-hidden">
+    <section id="about" className="relative z-10 py-16 pb-20 lg:py-24 lg:pb-28 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

@@ -54,7 +54,7 @@ export default function GoogleTestimonials() {
   };
 
   return (
-    <section className="relative py-12 md:py-24 lg:py-28 overflow-hidden">
+    <section className="relative pt-32 py-12 md:py-24 md:pt-44 lg:py-28 lg:pt-48 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
