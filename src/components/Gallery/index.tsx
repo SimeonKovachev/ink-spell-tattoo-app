@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { client } from "@/lib/client";
-import { GALLERY_QUERY } from "@/lib/queries/galleryQuery";
 import { GalleryItem } from "@/types/galleryItem";
 import GalleryGrid from "./GalleryGrid";
+import { getAllGalleryItems } from "@/lib/fetchGallery";
 
 export default function Gallery() {
   const [images, setImages] = useState<GalleryItem[]>([]);
@@ -14,7 +13,7 @@ export default function Gallery() {
     const fetchGallery = async () => {
       try {
         setIsLoading(true);
-        const data = await client.fetch(GALLERY_QUERY);
+        const data = await getAllGalleryItems();
         setImages(data);
       } catch (error) {
         console.error("Error fetching gallery data:", error);

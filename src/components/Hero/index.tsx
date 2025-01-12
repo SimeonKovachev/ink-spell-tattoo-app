@@ -108,6 +108,7 @@ export default function Header() {
           className="text-sm sm:text-base md:text-lg uppercase font-semibold tracking-wide text-accent-purple mb-2"
           style={{
             fontFamily: "var(--font-body)",
+            textShadow: "0px 0px 3px rgba(0, 0, 0, 0.4)",
           }}
         >
           {slides[currentSlide].subheading}

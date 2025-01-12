@@ -1,4 +1,7 @@
 import RootLayout from "@/components/RootLayout";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import Head from "next/head";
+import { Montserrat } from "next/font/google";
 
 export const metadata = {
   title: {
@@ -89,12 +92,68 @@ export const metadata = {
   },
 };
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-subheading",
+});
+
 export default function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <RootLayout>{children}</RootLayout>
+    <html
+      suppressHydrationWarning
+      lang="bg"
+      className={`${montserrat.variable}`}
+    >
+      <GoogleAnalytics gaId="G-JFDSDGDFG" />
+      <Head>
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+        <link rel="robots" href="/robots.txt" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <body>
+        <RootLayout>{children}</RootLayout>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "TattooParlor",
+              name: "Ink Spell Tattoo Studio",
+              image:
+                "https://www.ink-spell.com/images/ink-spell-full-colored-logo.jpg",
+              description:
+                "Professional tattoo studio in Pleven, Bulgaria specializing in unique, artistic tattoos, including astrology and tarot-inspired designs.",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "ул. Васил Априлов 48",
+                addressLocality: "Плевен",
+                addressRegion: "Плевен",
+                postalCode: "5800",
+                addressCountry: "BG",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: "43.414790362561966",
+                longitude: "24.619758278011275",
+              },
+              url: "https://www.ink-spell.com",
+              telephone: "+359894300545",
+              openingHours: "Mo-Sa 10:00-19:00",
+              priceRange: "$$",
+              sameAs: [
+                "https://www.facebook.com/StudioInkSpell",
+                "https://www.instagram.com/inkspell.tattoo",
+              ],
+            }),
+          }}
+        />
+      </body>
+    </html>
   );
 }
