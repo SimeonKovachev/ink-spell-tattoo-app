@@ -1,5 +1,4 @@
 import RootLayout from "@/components/RootLayout";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import Head from "next/head";
 import { Montserrat } from "next/font/google";
 
