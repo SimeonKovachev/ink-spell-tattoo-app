@@ -5,21 +5,21 @@ import Image from "next/image";
 import Button from "../Common/Button";
 import { Calendar } from "lucide-react";
 import { slides } from "@/config/homeHeroSlides.config";
+import { localImageUrl } from "@/lib/utils/localImage";
 
 export default function Header() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
-  
+
   useEffect(() => {
-    // Set correct viewport height
     const setVH = () => {
       const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    setVH(); // Set initial value
-    window.addEventListener('resize', setVH);
+    setVH();
+    window.addEventListener("resize", setVH);
 
     const timeout = setTimeout(() => {
       setInitialRender(false);
@@ -32,7 +32,7 @@ export default function Header() {
     return () => {
       clearTimeout(timeout);
       clearInterval(interval);
-      window.removeEventListener('resize', setVH);
+      window.removeEventListener("resize", setVH);
     };
   }, [currentSlide]);
 
@@ -57,33 +57,43 @@ export default function Header() {
       className="relative z-10 flex items-center justify-center bg-black text-white overflow-hidden"
       style={{ height: "calc(var(--vh, 1vh) * 100)" }}
     >
-      {/* Rest of your header content remains exactly the same */}
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            currentSlide === index ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <Image
-            src={slide.image}
-            alt={slide.heading}
-            fill
-            style={{
-              objectFit: "cover",
-              transform:
+      {slides.map((slide, index) => {
+        const optimizedImage = localImageUrl(slide.image, {
+          width: 1920,
+          height: 1080,
+          quality: 85,
+        });
+
+        return (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              currentSlide === index ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={optimizedImage.src}
+              alt={slide.heading}
+              width={optimizedImage.width}
+              height={optimizedImage.height}
+              sizes={optimizedImage.sizes}
+              style={{
+                objectFit: "cover",
+                transform:
+                  currentSlide === index && !initialRender
+                    ? "scale(1.2)"
+                    : "scale(1.1)",
+              }}
+              className={`transition-transform ${
                 currentSlide === index && !initialRender
-                  ? "scale(1.2)"
-                  : "scale(1.1)",
-            }}
-            className={`transition-transform ${
-              currentSlide === index && !initialRender
-                ? "duration-[5000ms]"
-                : "duration-[1000ms]"
-            } ease-out`}
-          />
-        </div>
-      ))}
+                  ? "duration-[5000ms]"
+                  : "duration-[1000ms]"
+              } ease-out`}
+              priority
+            />
+          </div>
+        );
+      })}
 
       <div className="absolute inset-0 pointer-events-none">
         <div

@@ -357,8 +357,8 @@ textarea {
 }
 
 .mask-torn-edge {
-    -webkit-mask-image: url('/images/about/torn-edge.png');
-  mask-image: url('/images/about/torn-edge.png');
+  -webkit-mask-image: url('/images/about/torn-edge.webp');
+  mask-image: url('/images/about/torn-edge.webp');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: cover;
@@ -366,4 +366,11 @@ textarea {
   -webkit-mask-position: center;
   mask-position: center;
   background-color: transparent;
+}
+
+@supports not (mask-image: url('/images/about/torn-edge.webp')) {
+  .mask-torn-edge {
+    -webkit-mask-image: url('/images/about/torn-edge.png');
+    mask-image: url('/images/about/torn-edge.png');
+  }
 }

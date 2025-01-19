@@ -5,11 +5,12 @@ import { PaperclipIcon, Heart } from "lucide-react";
 import SectionTitle from "../Common/SectionTitle";
 import { useEffect, useState } from "react";
 import { ParticlePosition } from "@/types/particlePosition";
+import { localImageUrl } from "@/lib/utils/localImage";
 
 export default function AboutSection() {
   const [particlePositions, setParticlePositions] = useState<
-      ParticlePosition[]
-    >([]);
+    ParticlePosition[]
+  >([]);
 
   useEffect(() => {
     const positions = Array(6)
@@ -21,6 +22,22 @@ export default function AboutSection() {
       }));
     setParticlePositions(positions);
   }, []);
+
+  const mainImage = localImageUrl("/images/about/portrait.jpg", {
+    width: 800,
+    height: 600,
+    quality: 90,
+  });
+
+  const tattooSample1 = localImageUrl("/images/about/tattoo-sample1.jpg", {
+    width: 250,
+    height: 250,
+  });
+
+  const tattooSample2 = localImageUrl("/images/about/tattoo-sample2.jpg", {
+    width: 300,
+    height: 300,
+  });
 
   return (
     <section
@@ -93,13 +110,12 @@ export default function AboutSection() {
             <div className="relative group">
               <div className="relative w-full h-[400px] lg:h-[500px] mask-torn-edge">
                 <Image
-                  src="/images/about/portrait.jpg"
+                  src={mainImage.src}
                   alt="Ива Лазарова - професионален татуист и концептуален художник в Ink Spell Tattoo Studio Плевен"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  quality={85}
-                  priority
-                  className="object-contain animate-fade-in w-auto h-full"
+                  width={mainImage.width}
+                  height={mainImage.height}
+                  sizes={mainImage.sizes}
+                  className="object-contain w-auto h-full"
                 />
               </div>
 
@@ -107,12 +123,11 @@ export default function AboutSection() {
                 <div className="relative z-10 transform rotate-6 translate-x-[0px] md:rotate-9 md:translate-x-[-35px] lg:rotate-12 lg:translate-x-[-50px]">
                   <div className="w-[200px] md:w-[250px] lg:w-[300px]">
                     <Image
-                      src="/images/about/tattoo-sample2.jpg"
+                      src={tattooSample2.src}
                       alt="Художествена татуировка с фини линии и минималистичен дизайн от Ink Spell Tattoo Studio"
-                      width={300}
-                      height={300}
-                      quality={85}
-                      className="rounded-lg shadow-lg mask-torn-edge w-full h-auto"
+                      width={tattooSample2.width}
+                      height={tattooSample2.height}
+                      className="rounded-lg shadow-lg mask-torn-edge"
                     />
                     <Image
                       src="/images/about/tape.png"
@@ -127,12 +142,11 @@ export default function AboutSection() {
                 <div className="absolute z-0 transform top-12 right-4 -rotate-6 md:top-10 md:-right-6 md:-rotate-6 lg:top-12 lg:-right-8 lg:-rotate-12">
                   <div className="w-[160px] md:w-[200px] lg:w-[250px]">
                     <Image
-                      src="/images/about/tattoo-sample1.jpg"
+                      src={tattooSample1.src}
                       alt="Персонализирана геометрична татуировка създадена в тату студио Ink Spell Плевен"
-                      width={250}
-                      height={250}
-                      quality={85}
-                      className="rounded-lg shadow-lg mask-torn-edge w-full h-auto"
+                      width={tattooSample1.width}
+                      height={tattooSample1.height}
+                      className="rounded-lg shadow-lg mask-torn-edge"
                     />
                     <Image
                       src="/images/about/tape.png"
