@@ -2,19 +2,20 @@ import { Service } from "@/types/service";
 import Image from "next/image";
 import Button from "../Common/Button";
 import { ArrowRight } from "lucide-react";
+import { getSizes, urlFor } from "@/lib/image";
 
 const SingleService = ({ service }: { service: Service }) => {
+
   return (
     <div className="group relative h-full rounded-xl bg-gradient-to-b from-gray-800/95 to-gray-900 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-1">
       <div className="relative h-full rounded-xl bg-gradient-to-b from-gray-800 to-gray-900 shadow-lg">
         <div className="relative w-full h-48 md:h-56 overflow-hidden rounded-t-xl">
           <Image
-            src={service.image?.asset?.url || "/images/placeholder.jpg"}
+            src={urlFor(service.image, { preset: "card" })}
             alt={service.name}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-all duration-700 ease-out scale-105 group-hover:scale-110"
-            priority
+            sizes={getSizes("card")}
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent opacity-60 transition-opacity duration-500 ease-out group-hover:opacity-40" />
         </div>

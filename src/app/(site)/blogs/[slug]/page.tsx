@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock } from "lucide-react";
 import { PortableText } from "@portabletext/react";
+import { getSizes, urlFor } from "@/lib/image";
 
 type PageParams = { slug: string };
 
@@ -107,6 +108,14 @@ export default async function Post({ params }: { params: PageParams }) {
     );
   }
 
+  const mainImageUrl = post.mainImage
+    ? urlFor(post.mainImage.asset, { preset: "hero" })
+    : defaultPostImage;
+
+  const authorImageUrl = post.author?.image
+    ? urlFor(post.author.image.asset, { preset: "thumbnail" })
+    : defaultAuthorImage;
+
   return (
     <>
       <Breadcrumb pageName="Детайли за блог статия" />
@@ -117,10 +126,11 @@ export default async function Post({ params }: { params: PageParams }) {
           <div className="relative mb-16 overflow-hidden rounded-2xl">
             <div className="relative h-[300px] md:h-[400px] lg:h-[500px]">
               <Image
-                src={post.mainImage?.asset?.url || defaultPostImage}
+                src={mainImageUrl || defaultPostImage}
                 alt={post.title}
                 fill
                 className="object-cover transform hover:scale-105 transition-transform duration-700"
+                sizes={getSizes("hero")}
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-transparent"></div>
@@ -133,9 +143,7 @@ export default async function Post({ params }: { params: PageParams }) {
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-gray-700">
                       <Image
-                        src={
-                          post.author.image?.asset?.url || defaultAuthorImage
-                        }
+                        src={authorImageUrl || defaultAuthorImage}
                         alt={post.author.name}
                         width={40}
                         height={40}
@@ -204,7 +212,7 @@ export default async function Post({ params }: { params: PageParams }) {
                         ))}
                     </div>
                   </div>
-                  
+
                   {/* Ad Banner */}
                   {/* <div className="overflow-hidden rounded-xl">
                     <Image

@@ -109,7 +109,6 @@ export default function SiteLayout({
       lang="bg"
       className={`${montserrat.variable}`}
     >
-      <GoogleAnalytics gaId="G-JFDSDGDFG" />
       <Head>
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <link rel="robots" href="/robots.txt" />

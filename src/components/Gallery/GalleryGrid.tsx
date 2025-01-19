@@ -1,8 +1,8 @@
 "use client";
 
+import { getSizes, urlFor } from "@/lib/image";
 import { GalleryItem } from "@/types/galleryItem";
 import Image from "next/image";
-import { urlFor } from "@/lib/image";
 import { useState } from "react";
 import Modal from "react-modal";
 
@@ -49,14 +49,10 @@ export default function GalleryGrid({
             >
               {img.image?.asset?.url && (
                 <Image
-                  src={urlFor(img.image)
-                    .width(800)
-                    .height(1000)
-                    .quality(90)
-                    .url()}
+                  src={urlFor(img.image, { preset: "gallery" })}
                   alt={img.title}
                   fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  sizes={getSizes("gallery")}
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   priority={index < 4}
                 />
@@ -160,11 +156,7 @@ export default function GalleryGrid({
 
             <div className="relative w-full aspect-[16/9] max-h-[500px] overflow-hidden mb-6">
               <Image
-                src={urlFor(selectedImage.image!)
-                  .width(1200)
-                  .height(800)
-                  .quality(100)
-                  .url()}
+                src={urlFor(selectedImage.image!, { preset: "modal" })}
                 alt={selectedImage.title || "Gallery Image"}
                 fill
                 className="object-contain rounded-lg shadow-md"

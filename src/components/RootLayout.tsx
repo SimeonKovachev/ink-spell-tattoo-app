@@ -18,7 +18,7 @@ function makeQueryClient() {
         staleTime: 1000 * 60 * 5,
         gcTime: 1000 * 60 * 60 * 24,
         retry: 1,
-        refetchOnWindowFocus: true,
+        refetchOnWindowFocus: false,
       },
     },
   });
@@ -45,16 +45,20 @@ export default function RootLayout({
   const [queryClient] = useState(() => getQueryClient());
 
   useEffect(() => {
+    const cleanup = () => {
+      document.body.classList.remove("no-scroll");
+    };
+
     document.body.classList.add("no-scroll");
 
     const timer = setTimeout(() => {
       setLoading(false);
-      document.body.classList.remove("no-scroll");
+      cleanup();
     }, 1500);
 
     return () => {
       clearTimeout(timer);
-      document.body.classList.remove("no-scroll");
+      cleanup();
     };
   }, []);
 

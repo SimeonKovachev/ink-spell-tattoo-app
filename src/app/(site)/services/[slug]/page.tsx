@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import { ArrowLeft, Clock, ListChecks } from "lucide-react";
 import Script from "next/script";
 import portableTextComponents from "@/components/Common/PortableTextComponents";
+import { getSizes, urlFor } from "@/lib/image";
 
 type PageParams = { slug: string };
 
@@ -90,10 +91,11 @@ export default async function ServicePage({ params }: { params: PageParams }) {
         <div className="relative mb-12 rounded-xl overflow-hidden shadow-2xl">
           <div className="aspect-video relative w-full h-96">
             <Image
-              src={service.image?.asset?.url || "/images/placeholder.jpg"}
+              src={urlFor(service.image, { preset: "hero" })}
               alt={service.name}
               layout="fill"
               className="object-cover"
+              sizes={getSizes("hero")}
               priority
             />
           </div>
@@ -162,9 +164,10 @@ export default async function ServicePage({ params }: { params: PageParams }) {
                       className="aspect-square relative rounded-lg overflow-hidden group shadow-md"
                     >
                       <Image
-                        src={image.asset.url}
+                        src={urlFor(image, { preset: "gallery" })}
                         alt={`${service.name} gallery image ${index + 1}`}
                         fill
+                        sizes={getSizes("gallery")}
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>

@@ -1,3 +1,4 @@
+import { urlFor } from "@/lib/image";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,7 +16,7 @@ const PopularArticle = (props: {
       >
         <div className={`mr-5 overflow-hidden rounded`}>
           <Image
-            src={image}
+            src={urlFor(image, { preset: "thumbnail" })}
             alt="image"
             width={80}
             height={80}
