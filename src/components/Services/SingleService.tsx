@@ -9,9 +9,9 @@ const SingleService = ({ service }: { service: Service }) => {
   return (
     <div className="group relative h-full rounded-xl bg-gradient-to-b from-gray-800/95 to-gray-900 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-1">
       <div className="relative h-full rounded-xl bg-gradient-to-b from-gray-800 to-gray-900 shadow-lg">
-        <div className="relative w-full h-48 md:h-56 overflow-hidden rounded-t-xl">
+        <div className="relative w-full aspect-[51/40] overflow-hidden rounded-t-xl">
           <Image
-            src={urlFor(service.image, { preset: "card" })}
+            src={urlFor(service.image, { preset: "serviceCard" })}
             alt={service.name}
             fill
             sizes={getSizes("card")}

@@ -6,7 +6,8 @@ export type ImagePreset =
   | "hero"
   | "gallery"
   | "modal"
-  | "card";
+  | "card"
+  | "serviceCard";
 
 export interface ImageConfig {
   width: number;

@@ -47,6 +47,12 @@ export const imageConfig = {
       quality: 85,
       fit: "clip",
     },
+    serviceCard: {
+      width: 1020, // 51 * 20
+      height: 800, // 40 * 20
+      quality: 85,
+      fit: "clip",
+    },
   } satisfies Record<ImagePreset, ImageConfig>,
 
   sizes: {
