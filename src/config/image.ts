@@ -23,15 +23,15 @@ export const imageConfig = {
       fit: "clip",
     },
     hero: {
-      width: 1920,
-      height: 1080,
+      width: 2040,
+      height: 1600,
       quality: 90,
       fit: "clip",
       priority: true,
     },
     gallery: {
       width: 800,
-      height: 1000,
+      height: 625,
       quality: 85,
       fit: "clip",
     },

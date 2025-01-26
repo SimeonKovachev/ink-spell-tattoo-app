@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const SingleBlog = ({
   blog,
@@ -13,6 +14,8 @@ const SingleBlog = ({
   isActive?: boolean;
   onMouseEnter?: () => void;
 }) => {
+  const router = useRouter();
+
   if (!blog) {
     console.warn("Липсват данни за блог публикацията в компонента SingleBlog.");
     return null;
@@ -20,11 +23,16 @@ const SingleBlog = ({
 
   const { title, mainImage, excerpt, publishedAt, slug } = blog;
 
+  const handleCardClick = () => {
+    router.push(`/blogs/${slug.current}`);
+  };
+
   return (
     <article
+      onClick={handleCardClick}
       className={`
         group relative bg-gray-900/50 backdrop-blur-sm border border-gray-800
-        rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-1
+        rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-1 cursor-pointer
         ${isActive ? "ring-1 ring-gray-700 shadow-lg shadow-black/20" : ""}
       `}
       onMouseEnter={onMouseEnter}

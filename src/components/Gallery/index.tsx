@@ -27,8 +27,8 @@ export default function Gallery() {
 
   if (isLoading) {
     return (
-      <div className="min-h-[600px] flex items-center justify-center bg-black">
-        <div className="w-16 h-16 border-4 border-purple-600 border-t-white rounded-full animate-spin" />
+      <div className="min-h-screen bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
       </div>
     );
   }

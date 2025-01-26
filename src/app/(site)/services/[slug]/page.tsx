@@ -73,7 +73,7 @@ export default async function ServicePage({ params }: { params: PageParams }) {
 
   if (!service) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-gradient-to-b from-dark to-gray-900">
+      <div className="min-h-[60vh] flex items-center justify-center bg-dark">
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full">
           <p className="text-center text-xl text-gray-300">
             Услугата не е намерена.
@@ -84,57 +84,54 @@ export default async function ServicePage({ params }: { params: PageParams }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-dark via-gray-900 to-black">
+    <div className="min-h-screen bg-dark">
       <Breadcrumb pageName={service.name} />
 
       <main className="container mx-auto px-4 py-12 lg:py-16">
-        <div className="relative mb-12 rounded-xl overflow-hidden shadow-2xl">
-          <div className="aspect-video relative w-full h-96">
-            <Image
-              src={urlFor(service.image, { preset: "hero" })}
-              alt={service.name}
-              layout="fill"
-              className="object-cover"
-              sizes={getSizes("hero")}
-              priority
-            />
-          </div>
-        </div>
-
         <div className="grid lg:grid-cols-3 gap-12">
-          <aside className="lg:col-span-1">
-            <div className="space-y-8">
-              {service.features?.length > 0 && (
-                <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700/50">
-                  <div className="flex items-center gap-2 mb-4">
-                    <ListChecks className="text-accent-purple" />
-                    <h2 className="text-xl font-bold text-white">
-                      Характеристики
-                    </h2>
-                  </div>
-                  <ul className="list-inside list-disc space-y-2 text-gray-300">
-                    {service.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-accent-purple mt-0.5">•</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {service.duration && (
-                <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700/50">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Clock className="text-accent-purple" />
-                    <h2 className="text-xl font-bold text-white">
-                      Продължителност
-                    </h2>
-                  </div>
-                  <p className="text-gray-300">{service.duration}</p>
-                </div>
-              )}
+          <aside className="lg:col-span-1 space-y-8">
+            <div className="relative rounded-xl overflow-hidden shadow-lg mb-8">
+              <div className="aspect-[51/40] relative w-full">
+                <Image
+                  src={urlFor(service.image, { preset: "hero" })}
+                  alt={service.name}
+                  layout="fill"
+                  className="object-cover"
+                  sizes={getSizes("hero")}
+                  priority
+                />
+              </div>
             </div>
+            {service.features?.length > 0 && (
+              <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700/50">
+                <div className="flex items-center gap-2 mb-4">
+                  <ListChecks className="text-accent-purple" />
+                  <h2 className="text-xl font-bold text-white">
+                    Характеристики
+                  </h2>
+                </div>
+                <ul className="list-inside list-disc space-y-2 text-gray-300">
+                  {service.features.map((feature, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-accent-purple mt-0.5">•</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {service.duration && (
+              <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700/50">
+                <div className="flex items-center gap-2 mb-4">
+                  <Clock className="text-accent-purple" />
+                  <h2 className="text-xl font-bold text-white">
+                    Продължителност
+                  </h2>
+                </div>
+                <p className="text-gray-300">{service.duration}</p>
+              </div>
+            )}
           </aside>
 
           <section className="lg:col-span-2 space-y-12">
@@ -161,7 +158,7 @@ export default async function ServicePage({ params }: { params: PageParams }) {
                   {service.gallery.map((image, index) => (
                     <div
                       key={index}
-                      className="aspect-square relative rounded-lg overflow-hidden group shadow-md"
+                      className="aspect-[51/40] relative rounded-lg overflow-hidden group shadow-md"
                     >
                       <Image
                         src={urlFor(image, { preset: "gallery" })}

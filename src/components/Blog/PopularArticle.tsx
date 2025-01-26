@@ -5,9 +5,8 @@ import Link from "next/link";
 const PopularArticle = (props: {
   image: string;
   title: string;
-  name: string;
 }) => {
-  const { image, title, name } = props;
+  const { image, title } = props;
   return (
     <div className="w-full px-4 md:w-1/2 lg:w-full">
       <div
@@ -33,7 +32,6 @@ const PopularArticle = (props: {
               {title}
             </Link>
           </h4>
-          <p className="text-sm text-body-color dark:text-dark-6">{name}</p>
         </div>
       </div>
     </div>

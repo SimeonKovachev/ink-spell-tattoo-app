@@ -53,7 +53,7 @@ export default function Blog() {
     <>
       <Breadcrumb pageName="Блог" />
 
-      <section className="relative pb-10 lg:pb-20 bg-gradient-to-b from-gray-900 via-[#1c1231] to-[#1a0b2e]">
+      <section className="relative px-4 py-12 lg:py-16 bg-gradient-to-b from-gray-900 via-[#1c1231] to-[#1a0b2e]">
         <div className="container px-4 mx-auto">
           <div className="max-w-3xl mx-auto mb-12">
             <div className="flex flex-col gap-4 bg-gray-800/50 rounded-lg p-4 backdrop-blur-sm border border-purple-500/10">
@@ -137,10 +137,6 @@ export default function Blog() {
             image: post.mainImage?.asset?.url || "/images/placeholder.jpg",
             datePublished: post.publishedAt,
             description: post.excerpt,
-            author: {
-              "@type": "Person",
-              name: post.author?.name || "Неизвестен автор",
-            },
             mainEntityOfPage: {
               "@type": "WebPage",
               "@id": `https://www.ink-spell.com/blog/${post.slug.current}`,

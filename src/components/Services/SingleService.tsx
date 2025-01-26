@@ -3,11 +3,20 @@ import Image from "next/image";
 import Button from "../Common/Button";
 import { ArrowRight } from "lucide-react";
 import { getSizes, urlFor } from "@/lib/image";
+import { useRouter } from "next/navigation";
 
 const SingleService = ({ service }: { service: Service }) => {
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    router.push(`/services/${service.slug.current}`);
+  };
 
   return (
-    <div className="group relative h-full rounded-xl bg-gradient-to-b from-gray-800/95 to-gray-900 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-1">
+    <div
+      onClick={handleCardClick}
+      className="group relative h-full rounded-xl bg-gradient-to-b from-gray-800/95 to-gray-900 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-1 cursor-pointer"
+    >
       <div className="relative h-full rounded-xl bg-gradient-to-b from-gray-800 to-gray-900 shadow-lg">
         <div className="relative w-full aspect-[51/40] overflow-hidden rounded-t-xl">
           <Image

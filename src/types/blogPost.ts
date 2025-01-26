@@ -8,13 +8,7 @@ export type BlogPost = {
   content: PortableTextBlock[];
   mainImage: {
     asset: { url: string };
-  } | null;
-  author: {
-    name: string;
-    image: {
-      asset: { url: string };
-    } | null;
-  } | null;
+  };
   tags: string[];
   publishedAt: string;
   seoTitle?: string;

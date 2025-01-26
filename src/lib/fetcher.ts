@@ -1,18 +1,27 @@
 export async function fetcher<T>(url: string): Promise<T> {
   try {
-    const res = await fetch(url);
+    const fullUrl = url.startsWith("http")
+      ? url
+      : `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}${url}`;
+
+    const res = await fetch(fullUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!res.ok) {
-      const errorData = await res.json().catch(() => null);
-      const errorMessage = errorData?.error || res.statusText;
-      throw new Error(`Error ${res.status}: ${errorMessage}`);
+      throw new Error(`HTTP error! status: ${res.status}`);
     }
 
     return res.json();
   } catch (error) {
     console.error("Fetch Error:", error);
     throw new Error(
-      error instanceof Error ? error.message : "Unknown fetch error"
+      error instanceof Error
+        ? `Fetch failed: ${error.message}`
+        : "Unknown fetch error"
     );
   }
 }

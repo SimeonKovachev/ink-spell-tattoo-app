@@ -1,5 +1,4 @@
 import RootLayout from "@/components/RootLayout";
-import Head from "next/head";
 import { Montserrat } from "next/font/google";
 
 export const metadata = {
@@ -108,14 +107,8 @@ export default function SiteLayout({
       lang="bg"
       className={`${montserrat.variable}`}
     >
-      <Head>
-        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-        <link rel="robots" href="/robots.txt" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body>
         <RootLayout>{children}</RootLayout>
-
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

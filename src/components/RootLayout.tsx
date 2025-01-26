@@ -1,7 +1,6 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PreLoader from "@/components/Common/PreLoader";
 import "../styles/globals.css";
 import { useEffect, useState } from "react";
@@ -10,6 +9,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import ToasterContext from "@/app/api/context/ToasterContext";
+import QuickActionButton from "./Common/QuickActionButton";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -76,13 +76,14 @@ export default function RootLayout({
         <main>{children}</main>
         {!isStudio && <Footer />}
         {!isStudio && <ScrollToTop />}
+        {!isStudio && <QuickActionButton />}
       </div>
 
       {loading && <PreLoader />}
 
-      {process.env.NODE_ENV === "development" && (
+      {/* {process.env.NODE_ENV === "development" && (
         <ReactQueryDevtools initialIsOpen={false} />
-      )}
+      )} */}
     </QueryClientProvider>
   );
 }
