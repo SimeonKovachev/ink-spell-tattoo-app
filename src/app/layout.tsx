@@ -1,5 +1,6 @@
 import RootLayout from "@/components/RootLayout";
 import { Montserrat } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   title: {
@@ -109,6 +110,7 @@ export default function SiteLayout({
     >
       <body>
         <RootLayout>{children}</RootLayout>
+        <SpeedInsights />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
