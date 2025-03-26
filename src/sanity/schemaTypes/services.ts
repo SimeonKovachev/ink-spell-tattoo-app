@@ -43,6 +43,7 @@ export default defineType({
         {
           type: "reference",
           to: [{ type: "gallery" }],
+          weak: true,
         },
       ],
     }),
