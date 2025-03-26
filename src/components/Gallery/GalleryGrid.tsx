@@ -4,7 +4,11 @@ import { getSizes, urlFor } from "@/lib/image";
 import { GalleryItem } from "@/types/galleryItem";
 import Image from "next/image";
 import { useState } from "react";
-import ImagePreviewModal from "../Common/ImagePreviewModal";
+import dynamic from "next/dynamic";
+
+const ImagePreviewModal = dynamic(() => import("../Common/ImagePreviewModal"), {
+  ssr: false,
+});
 
 interface GalleryGridProps {
   images: GalleryItem[];

@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Gallery from "@/components/Gallery";
+import { getGalleryItemsDirect } from "@/lib/fetchGallery";
 import { Metadata } from "next";
 import Script from "next/script";
 
@@ -57,11 +58,15 @@ export const metadata: Metadata = {
   },
 };
 
-const GalleryPage = () => {
+export const revalidate = 3600; 
+
+export default async function GalleryPage() {
+  const images = await getGalleryItemsDirect();
+
   return (
     <main>
       <Breadcrumb pageName="Галерия" />
-      <Gallery />
+      <Gallery images={images} />
 
       <Script id="gallery-page-structured-data" type="application/ld+json">
         {JSON.stringify({
@@ -90,5 +95,3 @@ const GalleryPage = () => {
     </main>
   );
 };
-
-export default GalleryPage;
