@@ -34,46 +34,15 @@ export default defineType({
         rule.required().error("A service image is required"),
     }),
     defineField({
-      name: "gallery",
+      name: "galleryItems",
       type: "array",
-      title: "Gallery",
+      title: "Gallery Items",
+      description:
+        "Select images from the gallery to display with this service",
       of: [
         {
-          type: "object",
-          name: "galleryImage",
-          fields: [
-            {
-              name: "image",
-              type: "image",
-              title: "Gallery Image",
-              options: { hotspot: true },
-            },
-            {
-              name: "reference",
-              type: "reference",
-              title: "Existing Gallery Item",
-              to: [{ type: "gallery" }],
-              description: "Optional: Link to an existing gallery item",
-            },
-            {
-              name: "title",
-              type: "string",
-              title: "Image Title",
-              description: "Optional title for the image",
-            },
-            {
-              name: "autoCreateGallery",
-              type: "boolean",
-              title: "Automatically create Gallery item",
-              description: "Will create a new Gallery entry with this image",
-            },
-          ],
-          preview: {
-            select: {
-              media: "image",
-              title: "title",
-            },
-          },
+          type: "reference",
+          to: [{ type: "gallery" }],
         },
       ],
     }),

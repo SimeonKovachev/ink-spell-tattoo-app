@@ -60,5 +60,6 @@ export const imageConfig = {
     gallery: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw",
     card: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
     hero: "100vw",
+    modal: "(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw",
   },
 } as const;

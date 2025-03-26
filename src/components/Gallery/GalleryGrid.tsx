@@ -4,7 +4,7 @@ import { getSizes, urlFor } from "@/lib/image";
 import { GalleryItem } from "@/types/galleryItem";
 import Image from "next/image";
 import { useState } from "react";
-import Modal from "react-modal";
+import ImagePreviewModal from "../Common/ImagePreviewModal";
 
 interface GalleryGridProps {
   images: GalleryItem[];
@@ -125,55 +125,11 @@ export default function GalleryGrid({
       )}
 
       {/* Modal */}
-      <Modal
+      <ImagePreviewModal
         isOpen={!!selectedImage}
         onRequestClose={() => setSelectedImage(null)}
-        contentLabel="Image Modal"
-        overlayClassName="fixed inset-0 bg-black/75 flex items-center justify-center z-50 transition-opacity duration-300"
-        className="relative bg-gray-900 text-white p-8 md:p-10 lg:p-12 rounded-lg max-w-4xl w-full shadow-xl"
-      >
-        {selectedImage && (
-          <>
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 text-white bg-gray-700 hover:bg-gray-600 focus:outline-none rounded-full p-2 transition-transform duration-300 transform hover:scale-110"
-              aria-label="Close Modal"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-
-            <div className="relative w-full aspect-[16/9] max-h-[500px] overflow-hidden mb-6">
-              <Image
-                src={urlFor(selectedImage.image!, { preset: "modal" })}
-                alt={selectedImage.title || "Gallery Image"}
-                fill
-                className="object-contain rounded-lg shadow-md"
-              />
-            </div>
-
-            <div className="text-center">
-              <h3 className="text-2xl lg:text-3xl font-bold mb-4">
-                {selectedImage.title}
-              </h3>
-              <p className="text-gray-400 text-lg leading-relaxed">
-                {selectedImage.description}
-              </p>
-            </div>
-          </>
-        )}
-      </Modal>
+        image={selectedImage}
+      />
     </>
   );
 }

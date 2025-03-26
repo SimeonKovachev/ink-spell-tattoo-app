@@ -1,4 +1,5 @@
 import { PortableTextBlock } from "@portabletext/types";
+import { GalleryItem } from "./galleryItem";
 
 export type Service = {
   _id: string;
@@ -10,11 +11,7 @@ export type Service = {
       url: string;
     };
   };
-  gallery: Array<{
-    asset: {
-      url: string;
-    };
-  }>;
+  galleryItems?: GalleryItem[];
   features: string[];
   duration: string | null;
   seo?: {

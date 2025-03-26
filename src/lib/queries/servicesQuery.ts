@@ -23,9 +23,15 @@ export const SINGLE_SERVICE_QUERY = (
       url
     }
   },
-  gallery[] {
-    asset->{
-      url
+   "galleryItems": galleryItems[]-> {
+    _id,
+    title,
+    description,
+    slug,
+    image {
+      asset->{
+        url
+      }
     }
   },
   features,
