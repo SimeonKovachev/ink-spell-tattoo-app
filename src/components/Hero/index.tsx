@@ -64,11 +64,13 @@ export default function Header() {
           quality: 85,
         });
 
+        const isActive = currentSlide === index;
+
         return (
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ${
-              currentSlide === index ? "opacity-100" : "opacity-0"
+              isActive ? "opacity-100" : "opacity-0"
             }`}
           >
             <Image
@@ -78,18 +80,19 @@ export default function Header() {
               height={optimizedImage.height}
               sizes={optimizedImage.sizes}
               style={{
-                objectFit: "cover",
-                transform:
-                  currentSlide === index && !initialRender
-                    ? "scale(1.2)"
-                    : "scale(1.1)",
+                objectPosition: "center",
               }}
-              className={`transition-transform ${
-                currentSlide === index && !initialRender
-                  ? "duration-[5000ms]"
-                  : "duration-[1000ms]"
-              } ease-out`}
-              priority
+              className={`
+                absolute inset-0 w-full h-full
+                transition-transform
+                object-cover
+                ${
+                  isActive && !initialRender
+                    ? "duration-[5000ms] scale-[1.15]"
+                    : "duration-[1000ms] scale-[1.1]"
+                }
+              `}
+              priority={index === 0}
             />
           </div>
         );

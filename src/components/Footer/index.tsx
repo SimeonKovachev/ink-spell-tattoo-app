@@ -24,7 +24,7 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-gradient-to-b from-gray-900 via-gray-900 to-black text-gray-200 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-12 lg:py-16 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="space-y-6 lg:col-span-1">
             <Link href="/" className="inline-block group">
@@ -109,8 +109,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-800/50">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-400">
+          <div className="flex justify-center items-center">
+            <p className="text-sm text-center text-gray-400">
               © {new Date().getFullYear()} {studioInfo.name}. Всички права
               запазени.
             </p>
