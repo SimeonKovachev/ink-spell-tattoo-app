@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { Service } from "@/types/service";
-import { getAllServices } from "@/lib/fetchServices";
-import toast from "react-hot-toast";
 import SectionTitle from "../Common/SectionTitle";
 import SingleService from "./SingleService";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function HomeServiceSection() {
-  const [services, setServices] = useState<Service[]>([]);
+interface ServicesClientProps {
+  services: Service[];
+}
+
+export default function HomeServiceSection({ services }: ServicesClientProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [screenWidth, setScreenWidth] = useState(0);
 
@@ -25,22 +26,6 @@ export default function HomeServiceSection() {
   const itemsPerView = screenWidth < 768 ? 1 : screenWidth < 1024 ? 2 : 3;
   const itemWidth = 100 / itemsPerView;
   const maxIndex = services.length - itemsPerView;
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const data = await getAllServices();
-        if (data.length === 0) {
-          toast("Не са намерени услуги!", { icon: "🛑" });
-        }
-        setServices(data);
-      } catch (error) {
-        console.error("Error fetching services:", error);
-        toast.error("Възникна проблем при зареждането на услугите.");
-      }
-    };
-    fetchServices();
-  }, []);
 
   useEffect(() => {
     setCurrentIndex((prev) => Math.min(prev, Math.max(0, maxIndex)));

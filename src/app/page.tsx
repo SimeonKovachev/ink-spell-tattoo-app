@@ -7,13 +7,18 @@ import HomeGallerySection from "@/components/Gallery/HomeGallerySection";
 import Header from "@/components/Hero";
 import HomeServiceSection from "@/components/Services/HomeServiceSection";
 import GoogleTestimonials from "@/components/Testimonials/GoogleTestimonials";
+import { getAllServices } from "@/lib/fetchServices";
 
-export default function Home() {
+export const revalidate = 3600;
+
+export default async function Home() {
+  const services = await getAllServices();
+  
   return (
     <div className="min-h-screen">
       <Header />
       <About />
-      <HomeServiceSection />
+      <HomeServiceSection services={services} />
       <HomeGallerySection />
       <div className="relative">
         <WaveDivider position="top" height={150} type="wave" color="#111827" />

@@ -61,6 +61,7 @@ export async function generateMetadata({
   };
 }
 
+export const revalidate = 3600;
 export default async function ServicePage({ params }: { params: PageParams }) {
   const service = await getSingleService(params.slug);
   if (!service) {

@@ -2,7 +2,7 @@ import { Service } from "@/types/service";
 import { client } from "./client";
 import { SERVICES_QUERY, SINGLE_SERVICE_QUERY } from "./queries/servicesQuery";
 
-export const getAllServices = async (): Promise<Service[]> => {
+export async function getAllServices(): Promise<Service[]> {
   try {
     const services = await client.fetch(SERVICES_QUERY);
     if (!services || services.length === 0) {
@@ -14,7 +14,7 @@ export const getAllServices = async (): Promise<Service[]> => {
     console.error("Error fetching all services:", error);
     return [];
   }
-};
+}
 
 export const getSingleService = async (
   slug: string

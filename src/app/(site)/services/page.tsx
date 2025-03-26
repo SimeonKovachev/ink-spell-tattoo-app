@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import HomeServiceSection from "@/components/Services/HomeServiceSection";
+import { getAllServices } from "@/lib/fetchServices";
 import { Metadata } from "next";
 import Script from "next/script";
 
@@ -57,11 +58,15 @@ export const metadata: Metadata = {
   },
 };
 
-const ServicesPage = () => {
+export const revalidate = 3600;
+
+export default async function ServicesPage() {
+  const services = await getAllServices();
+
   return (
     <main>
       <Breadcrumb pageName="Услуги" />
-      <HomeServiceSection />
+      <HomeServiceSection services={services} />
 
       <Script id="services-page-structured-data" type="application/ld+json">
         {JSON.stringify({
@@ -89,6 +94,4 @@ const ServicesPage = () => {
       </Script>
     </main>
   );
-};
-
-export default ServicesPage;
+}

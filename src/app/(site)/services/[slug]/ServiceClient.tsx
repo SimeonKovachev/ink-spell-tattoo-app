@@ -10,9 +10,16 @@ import { ArrowLeft, Clock, ListChecks } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import ImagePreviewModal from "@/components/Common/ImagePreviewModal";
 import portableTextComponents from "@/components/Common/PortableTextComponents";
 import { getSizes, urlFor } from "@/lib/image";
+
+import dynamic from "next/dynamic";
+const ImagePreviewModal = dynamic(
+  () => import("@/components/Common/ImagePreviewModal"),
+  {
+    ssr: false,
+  }
+);
 
 interface ServiceClientProps {
   service: Service;
