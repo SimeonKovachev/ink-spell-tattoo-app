@@ -15,8 +15,8 @@ export const urlFor = (
   options: UrlForOptions = {}
 ) => {
   if (!source) return "/images/placeholder.png";
-  let config: ImageConfig;
 
+  let config: ImageConfig;
   if (options.preset) {
     config = {
       ...imageConfig.presets[options.preset],
@@ -25,7 +25,6 @@ export const urlFor = (
   } else {
     config = {
       width: options.width || 800,
-      height: options.height || 600,
       quality: options.quality || 85,
       fit: options.fit || "clip",
       priority: options.priority,
@@ -35,7 +34,7 @@ export const urlFor = (
   return builder
     .image(source)
     .width(config.width)
-    .height(config.height)
+    .height(config.height!)
     .quality(config.quality)
     .fit(config.fit)
     .auto("format")

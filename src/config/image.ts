@@ -31,15 +31,13 @@ export const imageConfig = {
     },
     gallery: {
       width: 800,
-      height: 625,
       quality: 85,
-      fit: "clip",
+      fit: "max",
     },
     modal: {
-      width: 1200,
-      height: 800,
+      width: 800,
       quality: 95,
-      fit: "clip",
+      fit: "max",
     },
     card: {
       width: 600,
@@ -48,8 +46,14 @@ export const imageConfig = {
       fit: "clip",
     },
     serviceCard: {
-      width: 1020, // 51 * 20
-      height: 800, // 40 * 20
+      width: 1020,
+      height: 800,
+      quality: 85,
+      fit: "clip",
+    },
+    promo: {
+      width: 600,
+      height: 600,
       quality: 85,
       fit: "clip",
     },
@@ -61,5 +65,6 @@ export const imageConfig = {
     card: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
     hero: "100vw",
     modal: "(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw",
+    promo: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
   },
 } as const;

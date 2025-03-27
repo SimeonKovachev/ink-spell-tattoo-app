@@ -8,7 +8,7 @@ export default async function HomeGallerySection() {
   const images = await getGalleryItemsDirect();
 
   return (
-    <section className="relative bg-gradient-to-b from-black via-gray-900/95 to-gray-900 text-white py-12 md:py-24 lg:py-28 px-4 md:px-8 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-black via-gray-900/95 to-gray-900 text-white pt-32 py-12 md:py-24 md:pt-44 lg:py-28 lg:pt-48 px-4 md:px-8 overflow-hidden">
       <div className="relative max-w-7xl mx-auto">
         <div className="mb-12 animate-fadeIn">
           <SectionTitle

@@ -23,7 +23,27 @@ export default defineType({
       name: "content",
       type: "array",
       title: "Content",
-      of: [{ type: "block" }],
+      of: [
+        { type: "block" },
+        {
+          type: "image",
+          title: "Inline Image",
+          options: { hotspot: true },
+          fields: [
+            {
+              name: "caption",
+              type: "string",
+              title: "Caption",
+              options: { isHighlighted: true },
+            },
+            {
+              name: "attribution",
+              type: "string",
+              title: "Attribution",
+            },
+          ],
+        },
+      ],
     }),
     defineField({
       name: "excerpt",

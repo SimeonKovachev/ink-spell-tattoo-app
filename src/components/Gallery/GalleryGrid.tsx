@@ -24,6 +24,7 @@ export default function GalleryGrid({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
+  // Пагинация
   const totalPages = Math.ceil(images.length / imagesPerPage);
   const paginatedImages = paginated
     ? images.slice(
@@ -39,37 +40,29 @@ export default function GalleryGrid({
           <button
             key={img._id}
             onClick={() => setSelectedImage(img)}
-            className="block w-full h-full p-0 border-none bg-transparent group animate-fadeIn relative overflow-hidden rounded-lg shadow-lg break-inside-avoid"
+            className="relative w-full p-0 border-none bg-transparent group animate-fadeIn overflow-hidden rounded-lg shadow-lg break-inside-avoid"
             style={{ animationDelay: `${index * 50}ms` }}
           >
-            <div
-              className={`relative ${
-                index % 3 === 0
-                  ? "aspect-square"
-                  : index % 3 === 1
-                    ? "aspect-[4/3]"
-                    : "aspect-[3/4]"
-              }`}
-            >
-              {img.image?.asset?.url && (
-                <Image
-                  src={urlFor(img.image, { preset: "gallery" })}
-                  alt={img.title}
-                  fill
-                  sizes={getSizes("gallery")}
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  priority={index < 4}
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-0 p-4">
-                  <h3 className="text-lg font-bold text-white mb-1">
-                    {img.title}
-                  </h3>
-                  <p className="text-sm text-gray-200 line-clamp-2">
-                    {img.description}
-                  </p>
-                </div>
+            {img.image?.asset?.url && (
+              <Image
+                src={urlFor(img.image, { preset: "gallery" })}
+                alt={img.title}
+                width={800}
+                height={600}
+                sizes={getSizes("gallery")}
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                priority={index < 4}
+              />
+            )}
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-0 p-4">
+                <h3 className="text-lg font-bold text-white mb-1">
+                  {img.title}
+                </h3>
+                <p className="text-sm text-gray-200 line-clamp-2">
+                  {img.description}
+                </p>
               </div>
             </div>
           </button>
@@ -94,7 +87,7 @@ export default function GalleryGrid({
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth="2"
+                strokeWidth={2}
                 d="M15 19l-7-7 7-7"
               />
             </svg>
@@ -120,7 +113,7 @@ export default function GalleryGrid({
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth="2"
+                strokeWidth={2}
                 d="M9 5l7 7-7 7"
               />
             </svg>
@@ -128,7 +121,6 @@ export default function GalleryGrid({
         </div>
       )}
 
-      {/* Modal */}
       <ImagePreviewModal
         isOpen={!!selectedImage}
         onRequestClose={() => setSelectedImage(null)}

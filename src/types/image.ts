@@ -7,11 +7,12 @@ export type ImagePreset =
   | "gallery"
   | "modal"
   | "card"
-  | "serviceCard";
+  | "serviceCard"
+  | "promo";
 
 export interface ImageConfig {
   width: number;
-  height: number;
+  height?: number;
   quality: number;
   fit: FitMode;
   priority?: boolean;

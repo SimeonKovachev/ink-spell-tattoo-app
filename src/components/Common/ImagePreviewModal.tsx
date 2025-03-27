@@ -4,6 +4,8 @@ import Modal from "react-modal";
 import Image from "next/image";
 import { GalleryItem } from "@/types/galleryItem";
 import { urlFor, getSizes } from "@/lib/image";
+import { X } from "lucide-react";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 interface ImagePreviewModalProps {
   isOpen: boolean;
@@ -24,16 +26,15 @@ export default function ImagePreviewModal({
       onRequestClose={onRequestClose}
       contentLabel="Image Modal"
       overlayClassName={`
-        fixed inset-0 z-50 
+        fixed inset-0 z-[60] 
         flex items-center justify-center
         bg-black/80
-        backdrop-blur-sm
         transition-opacity duration-300
         p-4 sm:p-6
       `}
       className={`
         relative w-full max-w-4xl max-h-[90vh]
-        bg-gray-900/60 backdrop-blur-xl
+        bg-gray-900/90
         rounded-2xl p-4 md:p-6 lg:p-8
         shadow-xl border border-accent-purple
         transition-all duration-300
@@ -42,42 +43,29 @@ export default function ImagePreviewModal({
     >
       <button
         onClick={onRequestClose}
-        className="absolute top-4 right-4 text-white bg-gray-800/60 hover:bg-gray-700 rounded-full p-2 transition-transform duration-300 transform hover:scale-110"
+        className="absolute top-4 right-4 z-[70] text-white bg-gray-700 hover:bg-gray-600 rounded-full p-2 transition-transform duration-300 transform hover:scale-110"
         aria-label="Close Modal"
       >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        <X className="w-5 h-5" />
       </button>
 
-      <div
-        className="
-          relative w-full
-          aspect-[16/9]
-          max-h-[75vh]
-          overflow-hidden
-          flex items-center justify-center
-          mb-6
-          rounded-lg
-        "
-      >
-        <Image
-          src={urlFor(image.image, { preset: "modal" })}
-          alt={image.title || "Gallery Image"}
-          fill
-          sizes={getSizes("modal")}
-          className="object-contain"
-        />
+      <div className="relative w-full max-h-[80vh] overflow-hidden mb-6 flex items-center justify-center rounded-lg">
+        <TransformWrapper
+          wheel={{ step: 0.1 }}
+          pinch={{ step: 5 }}
+          doubleClick={{ disabled: true }}
+        >
+          <TransformComponent>
+            <Image
+              src={urlFor(image.image, { preset: "modal" })}
+              alt={image.title || "Gallery Image"}
+              sizes={getSizes("modal")}
+              width={800}
+              height={600}
+              className="object-contain w-full h-auto"
+            />
+          </TransformComponent>
+        </TransformWrapper>
       </div>
 
       <div className="text-center px-2">
