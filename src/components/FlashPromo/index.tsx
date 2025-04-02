@@ -30,9 +30,12 @@ export default function FlashPromosClient({ promos }: FlashPromosClientProps) {
     <section className="relative bg-gradient-to-b from-black via-gray-900/95 to-gray-900 text-white py-20 lg:py-28 px-4 md:px-8 overflow-hidden">
       <div className="relative max-w-7xl mx-auto">
         <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold">Flash Tattoo Промоции</h1>
+          <h1 className="text-4xl font-bold">
+            Flash татуировки Плевен – Промо оферти и уникални дизайни
+          </h1>
           <p className="text-gray-300 mt-2">
-            Специални оферти с ограничено време и уникални дизайни
+            Готови авторски tattoo дизайни с ограничена наличност. Подходящи за
+            жени и мъже – само в Ink Spell Studio Плевен.
           </p>
         </div>
 
@@ -59,9 +62,7 @@ export default function FlashPromosClient({ promos }: FlashPromosClientProps) {
               </h2>
 
               {promo.description && (
-                <p className="text-gray-300 mb-4 line-clamp-3">
-                  {promo.description}
-                </p>
+                <p className="text-gray-300 mb-4">{promo.description}</p>
               )}
 
               <div className="text-sm text-gray-400 mb-2">
@@ -89,6 +90,13 @@ export default function FlashPromosClient({ promos }: FlashPromosClientProps) {
               />
             </div>
           ))}
+        </div>
+
+        <div className="text-sm text-gray-400 mt-12 max-w-3xl mx-auto text-center">
+          Открийте вашата следваща татуировка сред нашите Flash промоции в Ink
+          Spell – Плевен. Уникални женски и мъжки дизайни, лесен избор без
+          лутане, гарантирано качество и стил. Подходящи за първа татуировка или
+          бърз tattoo с характер. Запишете час още днес!
         </div>
       </div>
     </section>
