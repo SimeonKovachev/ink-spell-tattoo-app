@@ -1,7 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
-import PopularArticle from "@/components/Blog/PopularArticle";
 import SingleBlog from "@/components/Blog/SingleBlog";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { format } from "date-fns";
@@ -14,10 +12,14 @@ import { BlogPost } from "@/types/blogPost";
 export const ptComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => (
-      <img
+      <Image
         src={value.asset.url}
         alt={value.alt || "Ink‑Spell tattoo"}
+        width={value.asset.metadata?.dimensions?.width || 800}
+        height={value.asset.metadata?.dimensions?.height || 600}
         className="my-6 rounded-xl shadow-lg"
+        sizes="(max-width:768px) 100vw, 768px"
+        loading="lazy"
       />
     ),
   },
@@ -46,14 +48,6 @@ export const ptComponents: PortableTextComponents = {
   },
 };
 
-function LoadingState() {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900 flex items-center justify-center">
-      <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
-    </div>
-  );
-}
-
 export default function PostPage({
   initialPosts,
   initialPost,
@@ -61,7 +55,6 @@ export default function PostPage({
   initialPosts: BlogPost[];
   initialPost: BlogPost;
 }) {
-  const posts = initialPosts;
   const post = initialPost;
 
   if (!post) {
@@ -72,7 +65,7 @@ export default function PostPage({
     );
   }
 
- const featured = initialPosts.filter(
+  const featured = initialPosts.filter(
     (p) => p.isFeatured && p._id !== post._id
   );
   const fallback = [...initialPosts]
@@ -86,11 +79,10 @@ export default function PostPage({
 
       <section className="bg-dark px-4 py-12 lg:py-16">
         <div className="container">
-          {/* Hero Section */}
           <div className="relative mb-16 overflow-hidden rounded-2xl">
             <div className="relative h-[300px] md:h-[400px] lg:h-[500px]">
               <Image
-                src={urlFor(initialPost.mainImage, { preset: "hero" })}
+                src={urlFor(post.mainImage, { preset: "hero" })}
                 alt={post.title}
                 fill
                 className="object-cover transform hover:scale-105 transition-transform duration-700"
@@ -100,7 +92,6 @@ export default function PostPage({
               <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-transparent"></div>
             </div>
 
-            {/* Post Meta */}
             <div className="absolute bottom-0 left-0 w-full p-6 md:p-8">
               <div className="flex flex-wrap items-center gap-6 text-white/90">
                 {post.publishedAt && (
@@ -136,7 +127,7 @@ export default function PostPage({
           </div>
 
           <div className="-mx-4 flex flex-wrap mt-20">
-            <div className="wow fadeInUp w-full px-4" data-wow-delay=".2s">
+            <div className="w-full px-4">
               <h2 className="text-3xl font-bold text-transparent bg-clip-text text-white mb-4">
                 Свързани статии
               </h2>
