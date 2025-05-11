@@ -1,3 +1,5 @@
+"use client";
+
 import { BlogPost } from "@/types/blogPost";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -31,7 +33,7 @@ const SingleBlog = ({
     <article
       onClick={handleCardClick}
       className={`
-        group relative bg-gray-900/50 backdrop-blur-sm border border-gray-800
+        group relative bg-gray-900/50 border border-gray-800
         rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-1 cursor-pointer
         ${isActive ? "ring-1 ring-gray-700 shadow-lg shadow-black/20" : ""}
       `}

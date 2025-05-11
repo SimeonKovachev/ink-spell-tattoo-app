@@ -7,9 +7,44 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import { format } from "date-fns";
 import Image from "next/image";
 import { Calendar, Clock } from "lucide-react";
-import { PortableText } from "@portabletext/react";
+import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { getSizes, urlFor } from "@/lib/image";
 import { BlogPost } from "@/types/blogPost";
+
+export const ptComponents: PortableTextComponents = {
+  types: {
+    image: ({ value }) => (
+      <img
+        src={value.asset.url}
+        alt={value.alt || "Ink‑Spell tattoo"}
+        className="my-6 rounded-xl shadow-lg"
+      />
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc pl-6 my-4 space-y-2">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal pl-6 my-4 space-y-2">{children}</ol>
+    ),
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="text-accent-purple font-semibold">{children}</strong>
+    ),
+    em: ({ children }) => <em className="italic">{children}</em>,
+  },
+  block: {
+    h2: ({ children }) => (
+      <h2 className="text-3xl font-bold mt-8 mb-4">{children}</h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="text-2xl font-semibold mt-6 mb-3">{children}</h3>
+    ),
+    normal: ({ children }) => <p className="mb-4">{children}</p>,
+  },
+};
 
 function LoadingState() {
   return (
@@ -36,6 +71,14 @@ export default function PostPage({
       </div>
     );
   }
+
+ const featured = initialPosts.filter(
+    (p) => p.isFeatured && p._id !== post._id
+  );
+  const fallback = [...initialPosts]
+    .filter((p) => p._id !== post._id)
+    .sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt));
+  const related = (featured.length ? featured : fallback).slice(0, 3);
 
   return (
     <>
@@ -76,51 +119,19 @@ export default function PostPage({
             </div>
           </div>
 
-          <div className="flex flex-wrap -mx-4">
+          <div className="flex flex-wrap">
             <div className="w-full px-4 lg:w-8/12">
-              <article className="prose prose-invert prose-lg max-w-none xl:pr-10">
+              <article className="prose prose-invert prose-lg mx-auto">
                 <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-clip-text">
                   {post.title}
                 </h1>
                 <div className="text-gray-300 leading-relaxed">
-                  <PortableText value={post.content} />
+                  <PortableText
+                    value={post.content}
+                    components={ptComponents}
+                  />
                 </div>
               </article>
-            </div>
-
-            <div className="w-full px-4 lg:w-4/12">
-              <aside className="space-y-8">
-                <Suspense fallback={<LoadingState />}>
-                  <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-500/20 rounded-xl p-6">
-                    <h2 className="text-2xl font-semibold text-transparent bg-clip-text text-white mb-6">
-                      Популярни статии
-                    </h2>
-                    <div className="space-y-6">
-                      {posts
-                        .filter((blog) => blog.title)
-                        .slice(0, 3)
-                        .map((blog, i) => (
-                          <PopularArticle
-                            key={i}
-                            image={blog.mainImage?.asset?.url}
-                            title={blog.title.slice(0, 30)}
-                          />
-                        ))}
-                    </div>
-                  </div>
-
-                  {/* Ad Banner */}
-                  {/* <div className="overflow-hidden rounded-xl">
-                    <Image
-                      src="/images/blog/banner-ad.png"
-                      alt="Advertisement"
-                      width={408}
-                      height={254}
-                      className="w-full transform hover:scale-105 transition-transform duration-500"
-                    />
-                  </div> */}
-                </Suspense>
-              </aside>
             </div>
           </div>
 
@@ -132,8 +143,11 @@ export default function PostPage({
               <div className="h-1 w-20 bg-accent-purple rounded-full mb-10"></div>
             </div>
 
-            {posts.slice(0, 3).map((blog, key) => (
-              <div key={key} className="w-full px-4 md:w-2/3 lg:w-1/2 xl:w-1/3">
+            {related.map((blog) => (
+              <div
+                key={blog._id}
+                className="w-full px-4 md:w-2/3 lg:w-1/2 xl:w-1/3"
+              >
                 <SingleBlog blog={blog} />
               </div>
             ))}

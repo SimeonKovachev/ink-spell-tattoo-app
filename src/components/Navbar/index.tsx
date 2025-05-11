@@ -47,7 +47,7 @@ const Navbar = () => {
         className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
           !visible ? "-translate-y-full" : "translate-y-0"
         } ${
-          sticky ? "bg-dark-2/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+          sticky ? "bg-dark-2/95 shadow-lg" : "bg-transparent"
         }`}
       >
         <div className="relative container mx-auto px-4">
@@ -108,7 +108,7 @@ const Navbar = () => {
       >
         <div className="absolute inset-0 bg-dark-2" />
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent" />
-        <div className="absolute inset-0 backdrop-blur-lg" />
+        <div className="absolute inset-0" />
 
         <div className="relative h-full flex flex-col items-center justify-center min-h-screen gap-8 px-4">
           {menuData.map((item) => (

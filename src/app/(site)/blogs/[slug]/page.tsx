@@ -6,6 +6,7 @@ type PageParams = { slug: string };
 export async function generateMetadata({ params }: { params: PageParams }) {
   const post = await getSinglePost(params.slug);
   const siteName = process.env.SITE_NAME;
+  const keywords = post.tags?.length ? post.tags.join(", ") : undefined;
 
   if (!post) {
     return {
@@ -33,6 +34,7 @@ export async function generateMetadata({ params }: { params: PageParams }) {
       post.seoDescription ||
       post.excerpt ||
       "Открийте нашите най-нови статии за татуировки, изкуство и дизайн.",
+    keywords,
     alternates: {
       canonical: `https://www.ink-spell.com/blog/${params.slug}`,
     },
@@ -42,6 +44,7 @@ export async function generateMetadata({ params }: { params: PageParams }) {
       url: `https://www.ink-spell.com/blog/${params.slug}`,
       type: "article",
       siteName,
+      tags: post.tags,
       images: [
         {
           url: post.mainImage?.asset?.url || "/images/blog/blog-01.jpg",

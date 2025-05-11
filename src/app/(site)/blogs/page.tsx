@@ -56,7 +56,7 @@ export default function Blog() {
       <section className="relative px-4 py-12 lg:py-16 bg-gradient-to-b from-gray-900 via-[#1c1231] to-[#1a0b2e]">
         <div className="container px-4 mx-auto">
           <div className="max-w-3xl mx-auto mb-12">
-            <div className="flex flex-col gap-4 bg-gray-800/50 rounded-lg p-4 backdrop-blur-sm border border-purple-500/10">
+            <div className="flex flex-col gap-4 bg-gray-800/50 rounded-lg p-4 border border-purple-500/10">
               <div className="relative">
                 <input
                   type="text"

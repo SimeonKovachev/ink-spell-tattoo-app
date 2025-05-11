@@ -1,33 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { SINGLE_POST_QUERY } from "@/lib/queries/blogPostQuery";
 import { client } from "@/lib/client";
-import { handleErrorResponse } from "@/lib/utils/error";
 
 export async function GET(
-  req: NextRequest,
+  _: Request,
   { params }: { params: { slug: string } }
 ) {
-  const { slug } = params;
+  const post = await client.fetch(SINGLE_POST_QUERY(params.slug));
 
-  if (!slug) {
+  if (!post) {
     return NextResponse.json(
-      { error: "Missing slug parameter" },
-      { status: 400 }
+      { message: `No post found for slug: ${params.slug}` },
+      { status: 404 }
     );
   }
 
-  try {
-    const post = await client.fetch(SINGLE_POST_QUERY(slug));
-
-    if (!post) {
-      return NextResponse.json(
-        { message: `No post found for slug: ${slug}` },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json(post, { status: 200 });
-  } catch (error) {
-    return handleErrorResponse(error);
-  }
+  return NextResponse.json(post, {
+    status: 200,
+    headers: { "Cache-Control": "s-maxage=3600, stale-while-revalidate=60" },
+  });
 }

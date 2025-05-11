@@ -10,7 +10,7 @@ const Breadcrumb = ({
   pageDescription?: string;
 }) => {
   return (
-    <section className="relative py-16 sm:py-24 lg:py-40 overflow-hidden">
+    <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -58,7 +58,7 @@ const Breadcrumb = ({
             </p>
           )}
 
-          <nav className="inline-flex flex-wrap items-center justify-center bg-purple-900/20 rounded-full px-4 sm:px-6 py-2 sm:py-3 backdrop-blur-sm border border-purple-500/10 max-w-full">
+          <nav className="inline-flex flex-wrap items-center justify-center bg-purple-900/20 rounded-full px-4 sm:px-6 py-2 sm:py-3 border border-purple-500/10 max-w-full">
             <Link
               href="/"
               className="text-gray-300 hover:text-purple-400 transition-all duration-300 text-base sm:text-lg font-medium whitespace-nowrap"
@@ -72,8 +72,6 @@ const Breadcrumb = ({
           </nav>
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900 to-transparent"></div>
     </section>
   );
 };

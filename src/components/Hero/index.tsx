@@ -1,16 +1,41 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Button from "../Common/Button";
 import { Calendar } from "lucide-react";
 import { slides } from "@/config/homeHeroSlides.config";
 import { localImageUrl } from "@/lib/utils/localImage";
+import { useSwipeable } from "react-swipeable";
 
 export default function Header() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
+
+  const switchToNextSlide = useCallback(() => {
+    setIsFading(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+      setIsFading(false);
+    }, 500);
+  }, []);
+
+  const switchToPrevSlide = useCallback(() => {
+    setIsFading(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+      setIsFading(false);
+    }, 500);
+  }, []);
+
+  const switchToSlide = useCallback((index: number) => {
+    setIsFading(true);
+    setTimeout(() => {
+      setCurrentSlide(index);
+      setIsFading(false);
+    }, 500);
+  }, []);
 
   useEffect(() => {
     const setVH = () => {
@@ -29,31 +54,29 @@ export default function Header() {
       switchToNextSlide();
     }, 5000);
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") switchToNextSlide();
+      if (e.key === "ArrowLeft") switchToPrevSlide();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
       clearTimeout(timeout);
       clearInterval(interval);
       window.removeEventListener("resize", setVH);
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [currentSlide]);
+  }, [switchToNextSlide, switchToPrevSlide]);
 
-  const switchToNextSlide = () => {
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-      setIsFading(false);
-    }, 500);
-  };
-
-  const switchToSlide = (index: number) => {
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentSlide(index);
-      setIsFading(false);
-    }, 500);
-  };
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: switchToNextSlide,
+    onSwipedRight: switchToPrevSlide,
+    trackMouse: true,
+  });
 
   return (
     <header
+      {...swipeHandlers}
       className="relative z-10 flex items-center justify-center bg-black text-white overflow-hidden"
       style={{ height: "calc(var(--vh, 1vh) * 100)" }}
     >

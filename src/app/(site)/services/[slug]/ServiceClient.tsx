@@ -48,7 +48,7 @@ export default function ServiceClient({ service }: ServiceClientProps) {
               </div>
             </div>
             {service.features?.length > 0 && (
-              <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700/50">
+              <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50">
                 <div className="flex items-center gap-2 mb-4">
                   <ListChecks className="text-accent-purple" />
                   <h2 className="text-xl font-bold text-white">
@@ -67,7 +67,7 @@ export default function ServiceClient({ service }: ServiceClientProps) {
             )}
 
             {service.duration && (
-              <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 border border-gray-700/50">
+              <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50">
                 <div className="flex items-center gap-2 mb-4">
                   <Clock className="text-accent-purple" />
                   <h2 className="text-xl font-bold text-white">
@@ -88,7 +88,7 @@ export default function ServiceClient({ service }: ServiceClientProps) {
             </div>
 
             {service.detailedDescription && (
-              <div className="bg-gray-800/50 backdrop-blur rounded-xl p-6 lg:p-8 border border-gray-700/50">
+              <div className="bg-gray-800/50 rounded-xl p-6 lg:p-8 border border-gray-700/50">
                 <PortableText
                   value={service.detailedDescription}
                   components={portableTextComponents}

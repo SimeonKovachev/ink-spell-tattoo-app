@@ -3,7 +3,7 @@
 import { getSizes, urlFor } from "@/lib/image";
 import { GalleryItem } from "@/types/galleryItem";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
 const ImagePreviewModal = dynamic(() => import("../Common/ImagePreviewModal"), {
@@ -23,8 +23,17 @@ export default function GalleryGrid({
 }: GalleryGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  // Пагинация
+  useEffect(() => {
+    if (paginated && gridRef.current) {
+      gridRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [currentPage, paginated]);
+
   const totalPages = Math.ceil(images.length / imagesPerPage);
   const paginatedImages = paginated
     ? images.slice(
@@ -35,7 +44,10 @@ export default function GalleryGrid({
 
   return (
     <>
-      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+      <div
+        ref={gridRef}
+        className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4"
+      >
         {paginatedImages.map((img, index) => (
           <button
             key={img._id}
