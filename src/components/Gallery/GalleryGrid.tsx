@@ -24,14 +24,15 @@ export default function GalleryGrid({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (paginated && gridRef.current) {
-      gridRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+    if (!paginated) return;
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [currentPage, paginated]);
 
   const totalPages = Math.ceil(images.length / imagesPerPage);
