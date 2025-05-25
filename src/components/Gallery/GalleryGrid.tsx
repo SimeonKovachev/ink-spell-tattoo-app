@@ -3,7 +3,7 @@
 import { getSizes, urlFor } from "@/lib/image";
 import { GalleryItem } from "@/types/galleryItem";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
 const ImagePreviewModal = dynamic(() => import("../Common/ImagePreviewModal"), {

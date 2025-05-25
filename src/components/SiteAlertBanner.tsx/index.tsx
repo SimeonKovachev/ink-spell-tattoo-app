@@ -11,7 +11,6 @@ export default function SiteAlertModal({ message, variant }: SiteAlert) {
 
   return (
     <div className="fixed inset-0 z-[1100] flex items-start sm:items-center justify-center p-4">
-      {/* backdrop */}
       <div
         className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-fadeIn"
         onClick={() => setOpen(false)}
@@ -21,7 +20,6 @@ export default function SiteAlertModal({ message, variant }: SiteAlert) {
       <div
         className={clsx(
           "relative w-full max-w-lg rounded-xl shadow-2xl border overflow-hidden",
-          "animate-slideUp sm:animate-zoomIn",
           variant === "purple" && "bg-dark border-accent-purple text-white",
           variant === "yellow" && "bg-dark border-yellow-300 text-gray-900",
           variant === "red" && "bg-dark    border-red-400    text-white"
@@ -37,7 +35,6 @@ export default function SiteAlertModal({ message, variant }: SiteAlert) {
 
         <div
           className="p-6 text-sm sm:text-base leading-relaxed space-y-2"
-          // sanity lets you store simple HTML – we trust our own dataset
           dangerouslySetInnerHTML={{ __html: message }}
         />
       </div>
