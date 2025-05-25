@@ -1,6 +1,8 @@
 import RootLayout from "@/components/RootLayout";
 import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getSiteAlert } from "@/lib/fetchSiteAlert";
+import SiteAlertBanner from "@/components/SiteAlertBanner.tsx";
 
 export const metadata = {
   title: {
@@ -97,11 +99,13 @@ const montserrat = Montserrat({
   variable: "--font-subheading",
 });
 
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const alert = await getSiteAlert();
+
   return (
     <html
       suppressHydrationWarning
@@ -109,6 +113,7 @@ export default function SiteLayout({
       className={`${montserrat.variable}`}
     >
       <body>
+        {alert && <SiteAlertBanner {...alert} />}
         <RootLayout>{children}</RootLayout>
         <SpeedInsights />
         <script

@@ -3,7 +3,7 @@ import HomeBlogSection from "@/components/Blog/HomeBlogSection";
 import Contact from "@/components/BookNow";
 import WaveDivider from "@/components/Common/ShapeDivider";
 import Faq from "@/components/Faq";
-import FlashPromosClient from "@/components/FlashPromo";
+import FlashPromosClient from "@/components/Flash/FlashPromosClient";
 import HomeGallerySection from "@/components/Gallery/HomeGallerySection";
 import Header from "@/components/Hero";
 import HomeServiceSection from "@/components/Services/HomeServiceSection";

@@ -21,27 +21,19 @@ export default function GalleryGrid({
   paginated = false,
   imagesPerPage = 12,
 }: GalleryGridProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [page, setPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (!paginated) return;
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [currentPage, paginated]);
 
   const totalPages = Math.ceil(images.length / imagesPerPage);
-  const paginatedImages = paginated
-    ? images.slice(
-        (currentPage - 1) * imagesPerPage,
-        currentPage * imagesPerPage
-      )
+  const slice = paginated
+    ? images.slice((page - 1) * imagesPerPage, page * imagesPerPage)
     : images;
+
+  const go = (next: number) => {
+    setPage(next);
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <>
@@ -49,7 +41,7 @@ export default function GalleryGrid({
         ref={gridRef}
         className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4"
       >
-        {paginatedImages.map((img, index) => (
+        {slice.map((img, index) => (
           <button
             key={img._id}
             onClick={() => setSelectedImage(img)}
@@ -85,9 +77,7 @@ export default function GalleryGrid({
       {paginated && totalPages > 1 && (
         <div className="flex justify-center items-center mt-12 gap-6">
           <button
-            onClick={() =>
-              setCurrentPage((prev) => (prev > 1 ? prev - 1 : totalPages))
-            }
+            onClick={() => go(page > 1 ? page - 1 : totalPages)}
             className="p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300"
             aria-label="Previous page"
           >
@@ -107,13 +97,11 @@ export default function GalleryGrid({
           </button>
 
           <span className="text-gray-300 font-medium">
-            {currentPage} / {totalPages}
+            {page} / {totalPages}
           </span>
 
           <button
-            onClick={() =>
-              setCurrentPage((prev) => (prev < totalPages ? prev + 1 : 1))
-            }
+            onClick={() => go(page < totalPages ? page + 1 : 1)}
             className="p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300"
             aria-label="Next page"
           >

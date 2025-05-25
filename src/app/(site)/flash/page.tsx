@@ -1,4 +1,4 @@
-import FlashPromosClient from "@/components/FlashPromo";
+import FlashPromosClient from "@/components/Flash/FlashPromosClient";
 import { getActiveFlashPromos } from "@/lib/fetchPromos";
 import { Metadata } from "next";
 
