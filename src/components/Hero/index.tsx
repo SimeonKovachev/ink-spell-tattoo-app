@@ -52,7 +52,7 @@ export default function Header() {
 
     const interval = setInterval(() => {
       switchToNextSlide();
-    }, 5000);
+    }, 7000);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") switchToNextSlide();
@@ -133,7 +133,7 @@ export default function Header() {
         ></div>
       </div>
 
-      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="absolute inset-0 bg-black opacity-30"></div>
 
       <div
         className={`relative z-10 px-8 md:px-16 lg:px-20 text-center max-w-4xl mx-auto transition-opacity duration-500 ${
