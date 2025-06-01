@@ -1,6 +1,7 @@
 export const slides = [
   {
     image: "/images/header/home-background1.jpg",
+    imageMobile: "/images/header/home-background1-mobile.jpg",
     heading: "Перфектни вежди с микроблейдинг",
     subheading: "Естествено излъчване, прецизна техника",
     description:
@@ -8,16 +9,10 @@ export const slides = [
   },
   {
     image: "/images/header/home-background2.jpg",
+    imageMobile: "/images/header/home-background2-mobile.jpg",
     heading: "Детайл и съвършенство във всяка татуировка",
-    subheading: "Гарантирам внимание към детайла",
+    subheading: "Безплатна консултация – запишете своя час",
     description:
-      "Работя с прецизност и грижа за всеки детайл, за да създам татуировка, която ще носите с гордост. Всяка линия е част от вашия уникален шедьовър.",
-  },
-  {
-    image: "/images/header/home-background3.jpg",
-    heading: "Запишете своя час за уникална татуировка",
-    subheading: "Безплатна консултация за татуиране",
-    description:
-      "Искам да създам дизайн, който отговаря на вашите желания и личност. Запишете час и нека заедно започнем това приключение.",
+      "В Ink Spell Tattoo Studio превръщаме идеите ви в шедьоври. Работим с хирургична прецизност, стерилни материали и персонализиран дизайн, за да носите татуировка, която разказва вашата история с гордост.",
   },
 ];

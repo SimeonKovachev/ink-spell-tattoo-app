@@ -7,11 +7,13 @@ import { Calendar } from "lucide-react";
 import { slides } from "@/config/homeHeroSlides.config";
 import { localImageUrl } from "@/lib/utils/localImage";
 import { useSwipeable } from "react-swipeable";
+import { useIsMobile } from "@/lib/hooks/useIsMobile";
 
 export default function Header() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
+  const isMobile = useIsMobile();
 
   const switchToNextSlide = useCallback(() => {
     setIsFading(true);
@@ -81,7 +83,10 @@ export default function Header() {
       style={{ height: "calc(var(--vh, 1vh) * 100)" }}
     >
       {slides.map((slide, index) => {
-        const optimizedImage = localImageUrl(slide.image, {
+        const rawImgPath =
+          isMobile && slide.imageMobile ? slide.imageMobile : slide.image;
+
+        const optimizedImage = localImageUrl(rawImgPath, {
           width: 1920,
           height: 1080,
           quality: 85,
@@ -101,20 +106,13 @@ export default function Header() {
               alt={slide.heading}
               width={optimizedImage.width}
               height={optimizedImage.height}
-              sizes={optimizedImage.sizes}
-              style={{
-                objectPosition: "center",
-              }}
-              className={`
-                absolute inset-0 w-full h-full
-                transition-transform
-                object-cover
+              sizes={isMobile ? "100vw" : "(max-width: 1280px) 100vw, 1920px"}
+              className={`absolute inset-0 w-full h-full object-cover transition-transform
                 ${
                   isActive && !initialRender
                     ? "duration-[5000ms] scale-[1.15]"
                     : "duration-[1000ms] scale-[1.1]"
-                }
-              `}
+                }`}
               priority={index === 0}
             />
           </div>
@@ -150,7 +148,7 @@ export default function Header() {
           {slides[currentSlide].subheading}
         </h2>
         <h1
-          className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6"
           style={{
             color: "var(--text-color)",
           }}
