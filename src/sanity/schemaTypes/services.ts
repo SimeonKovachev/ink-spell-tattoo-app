@@ -54,6 +54,30 @@ export default defineType({
       of: [{ type: "string" }],
     }),
     defineField({
+      name: "category",
+      title: "Category",
+      type: "string",
+      options: {
+        list: [
+          { title: "Татуировки", value: "tattoo" },
+          { title: "Перманентен грим", value: "permanent-makeup" },
+          { title: "Пиърсинг", value: "piercing" },
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required(),
+      initialValue: "tattoo",
+    }),
+    defineField({ name: "price", title: "Price (optional)", type: "string" }),
+    defineField({
+      name: "order",
+      title: "Display Order",
+      type: "number",
+      description:
+        "Order in which this service should appear (lower numbers first)",
+      initialValue: 0,
+    }),
+    defineField({
       name: "duration",
       type: "string",
       title: "Duration",
@@ -86,4 +110,20 @@ export default defineType({
       media: "image",
     },
   },
+  orderings: [
+    {
+      title: "Category, then Order",
+      name: "categoryOrder",
+      by: [
+        { field: "category", direction: "asc" },
+        { field: "order", direction: "asc" },
+        { field: "name", direction: "asc" },
+      ],
+    },
+    {
+      title: "Name A-Z",
+      name: "nameAsc",
+      by: [{ field: "name", direction: "asc" }],
+    },
+  ],
 });

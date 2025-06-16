@@ -34,11 +34,17 @@ const SingleService = ({ service }: { service: Service }) => {
             {service.name}
           </h3>
 
-          <p className="mt-3 mb-6 text-gray-300 text-sm md:text-base line-clamp-3 transition-all duration-300 ease-out group-hover:text-gray-100">
+          <p className="mt-3 text-gray-300 text-sm md:text-base line-clamp-3 transition-all duration-300 ease-out group-hover:text-gray-100">
             {service.description}
           </p>
 
-          <div className="relative">
+          {service.price && (
+            <p className="mt-3 inline-block rounded-full bg-purple-600/20 px-3 py-1 text-sm font-semibold text-purple-300 backdrop-blur-sm">
+              Цена&nbsp;от&nbsp;{service.price}&nbsp;лв.
+            </p>
+          )}
+
+          <div className="relative mt-6">
             <Button
               text="Разгледай услугата"
               type="filled"

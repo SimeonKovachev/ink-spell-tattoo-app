@@ -19,40 +19,58 @@ export async function generateMetadata({
     };
   }
 
-  return {
-    title: `${service.name} | Услуги от Ink Spell Tattoo Studio`,
-    description: service.seo?.metaDescription || service.description,
-    keywords: service.seo?.metaKeywords || [
-      "услуги за татуировки",
-      "татуировка Плевен",
-      "Ink Spell Tattoo Studio услуги",
-      "уникални татуировки",
-      "персонализирани дизайни татуировки",
+  const name = service.name;
+  const baseTitle = `${name} | Ink Spell Tattoo Studio Плевен`;
+  const baseDesc =
+    service.seo?.metaDescription ||
+    `${name} от Ink Spell Tattoo Studio – професионална услуга за татуировки, перманентен грим, микроблейдинг и микропигментация в Плевен.`;
+  const imgUrl = service.image?.asset?.url || "/images/placeholder.jpg";
+
+  const generalKeywords = [
+    "Ink Spell Tattoo Studio",
+    "услуги татуировки",
+    "перманентен грим Плевен",
+    "микроблейдинг Плевен",
+    "микропигментация Плевен",
+    "татуировки Плевен",
+  ];
+
+  const categoryKeywords: Record<string, string[]> = {
+    tattoo: ["персонализирани татуировки", "дизайни на татуировки"],
+    "permanent-makeup": [
+      "пудрови вежди",
+      "комбиниран метод вежди",
+      "дълготраен грим",
     ],
+    piercing: ["професионален пиърсинг", "бижута за пиърсинг"],
+  };
+
+  const keywords = [
+    ...(service.seo?.metaKeywords || []),
+    ...generalKeywords,
+    ...(categoryKeywords[service.category] || []),
+  ];
+
+  return {
+    title: baseTitle,
+    description: baseDesc,
+    keywords,
+    alternates: {
+      canonical: `https://www.ink-spell.com/services/${params.slug}`,
+    },
     openGraph: {
-      title: `${service.name} | Услуги от Ink Spell Tattoo Studio`,
-      description:
-        service.seo?.metaDescription ||
-        `Открийте повече за услугата ${service.name} в Ink Spell Tattoo Studio. Специализираме се в персонализирани татуировки.`,
+      title: baseTitle,
+      description: baseDesc,
       url: `https://www.ink-spell.com/services/${params.slug}`,
       type: "article",
       siteName: "Ink Spell Tattoo Studio",
-      images: [
-        {
-          url: service.image?.asset?.url || "/images/placeholder.jpg",
-          width: 1200,
-          height: 630,
-          alt: service.name,
-        },
-      ],
+      images: [{ url: imgUrl, width: 1200, height: 630, alt: name }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${service.name} | Услуги от Ink Spell Tattoo Studio`,
-      description:
-        service.seo?.metaDescription ||
-        `Открийте повече за услугата ${service.name} в Ink Spell Tattoo Studio.`,
-      images: [service.image?.asset?.url || "/images/placeholder.jpg"],
+      title: baseTitle,
+      description: baseDesc,
+      images: [imgUrl],
     },
     robots: {
       index: true,
@@ -76,5 +94,5 @@ export default async function ServicePage({ params }: { params: PageParams }) {
     );
   }
 
-   return <ServiceClient service={service} />;
+  return <ServiceClient service={service} />;
 }
