@@ -129,7 +129,7 @@ export default async function SiteLayout({
                 "Professional tattoo studio in Pleven, Bulgaria specializing in unique, artistic tattoos, including astrology and tarot-inspired designs.",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "ул. Васил Априлов 48",
+                streetAddress: "ул. Петко Р. Славейков 39",
                 addressLocality: "Плевен",
                 addressRegion: "Плевен",
                 postalCode: "5800",

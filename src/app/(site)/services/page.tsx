@@ -91,7 +91,7 @@ export default async function ServicesPage() {
                 name: "Ink Spell Tattoo Studio",
                 address: {
                   "@type": "PostalAddress",
-                  streetAddress: "ул. Васил Априлов 48",
+                  streetAddress: "ул. Петко Р. Славейков 39",
                   addressLocality: "Плевен",
                   addressCountry: "BG",
                 },
@@ -109,7 +109,7 @@ export default async function ServicesPage() {
                 name: "Ink Spell Tattoo Studio",
                 address: {
                   "@type": "PostalAddress",
-                  streetAddress: "ул. Васил Априлов 48",
+                  streetAddress: "ул. Петко Р. Славейков 39",
                   addressLocality: "Плевен",
                   addressCountry: "BG",
                 },

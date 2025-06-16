@@ -34,7 +34,7 @@ export const footerLinks = {
 
 export const studioInfo = {
   name: "Ink Spell Tattoo Studio",
-  address: 'Плевен Център, ул. "Васил Априлов" 48',
+  address: "Плевен Център, ул. Петко Р. Славейков 39",
   city: "Плевен",
   email: "support@ink-spell.com",
   phone: "+359 89 430 0545",
