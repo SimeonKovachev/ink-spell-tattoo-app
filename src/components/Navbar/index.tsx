@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu as MenuIcon, X, Calendar } from "lucide-react";
 import menuData from "./menuData";
 import Button from "../Common/Button";
+import { track } from "@vercel/analytics/react";
 
 const Navbar = () => {
   const pathUrl = usePathname();
@@ -37,6 +38,7 @@ const Navbar = () => {
   }, [handleScroll]);
 
   const handleBookNowClick = () => {
+    track("navbar_appointment_book_btn");
     setNavbarOpen(false);
     router.push("/contact/#booknow");
   };

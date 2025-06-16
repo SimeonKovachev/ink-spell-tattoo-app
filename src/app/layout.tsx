@@ -1,6 +1,7 @@
 import RootLayout from "@/components/RootLayout";
 import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import { getSiteAlert } from "@/lib/fetchSiteAlert";
 import SiteAlertBanner from "@/components/SiteAlertBanner.tsx";
 
@@ -115,6 +116,7 @@ export default async function SiteLayout({
       <body>
         {alert && <SiteAlertBanner {...alert} />}
         <RootLayout>{children}</RootLayout>
+        <Analytics />
         <SpeedInsights />
         <script
           type="application/ld+json"

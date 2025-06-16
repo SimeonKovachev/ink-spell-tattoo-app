@@ -1,3 +1,4 @@
+import { track } from "@vercel/analytics/react";
 import { Phone } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -5,6 +6,7 @@ const QuickActionButton = () => {
   const router = useRouter();
 
   const handleClick = () => {
+    track("fast-book-btn")
     router.push("/contact#booknow");
   };
 

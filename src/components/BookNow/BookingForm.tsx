@@ -17,6 +17,7 @@ import {
   Clock,
   User,
 } from "lucide-react";
+import { track } from "@vercel/analytics/react";
 
 export const BookingForm: React.FC = () => {
   const {
@@ -32,6 +33,8 @@ export const BookingForm: React.FC = () => {
 
   const onSubmit = async (data: BookingFormInputs) => {
     try {
+      track("booknow_appointment_book_btn");
+
       const formattedData = {
         ...data,
         appointmentDate: data.appointmentDate
