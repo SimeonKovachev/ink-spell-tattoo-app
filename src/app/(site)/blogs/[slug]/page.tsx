@@ -37,12 +37,12 @@ export async function generateMetadata({ params }: { params: PageParams }) {
       "Открийте нашите най-нови статии за татуировки, изкуство и дизайн.",
     keywords,
     alternates: {
-      canonical: `https://www.ink-spell.com/blog/${params.slug}`,
+      canonical: `https://www.ink-spell.com/blogs/${params.slug}`,
     },
     openGraph: {
       title: post.seoTitle || post.title,
       description: post.seoDescription || post.excerpt,
-      url: `https://www.ink-spell.com/blog/${params.slug}`,
+      url: `https://www.ink-spell.com/blogs/${params.slug}`,
       type: "article",
       siteName,
       tags: post.tags,

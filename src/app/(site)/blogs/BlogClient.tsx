@@ -91,7 +91,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             description: p.excerpt,
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": `https://www.ink-spell.com/blog/${p.slug.current}`,
+              "@id": `https://www.ink-spell.com/blogs/${p.slug.current}`,
             },
           })),
         })}
