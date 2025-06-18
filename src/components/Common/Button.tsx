@@ -64,7 +64,7 @@ export default function Button({
 
   const baseStyles = `
     inline-flex items-center justify-center
-    font-semibold rounded-lg
+    font-semibold rounded-full
     transition-all duration-300
     ${responsiveSizeClasses}
     ${typeStyles[type]}

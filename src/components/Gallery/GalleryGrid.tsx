@@ -56,7 +56,7 @@ export default function GalleryGrid({
               setTab(t.id);
               setPage(1);
             }}
-            className={`px-5 py-2 rounded-full text-sm uppercase tracking-wide transition-colors
+            className={`px-5 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-colors
                 ${
                   tab === t.id
                     ? "bg-purple-600 text-white shadow-lg"
