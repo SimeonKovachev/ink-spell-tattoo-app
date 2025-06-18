@@ -101,7 +101,7 @@ export const generateConsultationEmail = ({
                           Ink Spell Tattoo Studio
                         </p>
                         <p style="margin: 0 0 10px 0; font-size: 14px; line-height: 1.5; color: #666666;">
-                          Pleven Center, ul. "Vasil Aprilov" 48
+                          Pleven Center, ul. "Petko R. Slaveykov" 39
                         </p>
                         <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #8b5cf6;">
                           See you soon!

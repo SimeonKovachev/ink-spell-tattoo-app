@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       `DESCRIPTION:Free consultation with ${name}\\nPhone: ${phone}\\nMessage: ${
         message || "N/A"
       }`,
-      "LOCATION:Pleven Center\\, ul. Vasil Aprilov 48\\, 5809 Pleven",
+      "LOCATION:Pleven Center\\, ul. Petko R. Slaveykov 39\\, 5809 Pleven",
       "BEGIN:VALARM",
       "TRIGGER:-PT15M",
       "ACTION:DISPLAY",

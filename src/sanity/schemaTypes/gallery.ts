@@ -28,6 +28,21 @@ export default defineType({
         rule.required().error("An image is required for the gallery"),
     }),
     defineField({
+      name: "category",
+      title: "Category",
+      type: "string",
+      options: {
+        list: [
+          { title: "Татуировки", value: "tattoo" },
+          { title: "Перманентен грим", value: "permanent-makeup" },
+          { title: "Пиърсинг", value: "piercing" },
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required(),
+      initialValue: "tattoo",
+    }),
+    defineField({
       name: "slug",
       type: "slug",
       title: "Slug",

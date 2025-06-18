@@ -10,6 +10,12 @@ const ImagePreviewModal = dynamic(() => import("../Common/ImagePreviewModal"), {
   ssr: false,
 });
 
+const TABS = [
+  { id: "tattoo", label: "Татуировки" },
+  { id: "permanent-makeup", label: "Перманентен грим" },
+  // { id: "piercing", label: "Пиърсинг" },
+] as const;
+
 interface GalleryGridProps {
   images: GalleryItem[];
   paginated?: boolean;
@@ -21,14 +27,19 @@ export default function GalleryGrid({
   paginated = false,
   imagesPerPage = 12,
 }: GalleryGridProps) {
+  const initialTab: (typeof TABS)[number]["id"] =
+    images[0]?.category ?? "tattoo";
+  const [tab, setTab] = useState(initialTab);
+
   const [page, setPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const totalPages = Math.ceil(images.length / imagesPerPage);
+  const byTab = images.filter((img) => img.category === tab);
+  const totalPages = Math.ceil(byTab.length / imagesPerPage);
   const slice = paginated
-    ? images.slice((page - 1) * imagesPerPage, page * imagesPerPage)
-    : images;
+    ? byTab.slice((page - 1) * imagesPerPage, page * imagesPerPage)
+    : byTab;
 
   const go = (next: number) => {
     setPage(next);
@@ -37,6 +48,26 @@ export default function GalleryGrid({
 
   return (
     <>
+      <div className="flex justify-center gap-4 mb-12 animate-fadeIn">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => {
+              setTab(t.id);
+              setPage(1);
+            }}
+            className={`px-5 py-2 rounded-full text-sm uppercase tracking-wide transition-colors
+                ${
+                  tab === t.id
+                    ? "bg-purple-600 text-white shadow-lg"
+                    : "bg-gray-700/50 text-gray-300 hover:bg-gray-700"
+                }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
       <div
         ref={gridRef}
         className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4"
