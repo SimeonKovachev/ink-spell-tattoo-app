@@ -27,12 +27,18 @@ const menuData: Menu[] = [
   },
   {
     id: 5,
+    title: "Промоции",
+    path: "/flash",
+    newTab: false,
+  },
+  {
+    id: 6,
     title: "Контакти",
     path: "/contact",
     newTab: false,
   },
   {
-    id: 6,
+    id: 7,
     title: "Блог",
     path: "/blogs",
     newTab: false,

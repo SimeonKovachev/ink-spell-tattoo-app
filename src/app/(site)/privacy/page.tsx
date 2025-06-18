@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-gray-900">

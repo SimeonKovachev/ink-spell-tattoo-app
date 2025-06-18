@@ -6,6 +6,7 @@ import { getSiteAlert } from "@/lib/fetchSiteAlert";
 import SiteAlertBanner from "@/components/SiteAlertBanner.tsx";
 
 export const metadata = {
+  metadataBase: new URL("https://www.ink-spell.com"),
   title: {
     default: "Ink Spell Tattoo Studio | Премиум татуиране в България",
     template: "%s | Ink Spell Tattoo Studio",

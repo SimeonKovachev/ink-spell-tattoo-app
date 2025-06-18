@@ -1,6 +1,8 @@
 import NotFound from "@/components/NotFound";
 import { Metadata } from "next";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "404 | Страницата не е намерена - Ink Spell Tattoo Studio",
   description:

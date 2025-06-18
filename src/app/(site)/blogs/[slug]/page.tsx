@@ -2,11 +2,12 @@ import { getSinglePost, getAllPosts } from "@/lib/fetchPosts";
 import PostPage from "./PostPage";
 
 type PageParams = { slug: string };
+export const dynamic = "force-static";
 
 export async function generateMetadata({ params }: { params: PageParams }) {
   const post = await getSinglePost(params.slug);
   const siteName = process.env.SITE_NAME;
-  const keywords = post.tags?.length ? post.tags.join(", ") : undefined;
+  const keywords = post!.tags?.length ? post!.tags.join(", ") : undefined;
 
   if (!post) {
     return {
@@ -81,5 +82,5 @@ export default async function Page({ params }: { params: PageParams }) {
     getSinglePost(params.slug),
   ]);
 
-  return <PostPage initialPosts={posts} initialPost={post} />;
+  return <PostPage initialPosts={posts} initialPost={post!} />;
 }

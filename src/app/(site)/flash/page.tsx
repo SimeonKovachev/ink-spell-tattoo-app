@@ -1,7 +1,9 @@
+import Breadcrumb from "@/components/Common/Breadcrumb";
 import FlashPromosClient from "@/components/Flash/FlashPromosClient";
 import { getActiveFlashPromos } from "@/lib/fetchPromos";
 import { Metadata } from "next";
 
+export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
@@ -55,8 +57,14 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default async function FlashPage() {
   const promos = await getActiveFlashPromos();
-  return <FlashPromosClient promos={promos} />;
+
+  return (
+    <main>
+      <Breadcrumb pageName="Промоции" />
+
+      <FlashPromosClient promos={promos} />
+    </main>
+  );
 }

@@ -10,6 +10,7 @@ import GoogleTestimonials from "@/components/Testimonials/GoogleTestimonials";
 import { getActiveFlashPromos } from "@/lib/fetchPromos";
 import { getAllServicesByCategories } from "@/lib/fetchServices";
 
+export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export default async function Home() {

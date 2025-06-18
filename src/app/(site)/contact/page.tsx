@@ -4,6 +4,8 @@ import { Metadata } from "next";
 import Faq from "@/components/Faq";
 import Script from "next/script";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Контакти | Свържете се с мен - Ink Spell Tattoo Studio в Плевен",
   description:

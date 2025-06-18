@@ -4,6 +4,8 @@ import GoogleTestimonials from "@/components/Testimonials/GoogleTestimonials";
 import { Metadata } from "next";
 import Script from "next/script";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "За мен | Уникални Татуировки в Плевен",
   description:
