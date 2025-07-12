@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { getSiteAlert } from "@/lib/fetchSiteAlert";
 import SiteAlertBanner from "@/components/SiteAlertBanner.tsx";
+import Script from "next/script";
 
 export const metadata = {
   metadataBase: new URL("https://www.ink-spell.com"),
@@ -115,6 +116,19 @@ export default async function SiteLayout({
       className={`${montserrat.variable}`}
     >
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-FKY2SN96TJ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-FKY2SN96TJ');
+          `}
+        </Script>
+
         {alert && <SiteAlertBanner {...alert} />}
         <RootLayout>{children}</RootLayout>
         <Analytics />
