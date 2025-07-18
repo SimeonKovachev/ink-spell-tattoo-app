@@ -129,6 +129,19 @@ export default async function SiteLayout({
           `}
         </Script>
 
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16778180960"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-conversion" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16778180960');
+          `}
+        </Script>
+
         {alert && <SiteAlertBanner {...alert} />}
         <RootLayout>{children}</RootLayout>
         <Analytics />
