@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { MapPin, Mail, Phone, ExternalLink } from "lucide-react";
@@ -7,8 +9,11 @@ import {
   socialLinks,
   studioInfo,
 } from "@/config/footerData.config";
+import { useConversions } from "@/lib/gtag";
 
 export default function Footer() {
+  const conversions = useConversions();
+
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
       case "Instagram":
@@ -20,6 +25,29 @@ export default function Footer() {
       default:
         return null;
     }
+  };
+
+  // Contact handlers
+  const handlePhoneClick = () => {
+    conversions.phoneClick();
+  };
+
+  const handleEmailClick = () => {
+    conversions.emailClick();
+  };
+
+  const handleMapClick = () => {
+    conversions.buttonClick("footer_map_location");
+  };
+
+  const handleSocialClick = (platform: string) => {
+    conversions.buttonClick(`social_${platform.toLowerCase()}`);
+  };
+
+  const handleFooterLinkClick = (linkName: string) => {
+    conversions.buttonClick(
+      `footer_link_${linkName.toLowerCase().replace(/\s+/g, "_")}`
+    );
   };
 
   return (
@@ -37,6 +65,7 @@ export default function Footer() {
                 href={`https://maps.google.com/?q=${studioInfo.address}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleMapClick}
                 className="flex items-center gap-3 group hover:text-purple-400 transition-all duration-300"
               >
                 <MapPin className="w-5 h-5 text-purple-500 group-hover:text-purple-400" />
@@ -48,6 +77,7 @@ export default function Footer() {
               </a>
               <a
                 href={`mailto:${studioInfo.email}`}
+                onClick={handleEmailClick}
                 className="flex items-center gap-3 group hover:text-purple-400 transition-all duration-300"
               >
                 <Mail className="w-5 h-5 text-purple-500 group-hover:text-purple-400" />
@@ -55,6 +85,7 @@ export default function Footer() {
               </a>
               <a
                 href={`tel:${studioInfo.phone}`}
+                onClick={handlePhoneClick}
                 className="flex items-center gap-3 group hover:text-purple-400 transition-all duration-300"
               >
                 <Phone className="w-5 h-5 text-purple-500 group-hover:text-purple-400" />
@@ -73,6 +104,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
+                      onClick={() => handleFooterLinkClick(link.name)}
                       className="text-sm group flex items-center gap-2 hover:text-purple-400 transition-all duration-300"
                     >
                       <span>{link.name}</span>
@@ -97,6 +129,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => handleSocialClick(social.name)}
                     className="p-3 rounded-full bg-gray-800 text-gray-400 hover:bg-purple-600 hover:text-white transform hover:-translate-y-1 transition-all duration-300"
                     aria-label={`Последвайте ни в ${social.name}`}
                   >

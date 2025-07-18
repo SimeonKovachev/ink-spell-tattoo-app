@@ -18,8 +18,11 @@ import {
   User,
 } from "lucide-react";
 import { track } from "@vercel/analytics/react";
+import { useConversions } from "@/lib/gtag";
 
 export const BookingForm: React.FC = () => {
+  const conversions = useConversions();
+
   const {
     register,
     handleSubmit,
@@ -34,6 +37,7 @@ export const BookingForm: React.FC = () => {
   const onSubmit = async (data: BookingFormInputs) => {
     try {
       track("booknow_appointment_book_btn");
+      conversions.bookingFormSubmit();
 
       const formattedData = {
         ...data,

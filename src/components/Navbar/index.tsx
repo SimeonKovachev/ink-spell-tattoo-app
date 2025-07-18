@@ -5,10 +5,13 @@ import { Menu as MenuIcon, X, Calendar } from "lucide-react";
 import menuData from "./menuData";
 import Button from "../Common/Button";
 import { track } from "@vercel/analytics/react";
+import { useConversions } from "@/lib/gtag";
 
 const Navbar = () => {
   const pathUrl = usePathname();
   const router = useRouter();
+  const conversions = useConversions();
+
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -39,6 +42,8 @@ const Navbar = () => {
 
   const handleBookNowClick = () => {
     track("navbar_appointment_book_btn");
+    conversions.navbarBookNow();
+
     setNavbarOpen(false);
     router.push("/contact/#booknow");
   };
@@ -48,9 +53,7 @@ const Navbar = () => {
       <header
         className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
           !visible ? "-translate-y-full" : "translate-y-0"
-        } ${
-          sticky ? "bg-dark-2/95 shadow-lg" : "bg-transparent"
-        }`}
+        } ${sticky ? "bg-dark-2/95 shadow-lg" : "bg-transparent"}`}
       >
         <div className="relative container mx-auto px-4">
           <nav className="flex items-center justify-between py-4">

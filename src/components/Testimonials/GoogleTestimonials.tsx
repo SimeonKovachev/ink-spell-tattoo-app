@@ -7,8 +7,11 @@ import Button from "../Common/Button";
 import { fetchGoogleReviews } from "@/lib/fetchGoogleReviews";
 import SectionTitle from "../Common/SectionTitle";
 import { useQuery } from "@tanstack/react-query";
+import { useConversions } from "@/lib/gtag";
 
 export default function GoogleTestimonials() {
+  const conversions = useConversions();
+
   const {
     data: reviews = [],
     isLoading,
@@ -20,6 +23,15 @@ export default function GoogleTestimonials() {
     gcTime: 86400000,
     retry: 2,
   });
+
+  const handleLeaveReviewClick = () => {
+    conversions.reviewsLeaveReview();
+
+    window.open(
+      `https://search.google.com/local/writereview?placeid=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID}`,
+      "_blank"
+    );
+  };
 
   if (isLoading) {
     return (
@@ -119,12 +131,7 @@ export default function GoogleTestimonials() {
             text="Оставете отзив"
             type="outlined"
             responsiveSize={{ sm: "sm", md: "md", lg: "md" }}
-            onClick={() =>
-              window.open(
-                `https://search.google.com/local/writereview?placeid=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID}`,
-                "_blank"
-              )
-            }
+            onClick={handleLeaveReviewClick}
           />
         </div>
       </div>
