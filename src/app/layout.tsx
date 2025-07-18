@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { getSiteAlert } from "@/lib/fetchSiteAlert";
 import SiteAlertBanner from "@/components/SiteAlertBanner.tsx";
 import Script from "next/script";
+import PageTracker from "@/components/Common/PageTracker";
 
 export const metadata = {
   metadataBase: new URL("https://www.ink-spell.com"),
@@ -116,36 +117,54 @@ export default async function SiteLayout({
       className={`${montserrat.variable}`}
     >
       <body>
+        {/* Google Analytics Script */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-FKY2SN96TJ"
           strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-FKY2SN96TJ');
-          `}
-        </Script>
 
+        {/* Google Ads Conversion Tracking Script */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-16778180960"
           strategy="afterInteractive"
         />
-        <Script id="google-ads-conversion" strategy="afterInteractive">
+
+        <Script id="google-analytics-config" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            
+            // Configure Google Analytics
+            gtag('config', 'G-FKY2SN96TJ');
+            
+            // Configure Google Ads
             gtag('config', 'AW-16778180960');
+            
+            // Make gtag available globally for conversion tracking
+            window.gtag = gtag;
           `}
         </Script>
+
+        {/* Enhanced E-commerce and Conversion Tracking */}
+        <Script id="conversion-tracking-setup" strategy="afterInteractive">
+          {`
+            // Set up enhanced conversion tracking
+            gtag('config', 'AW-16778180960', {
+              'allow_enhanced_conversions': true
+            });
+          `}
+        </Script>
+
+        {/* Page Tracking Component */}
+        <PageTracker />
 
         {alert && <SiteAlertBanner {...alert} />}
         <RootLayout>{children}</RootLayout>
         <Analytics />
         <SpeedInsights />
+
+        {/* Schema.org structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

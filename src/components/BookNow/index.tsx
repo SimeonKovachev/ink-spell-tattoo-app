@@ -5,8 +5,10 @@ import SectionTitle from "../Common/SectionTitle";
 import BookingForm from "./BookingForm";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { ParticlePosition } from "@/types/particlePosition";
+import { useConversions } from "@/lib/gtag";
 
 export default function Contact() {
+  const conversions = useConversions();
   const [particlePositions, setParticlePositions] = useState<
     ParticlePosition[]
   >([]);
@@ -21,6 +23,19 @@ export default function Contact() {
       }));
     setParticlePositions(positions);
   }, []);
+
+  // Contact action handlers
+  const handlePhoneClick = () => {
+    conversions.phoneClick();
+  };
+
+  const handleEmailClick = (email: string) => {
+    conversions.emailClick(email);
+  };
+
+  const handleMapClick = () => {
+    conversions.buttonClick("map_location");
+  };
 
   return (
     <section
@@ -79,11 +94,12 @@ export default function Contact() {
                       href="https://maps.app.goo.gl/1g2w9ofvfqekiYKb8"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={handleMapClick}
                       className="text-gray-300 hover:text-purple-300 transition-colors"
                     >
                       Плевен Център,
                       <br />
-                      ул. &quot;Петко Р. Славейков&quot; 39 
+                      ул. &quot;Петко Р. Славейков&quot; 39
                     </a>
                   </div>
                 </div>
@@ -99,12 +115,14 @@ export default function Contact() {
                     <div className="space-y-1">
                       <a
                         href="mailto:support@ink-spell.com"
+                        onClick={() => handleEmailClick("support")}
                         className="block text-gray-300 hover:text-purple-300 transition-colors"
                       >
                         support@ink-spell.com
                       </a>
                       <a
                         href="mailto:iva.lazarova.draws@gmail.com"
+                        onClick={() => handleEmailClick("personal")}
                         className="block text-gray-300 hover:text-purple-300 transition-colors"
                       >
                         iva.lazarova.draws@gmail.com
@@ -123,6 +141,7 @@ export default function Contact() {
                     </h3>
                     <a
                       href="tel:+359894300545"
+                      onClick={handlePhoneClick}
                       className="text-gray-300 hover:text-purple-300 transition-colors"
                     >
                       +359 89 430 0545

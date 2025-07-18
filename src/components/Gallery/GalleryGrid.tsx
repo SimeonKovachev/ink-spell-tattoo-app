@@ -5,6 +5,7 @@ import { GalleryItem } from "@/types/galleryItem";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { useConversions } from "@/lib/gtag";
 
 const ImagePreviewModal = dynamic(() => import("../Common/ImagePreviewModal"), {
   ssr: false,
@@ -27,6 +28,8 @@ export default function GalleryGrid({
   paginated = false,
   imagesPerPage = 12,
 }: GalleryGridProps) {
+  const conversions = useConversions();
+
   const initialTab: (typeof TABS)[number]["id"] =
     images[0]?.category ?? "tattoo";
   const [tab, setTab] = useState(initialTab);
@@ -46,16 +49,26 @@ export default function GalleryGrid({
     gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const handleTabChange = (tabId: typeof tab) => {
+    conversions.galleryTabSwitch(tabId);
+
+    setTab(tabId);
+    setPage(1);
+  };
+
+  const handleImageClick = (img: GalleryItem) => {
+    conversions.galleryImageClick(img.title);
+
+    setSelectedImage(img);
+  };
+
   return (
     <>
       <div className="flex justify-center gap-4 mb-12 animate-fadeIn">
         {TABS.map((t) => (
           <button
             key={t.id}
-            onClick={() => {
-              setTab(t.id);
-              setPage(1);
-            }}
+            onClick={() => handleTabChange(t.id)}
             className={`px-5 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-colors
                 ${
                   tab === t.id
@@ -75,7 +88,7 @@ export default function GalleryGrid({
         {slice.map((img, index) => (
           <button
             key={img._id}
-            onClick={() => setSelectedImage(img)}
+            onClick={() => handleImageClick(img)}
             className="relative w-full p-0 border-none bg-transparent group animate-fadeIn overflow-hidden rounded-lg shadow-lg break-inside-avoid"
             style={{ animationDelay: `${index * 50}ms` }}
           >

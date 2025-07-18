@@ -4,11 +4,22 @@ import Button from "../Common/Button";
 import { ArrowRight } from "lucide-react";
 import { getSizes, urlFor } from "@/lib/image";
 import { useRouter } from "next/navigation";
+import { useConversions } from "@/lib/gtag";
 
 const SingleService = ({ service }: { service: Service }) => {
   const router = useRouter();
+  const conversions = useConversions();
 
   const handleCardClick = () => {
+    conversions.serviceCardClick(service.slug.current);
+
+    router.push(`/services/${service.slug.current}`);
+  };
+
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    conversions.buttonClick(`service_${service.slug.current}`);
+
     router.push(`/services/${service.slug.current}`);
   };
 
@@ -45,19 +56,20 @@ const SingleService = ({ service }: { service: Service }) => {
           )}
 
           <div className="relative mt-6">
-            <Button
-              text="Разгледай услугата"
-              type="filled"
-              responsiveSize={{
-                sm: "sm",
-                md: "md",
-                lg: "md",
-              }}
-              icon={
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 ease-out" />
-              }
-              navigateTo={`/services/${service.slug.current}`}
-            />
+            <div onClick={handleButtonClick}>
+              <Button
+                text="Разгледай услугата"
+                type="filled"
+                responsiveSize={{
+                  sm: "sm",
+                  md: "md",
+                  lg: "md",
+                }}
+                icon={
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 ease-out" />
+                }
+              />
+            </div>
           </div>
         </div>
       </div>

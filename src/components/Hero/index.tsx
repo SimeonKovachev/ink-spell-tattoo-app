@@ -8,8 +8,10 @@ import { slides } from "@/config/homeHeroSlides.config";
 import { localImageUrl } from "@/lib/utils/localImage";
 import { useSwipeable } from "react-swipeable";
 import { useIsMobile } from "@/lib/hooks/useIsMobile";
+import { useConversions } from "@/lib/gtag";
 
 export default function Header() {
+  const conversions = useConversions();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [initialRender, setInitialRender] = useState(true);
@@ -75,6 +77,15 @@ export default function Header() {
     onSwipedRight: switchToPrevSlide,
     trackMouse: true,
   });
+
+  // Hero CTA handlers
+  const handleBookAppointmentClick = () => {
+    conversions.buttonClick("hero_book_appointment");
+  };
+
+  const handleViewGalleryClick = () => {
+    conversions.buttonClick("hero_view_gallery");
+  };
 
   return (
     <header
@@ -164,19 +175,23 @@ export default function Header() {
           {slides[currentSlide].description}
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-          <Button
-            text="Запишете Час"
-            type="filled"
-            icon={<Calendar size={20} />}
-            size="md"
-            navigateTo="/contact"
-          />
-          <Button
-            text="Разгледайте Галерията"
-            type="outlined"
-            size="md"
-            navigateTo="/gallery"
-          />
+          <div onClick={handleBookAppointmentClick}>
+            <Button
+              text="Запишете Час"
+              type="filled"
+              icon={<Calendar size={20} />}
+              size="md"
+              navigateTo="/contact"
+            />
+          </div>
+          <div onClick={handleViewGalleryClick}>
+            <Button
+              text="Разгледайте Галерията"
+              type="outlined"
+              size="md"
+              navigateTo="/gallery"
+            />
+          </div>
         </div>
       </div>
 
