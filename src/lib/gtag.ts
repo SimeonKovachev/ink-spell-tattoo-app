@@ -1,3 +1,4 @@
+// lib/gtag.ts - Google Ads Conversion Tracking
 import { ConversionEventParams } from "@/types/conversionEvent";
 import { TRACKING_VALUES } from "@/config/trackingValues.config";
 
@@ -7,13 +8,13 @@ declare global {
       command: "config" | "event" | "js",
       targetId: string | Date,
       config?: {
-        [key: string]: any;
+        [key: string]: string | number | boolean | (() => void) | undefined;
         event_callback?: () => void;
         event_timeout?: number;
         send_to?: string;
       }
     ) => void;
-    dataLayer: any[];
+    dataLayer: Record<string, unknown>[];
   }
 }
 
@@ -120,7 +121,7 @@ export const conversions = {
     );
   },
 
-  // Contact actions
+  // Contact actions (high value)
   phoneClick: (): void => {
     trackConversion(
       CONVERSION_ID,

@@ -30,7 +30,7 @@ export default function Contact() {
   };
 
   const handleEmailClick = (email: string) => {
-    conversions.emailClick();
+    conversions.emailClick(email);
   };
 
   const handleMapClick = () => {
