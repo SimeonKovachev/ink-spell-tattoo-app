@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
-import { Star } from "lucide-react";
 import { GoogleReview } from "@/types/googleReview";
 import Button from "../Common/Button";
 import { fetchGoogleReviews } from "@/lib/fetchGoogleReviews";
 import SectionTitle from "../Common/SectionTitle";
 import { useQuery } from "@tanstack/react-query";
 import { useConversions } from "@/lib/gtag";
+import { useMemo } from "react";
+import TestimonialCard from "./TestimonialCard";
 
 export default function GoogleTestimonials() {
   const conversions = useConversions();
@@ -24,6 +24,12 @@ export default function GoogleTestimonials() {
     retry: 2,
   });
 
+  const infiniteReviews = useMemo(() => {
+    if (reviews.length === 0) return [];
+
+    return [...reviews, ...reviews, ...reviews];
+  }, [reviews]);
+
   const handleLeaveReviewClick = () => {
     conversions.reviewsLeaveReview();
 
@@ -36,43 +42,60 @@ export default function GoogleTestimonials() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
+        <div className="relative">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
+          <div className="absolute inset-0 animate-ping rounded-full h-16 w-16 border-2 border-purple-400 opacity-20"></div>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center text-gray-400 py-12">
-        Възникна грешка при зареждане на отзивите
+      <div className="text-center py-12">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-red-500/10 rounded-full mb-4">
+          <div className="w-8 h-8 text-red-400">⚠️</div>
+        </div>
+        <p className="text-gray-400 text-lg">
+          Възникна грешка при зареждане на отзивите
+        </p>
       </div>
     );
   }
 
   if (!reviews.length) {
     return (
-      <div className="text-center text-gray-400 py-12">
-        Няма налични отзиви в момента
+      <div className="text-center py-12">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-500/10 rounded-full mb-4">
+          <div className="w-8 h-8 text-gray-400">📝</div>
+        </div>
+        <p className="text-gray-400 text-lg">Няма налични отзиви в момента</p>
       </div>
     );
   }
 
-  const renderStars = (rating: number) =>
-    [...Array(5)].map((_, i) => (
-      <Star
-        key={i}
-        className={`w-4 h-4 ${i < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-600"}`}
-      />
-    ));
-
   return (
     <section className="relative pt-32 py-12 md:py-24 md:pt-44 lg:py-28 lg:pt-48 overflow-hidden">
+      {/* Background Gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-0 w-[600px] h-[600px] animate-gradient-spin">
-          <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-600/20 via-fuchsia-500/20 to-pink-500/20 blur-[120px] animate-pulse-strong"></div>
+        {/* Top Left Gradient Orb */}
+        <div className="absolute -top-20 -left-20 w-[400px] h-[400px] animate-gradient-spin">
+          <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-500/60 via-fuchsia-500/40 to-pink-500/60 blur-[80px] animate-pulse-strong"></div>
         </div>
+
+        {/* Top Right Gradient Orb */}
+        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] animate-gradient-spin-reverse">
+          <div className="w-full h-full rounded-full bg-gradient-to-l from-blue-500/50 via-purple-500/60 to-indigo-500/50 blur-[90px] animate-pulse-strong"></div>
+        </div>
+
+        {/* Floating Particles */}
+        <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-purple-400/80 rounded-full animate-floating-particle particle-1"></div>
+        <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-fuchsia-400/70 rounded-full animate-floating-particle particle-2"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-4 h-4 bg-pink-400/60 rounded-full animate-floating-particle particle-3"></div>
+        <div className="absolute bottom-1/4 right-1/3 w-2 h-2 bg-blue-400/80 rounded-full animate-floating-particle particle-4"></div>
       </div>
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="mb-14">
           <SectionTitle
@@ -83,49 +106,33 @@ export default function GoogleTestimonials() {
             center
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reviews.map((review, index) => {
-            const avatar = review.profile_photo_url
-              ? review.profile_photo_url.replace(/=s\\d+-c/, "=s128-c")
-              : null;
-            return (
-              <div
-                key={index}
-                className="bg-gray-900/50 border border-purple-900/30 p-6 rounded-xl transform transition-all duration-300 hover:-translate-y-1 shadow-lg"
-              >
-                <div className="flex items-center mb-4">
-                  {avatar ? (
-                    <Image
-                      src={avatar}
-                      alt={review.author_name}
-                      width={48}
-                      height={48}
-                      className="rounded-full"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-purple-700/30 flex items-center justify-center text-purple-300 font-semibold text-lg">
-                      {review.author_name?.charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                  <div className="ml-4">
-                    <h4 className="text-white font-semibold">
-                      {review.author_name}
-                    </h4>
-                    <p className="text-gray-400 text-sm">
-                      {review.relative_time_description}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex space-x-1 mb-4">
-                  {renderStars(review.rating)}
-                </div>
-                <p className="text-gray-300 leading-relaxed mb-4">
-                  {review.text}
-                </p>
-              </div>
-            );
-          })}
+
+        {/* Infinite Carousel */}
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-r from-[#1c1231] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 lg:w-32 bg-gradient-to-l from-[#1c1231] to-transparent z-10 pointer-events-none"></div>
+
+          <div className="overflow-hidden">
+            <div
+              className="carousel-track"
+              onMouseEnter={(e) => {
+                e.currentTarget.style.animationPlayState = "paused";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.animationPlayState = "running";
+              }}
+            >
+              {infiniteReviews.map((review, index) => (
+                <TestimonialCard
+                  key={`${review.author_name}-${index}`}
+                  review={review}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
         </div>
+
         <div className="text-center mt-12">
           <Button
             text="Оставете отзив"
