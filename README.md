@@ -1,171 +1,248 @@
-
 # Inkspell Tattoo Studio Website
 
-Welcome to **Inkspell Tattoo Studio** website repository. This project is a modern, fully responsive tattoo studio website built with **Next.js**, **Tailwind CSS**, and **Sanity CMS**. The website is designed for a seamless UX/UI experience, allowing users to easily book or inquire about tattoo services, view the gallery, subscribe to a newsletter for special offers, and read testimonials from social platforms.
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=flat&logo=tailwind-css)
+![Sanity](https://img.shields.io/badge/Sanity-CMS-red?style=flat&logo=sanity)
+![License](https://img.shields.io/badge/License-ITSL-blue.svg)
 
-## 📸 Project Preview
+A modern, fully responsive tattoo studio website built with **Next.js 14**, **Tailwind CSS**, and **Sanity CMS**. The website provides a seamless user experience for customers to explore services, view galleries, book appointments, and connect with the studio.
 
-> The website design is inspired by [Yellow Wolf Tattoo Design Studio on Dribbble](https://dribbble.com/shots/18771176-Yellow-Wolf-Tattoo-Design-Studio) and is tailored for an immersive and user-friendly experience.
+## 🚀 Live Demo
 
-## 🎨 Features
+**[View Live Site](https://ink-spell.com)**
 
-- **Beautiful, Responsive Design**: Optimized for both desktop and mobile, with easy navigation for the best user experience.
-- **Online Booking and Contact Options**: Users can effortlessly book or call for tattoo appointments.
-- **Dynamic Tattoo Gallery**: A collection of tattoo artwork, managed easily via Sanity CMS.
-- **Services Section**: Detailed description of tattoo services offered by the studio.
-- **Newsletter Subscription**: Allows users to subscribe for special offers and updates.
-- **Testimonials Section**: Displays reviews fetched dynamically from Google and Facebook.
-- **CMS Integration with Sanity**: Full content management for tattoos, services, testimonials, and promotions.
+## ✨ Features
 
-## 🛠️ Technologies Used
+### 🎨 **User Experience**
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Modern UI/UX**: Clean, immersive design with smooth animations
+- **Fast Performance**: Server-side rendering with Next.js 14
+- **SEO Optimized**: Meta tags, structured data, and optimized images
 
-- **[Next.js](https://nextjs.org/)**: React-based framework for server-side rendering and optimized performance.
-- **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS framework for rapid and customizable styling.
-- **[Sanity CMS](https://www.sanity.io/)**: Headless CMS for easy content management.
-- **[TypeScript](https://www.typescriptlang.org/)**: Type-safe JavaScript for better code quality.
-- **Sanity Image URL Builder**: Efficient handling of images from Sanity.
+### 🛠️ **Functionality**
+- **Gallery Showcase**: Dynamic tattoo gallery with filtering and lightbox
+- **Service Management**: Detailed service descriptions and pricing
+- **Contact & Booking**: Multiple contact options and appointment booking
+- **Blog System**: Dynamic blog with articles, tattoo care tips, artist spotlights, and industry insights
+- **Testimonials**: Customer reviews and social proof
+- **CMS Integration**: Easy content management with Sanity Studio
 
-## 🚀 Project Setup
+### 🔧 **Technical Features**
+- **TypeScript**: Type-safe development
+- **Image Optimization**: Next.js Image component with Sanity CDN
+- **Performance**: Optimized Core Web Vitals
+- **Sanity CMS**: GROQ queries and real-time content management
+- **Google Reviews API**: Live customer review integration
+- **Google Ads Tracking**: Conversion tracking and analytics integration
+- **Form Handling**: Contact forms with validation
+- **Content Relationships**: Cross-referenced galleries, services, and blog posts
 
-### 1. Clone the Repository
+## 🛠️ Tech Stack
 
-```bash
-git clone https://github.com/your-username/inkspell-tattoo-studio.git
-cd inkspell-tattoo-studio
-```
+| Technology | Purpose |
+|------------|---------|
+| **[Next.js 14](https://nextjs.org/)** | React framework with App Router |
+| **[TypeScript](https://www.typescriptlang.org/)** | Type-safe JavaScript |
+| **[Tailwind CSS](https://tailwindcss.com/)** | Utility-first CSS framework |
+| **[Sanity CMS](https://www.sanity.io/)** | Headless content management |
+| **[React Hook Form](https://react-hook-form.com/)** | Form handling and validation |
+| **[TanStack React Query](https://tanstack.com/query)** | Data fetching and caching |
+| **[Vercel](https://vercel.com/)** | Hosting and CI/CD deployment |
+| **[Vercel Analytics](https://vercel.com/analytics)** | Performance monitoring |
 
-### 2. Install Dependencies
+## 🚀 Quick Start
 
-```bash
-npm install
-```
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Sanity account
 
-### 3. Configure Environment Variables
+### Installation
 
-Create a `.env.local` file at the root of the project and add your Sanity project credentials:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/SimeonKovachev/ink-spell-tattoo-app.git
+   cd ink-spell-tattoo-app
+   ```
 
-```plaintext
-NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
-NEXT_PUBLIC_SANITY_DATASET=production
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-### 4. Run the Development Server
+3. **Environment Setup**
+   
+   Create `.env.local` in the root directory:
+   ```env
+   # Sanity Configuration
+   SANITY_PROJECT_ID=your_project_id
+   SANITY_DATASET=production
+   SANITY_API_VERSION=2024-11-01
+   SANITY_API_TOKEN=your_api_token
+   
+   # Site Configuration
+   SITE_URL=https://your-site-url.com
+   SITE_NAME="Ink Spell Tattoo Studio"
+   NEXT_PUBLIC_SITE_URL=http://localhost:3000
+   
+   # Email Configuration (Titan Email)
+   EMAIL_HOST=smtp.titan.email
+   EMAIL_PORT=465
+   EMAIL_USER=your_email@yourdomain.com
+   EMAIL_PASS=your_email_password
+   EMAIL_FROM=your_email@yourdomain.com
+   
+   # Google Services Integration
+   GOOGLE_API_KEY=your_google_api_key
+   NEXT_PUBLIC_GOOGLE_PLACE_ID=your_google_place_id
 
-```bash
-npm run dev
-```
+4. **Start development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-The website should now be accessible at `http://localhost:3000`.
+5. **Open your browser**
+   Navigate to `http://localhost:3000`
 
-### 5. Build for Production
+### Sanity Studio Setup
 
-To build the project for production:
+1. **Access Sanity Studio**
+   ```bash
+   npm run studio
+   # or visit /studio route if embedded
+   ```
+   
+## 🎨 Key Components
 
-```bash
-npm run build
-```
+### 🏠 **Landing Page**
+- Hero section with compelling visuals
+- About me section
+- Services overview (tattoo services & permanent makeup)
+- Monthly flash tattoos showcase
+- Gallery highlights
+- Google reviews integration
+- FAQ section
+- Book now call-to-action
 
-Then, you can run the production build with:
+### 🖼️ **Gallery**
+- Filterable tattoo gallery
+- Image lightbox/modal
+- Category organization
+- Responsive grid layout
 
-```bash
-npm start
-```
+### 🛍️ **Services**
+- Service descriptions and pricing
+- Booking call-to-action
+- Process explanation
+- Artist specializations
 
-## 📂 Project Structure
+### 📞 **Contact & Booking**
+- Contact form with validation
+- Studio location and hours
+- Social media links
+- Appointment booking integration
 
-Here's a quick overview of the project structure to help you navigate and understand how each part functions:
+### 💼 **Partnership Opportunities**
 
-```plaintext
-src/
-├── app/
-│   ├── layout.tsx                # Root layout
-│   ├── page.tsx                  # Home page
-│   └── studio/                   # (Optional) Embedded Sanity Studio
-├── components/                   # Reusable UI components
-│   ├── Header.tsx
-│   ├── ServicesSection.tsx
-│   ├── GallerySection.tsx
-│   ├── TestimonialsSection.tsx
-│   └── Footer.tsx
-├── lib/
-│   └── sanity/                   # Sanity configurations
-│       ├── client.ts             # Sanity client
-│       ├── image.ts              # Sanity image URL builder
-│       └── schemas.ts            # Combined schema file
-├── sanity/
-│   ├── schemas/                  # Individual content schemas
-│   │   ├── gallery.ts
-│   │   ├── services.ts
-│   │   └── testimonials.ts
-│   └── sanity.config.ts          # Main Sanity configuration file
-└── styles/
-    ├── globals.css               # Tailwind and global CSS imports
-    └── components/               # Component-specific styles (if needed)
-```
+| Opportunity Type | Description | Contact |
+|------------------|-------------|---------|
+| **🤝 Strategic Partnerships** | Collaborations with tattoo supply brands, other studios | iva.lazarova.draws@gmail.com |
+| **🏷️ Brand Sponsorships** | Sponsorship from ink brands, equipment companies | iva.lazarova.draws@gmail.com |
+| **⚖️ Website Development** | Custom tattoo studio websites for other artists | skcodingacc@gmail.com |
 
-## 📝 Key Features and CMS Management with Sanity
+**Interested in working together?** Email **skcodingacc@gmail.com**
 
-### 1. Home Page
+## 🤝 Contributing
 
-The main page includes all the key sections: **Header**, **Services**, **Gallery**, **Testimonials**, and **Newsletter**.
+We welcome contributions from the community! By contributing to this project, you agree to our **Contributor License Agreement (CLA)** outlined in the [LICENSE](LICENSE) file.
 
-### 2. Header
+### How to Contribute
 
-Displays the studio name, slogan, and navigation buttons for **Booking** and **Gallery View**. This component is styled with Tailwind for responsive design.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### 3. Services Section
+### What You Get
 
-Showcases the tattoo services offered by the studio. Service details (title, description, and image) are managed via **Sanity CMS** under the `services` schema.
+- **Portfolio Building**: Contribute to a real-world, production-quality project
+- **Learning Experience**: Work with modern technologies (Next.js 14, TypeScript, Sanity)
+- **Recognition**: Your contributions will be acknowledged
+- **Community**: Join a growing developer community
 
-### 4. Gallery Section
+**Note**: All contributions are subject to the terms in our [LICENSE](LICENSE) file.
 
-A dynamic gallery of tattoo images that can be easily updated via Sanity. The gallery images, titles, and descriptions are stored in the `gallery` schema.
+## 📄 License
 
-### 5. Testimonials Section
+This project is licensed under the **Inkspell Tattoo Studio License (ITSL)** - see the [LICENSE](LICENSE) file for details.
 
-Displays customer reviews pulled from external sources like **Google Reviews** and **Facebook**. (Optional: You can use a third-party service to aggregate reviews or manage them manually via Sanity.)
+### 🆓 **Open Source Benefits**
+- ✅ **Personal & Educational Use**: Free for learning and non-commercial projects
+- ✅ **Study & Review**: Examine code for best practices and techniques
+- ✅ **Contributions Welcome**: Help improve the project and build your portfolio
 
-### 6. Newsletter Section
+### 💼 **Commercial Licensing & Partnerships**
 
-Allows users to subscribe for special offers. You can integrate with an email marketing tool like **Mailchimp** or **Brevo** (formerly Sendinblue) to handle newsletter subscriptions.
+**For Commercial Use**: Contact us for licensing agreements  
+**For Brand Sponsorships**: Partnership opportunities with tattoo industry brands  
+**For Website Services**: Custom tattoo studio websites for other artists
 
-## 🌐 CMS Management with Sanity
+**Contact**: skcodingacc@gmail.com or iva.lazarova.draws@gmail.com  
+**Subject**: Partnership / Sponsorship Inquiry
 
-With Sanity CMS, you can manage content such as gallery images, services, and testimonials with ease. Sanity Studio, if embedded, is accessible within the `/studio` route for convenient content management.
+### 🚀 **Why Partner With Us?**
 
-### Adding Content
+- 🎯 **Growing Market**: Tattoo industry experiencing rapid growth and digital transformation
+- 💻 **Technical Expertise**: Professional web development skills for tattoo industry
+- 🌟 **Quality Work**: High-standard tattoo artistry and professional online presence
+- 👥 **Active Presence**: Growing social media following and client base
 
-1. **Services**: Add or update tattoo services, including service names, descriptions, and images.
-2. **Gallery**: Add or update tattoo images with titles and descriptions.
-3. **Testimonials**: Manage customer reviews to display authentic feedback on the site.
-4. **Promotions** (Optional): Create and manage special promotions or offers for newsletter subscribers.
+## 📞 Contact
 
-## ✨ Deployment
+### 🎨 **Tattoo Artist & Designer**
+**Iva Lazarova** - *Ink Spell Tattoo Studio*  
+📧 **Email**: [iva.lazarova.draws@gmail.com](mailto:iva.lazarova.draws@gmail.com)  
+🎨 **Portfolio**: [ArtStation](https://www.artstation.com/ivalazarova3)  
+🔗 **Links**: [Linktree](https://linktr.ee/ink_spell_tattoo)  
+💼 **LinkedIn**: [Iva Lazarova](http://www.linkedin.com/in/iva-lazarova-ink)  
 
-To deploy this Next.js application, you can use services like **Vercel**, **Netlify**, or **Hostinger** (for static export).
+*For tattoo appointments, design consultations, and artistic collaborations*
 
-1. **Deploying on Vercel**:
-   - Push your project to GitHub.
-   - Import the repository into Vercel.
-   - Set up your environment variables in Vercel's dashboard.
-   - Deploy with a single click.
+---
 
-2. **Other Deployment Options**:
-   - Export as a static site:
-     ```bash
-     npm run export
-     ```
-   - Upload the `out` folder to your preferred hosting provider.
+### 💻 **Developer & Technical Lead**
+**Simeon Kovachev** - *Full-Stack Developer*  
+📧 **Email**: [skcodingacc@gmail.com](mailto:skcodingacc@gmail.com)  
+🗂️ **Repository**: [GitHub - ink-spell-tattoo-app](https://github.com/SimeonKovachev/ink-spell-tattoo-app)  
 
-## 📞 Contact and Support
+*For code inquiries, technical partnerships, and development collaborations*
 
-If you have any questions or issues, feel free to reach out at **skcodingacc@gmail.com**.
+---
 
-## 🎉 Credits
+## 🙏 Acknowledgments
 
-- **Design Inspiration**: [Yellow Wolf Tattoo Design Studio](https://dribbble.com/shots/18771176-Yellow-Wolf-Tattoo-Design-Studio)
-- **Developed with**: Next.js, Tailwind CSS, Sanity CMS, and TypeScript
+### 🎨 **Creative Team**
+- **🖌️ Original Design & Concept**: **Iva Lazarova** - Complete UI/UX design and branding
+- **📱 Portfolio Showcase**: [ArtStation Gallery](https://www.artstation.com/ivalazarova3)
+- **🔗 Social Presence**: [Ink Spell Tattoo Links](https://linktr.ee/ink_spell_tattoo)
 
-## 📜 License
+### 🛠️ **Technical Foundation**
+- **⚡ Framework**: [Next.js 14](https://nextjs.org/) - React-based framework
+- **🎨 Styling**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
+- **📝 CMS**: [Sanity](https://www.sanity.io/) - Headless content management
+- **🔷 Language**: [TypeScript](https://www.typescriptlang.org/) - Type-safe development
+- **☁️ Hosting**: [Vercel](https://vercel.com/) for seamless deployment and CI/CD
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
+
+**⭐ If you found this project inspiring, please give it a star on GitHub!**  
+**🤝 Interested in collaborating? Reach out to either Iva or Simeon based on your needs!**
+---
+
+**⭐ If you found this project helpful, please give it a star on GitHub!**
