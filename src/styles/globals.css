@@ -27,6 +27,11 @@
   --hover-purple: #6f3ccf;
   --dark-purple: #4b0082;
   --border-color: #444444;
+
+  --card-width-mobile: clamp(280px, 85vw, 320px);
+  --card-width-tablet: clamp(300px, 45vw, 380px);
+  --card-width-desktop: clamp(350px, 30vw, 420px);
+  --card-gap: clamp(1rem, 2vw, 2rem);
 }
 
 html {
@@ -83,7 +88,6 @@ textarea {
 .heading {
   font-family: Fire Flight;
 }
-
 
 .cyrillic-heading {
   font-family: GothicCyr;
@@ -357,8 +361,8 @@ textarea {
 }
 
 .mask-torn-edge {
-  -webkit-mask-image: url('/images/about/torn-edge.webp');
-  mask-image: url('/images/about/torn-edge.webp');
+  -webkit-mask-image: url("/images/about/torn-edge.webp");
+  mask-image: url("/images/about/torn-edge.webp");
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: cover;
@@ -368,9 +372,153 @@ textarea {
   background-color: transparent;
 }
 
-@supports not (mask-image: url('/images/about/torn-edge.webp')) {
+@supports not (mask-image: url("/images/about/torn-edge.webp")) {
   .mask-torn-edge {
-    -webkit-mask-image: url('/images/about/torn-edge.png');
-    mask-image: url('/images/about/torn-edge.png');
+    -webkit-mask-image: url("/images/about/torn-edge.png");
+    mask-image: url("/images/about/torn-edge.png");
+  }
+}
+
+.testimonial-card {
+  flex-shrink: 0;
+  width: var(--card-width-mobile);
+  margin-right: var(--card-gap);
+}
+
+@media (min-width: 640px) {
+  .testimonial-card {
+    width: var(--card-width-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonial-card {
+    width: var(--card-width-desktop);
+  }
+}
+
+.carousel-track {
+  display: flex;
+  will-change: transform;
+  animation: infiniteScrollResponsive 30s linear infinite;
+  /* Safari optimization */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  /* Smooth scrolling for all browsers */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Responsive Animations */
+@keyframes infiniteScrollResponsive {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-5 * (var(--card-width-mobile) + var(--card-gap))), 0, 0);
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes infiniteScrollResponsive {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(calc(-5 * (var(--card-width-tablet) + var(--card-gap))), 0, 0);
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  @keyframes infiniteScrollResponsive {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(calc(-5 * (var(--card-width-desktop) + var(--card-gap))), 0, 0);
+    }
+  }
+}
+
+/* Background Animations (Enhanced for mobile performance) */
+@keyframes gradient-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gradient-spin-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse-strong {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.animate-gradient-spin {
+  animation: gradient-spin 20s linear infinite;
+  will-change: transform;
+}
+
+.animate-gradient-spin-reverse {
+  animation: gradient-spin-reverse 25s linear infinite;
+  will-change: transform;
+}
+
+.animate-pulse-strong {
+  animation: pulse-strong 4s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Fallback for older browsers */
+  max-height: calc(1.5em * 4);
+  line-height: 1.5em;
+}
+
+/* iOS Safari specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  .carousel-track {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track,
+  .animate-gradient-spin,
+  .animate-gradient-spin-reverse,
+  .animate-pulse-strong {
+    animation-duration: 60s;
+  }
+}
+
+/* High DPI displays optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .testimonial-card {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
