@@ -15,8 +15,23 @@ export default defineType({
       name: "description",
       type: "text",
       title: "Кратко описание",
+      description:
+        "Препоръчително: до 100 символа за перфектно показване на всички устройства",
       validation: (rule) =>
-        rule.max(500).warning("Keep the description concise"),
+        rule
+          .max(150)
+          .error("Описанието не може да бъде повече от 150 символа!")
+          .custom((description) => {
+            if (!description) return true;
+
+            const length = description.length;
+
+            if (length > 100) {
+              return "⚠️ Внимание: Над 100 символа може да се съкрати на малки екрани";
+            }
+
+            return true;
+          }),
     }),
     defineField({
       name: "image",
@@ -47,6 +62,17 @@ export default defineType({
     select: {
       title: "title",
       media: "image",
+      description: "description",
+    },
+    prepare({ title, media, description }) {
+      const charCount = description ? description.length : 0;
+      const status = charCount > 100 ? "⚠️" : charCount > 0 ? "✅" : "";
+
+      return {
+        title: `${status} ${title}`,
+        subtitle: description ? `${charCount} символа` : "Няма описание",
+        media,
+      };
     },
   },
 });

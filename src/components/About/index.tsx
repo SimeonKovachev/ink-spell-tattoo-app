@@ -6,8 +6,14 @@ import SectionTitle from "../Common/SectionTitle";
 import { useEffect, useState } from "react";
 import { ParticlePosition } from "@/types/particlePosition";
 import { localImageUrl } from "@/lib/utils/localImage";
+import CertificationCarousel from "./CertificationCarousel";
+import { Certification } from "@/types/certification";
 
-export default function AboutSection() {
+interface AboutSectionProps {
+  certifications: Certification[];
+}
+
+export default function AboutSection({ certifications }: AboutSectionProps) {
   const [particlePositions, setParticlePositions] = useState<
     ParticlePosition[]
   >([]);
@@ -68,7 +74,8 @@ export default function AboutSection() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-wrap justify-between items-center">
+        {/* About Content */}
+        <div className="flex flex-wrap justify-between items-center mb-20">
           <div className="w-full lg:w-[45%]">
             <div className="max-w-[570px] mx-auto lg:mx-0">
               <div className="mb-14">
@@ -161,6 +168,21 @@ export default function AboutSection() {
             </div>
           </div>
         </div>
+
+        {/* Certification Carousel Section */}
+        {certifications && certifications.length > 0 && (
+          <div className="relative">
+            {/* Separator Line */}
+            <div className="flex items-center justify-center mb-16">
+              <div className="h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent w-full max-w-md"></div>
+              <div className="mx-6 w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+              <div className="h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent w-full max-w-md"></div>
+            </div>
+
+            {/* Certification Carousel */}
+            <CertificationCarousel certifications={certifications} />
+          </div>
+        )}
       </div>
     </section>
   );
