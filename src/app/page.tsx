@@ -1,4 +1,4 @@
-import About from "@/components/About";
+import AboutSection from "@/components/About";
 import Contact from "@/components/BookNow";
 import WaveDivider from "@/components/Common/ShapeDivider";
 import Faq from "@/components/Faq";
@@ -7,6 +7,7 @@ import HomeGallerySection from "@/components/Gallery/HomeGallerySection";
 import Header from "@/components/Hero";
 import HomeServiceSection from "@/components/Services/HomeServiceSection";
 import GoogleTestimonials from "@/components/Testimonials/GoogleTestimonials";
+import { fetchCertifications } from "@/lib/fetchCertifications";
 import { getActiveFlashPromos } from "@/lib/fetchPromos";
 import { getAllServicesByCategories } from "@/lib/fetchServices";
 
@@ -16,11 +17,12 @@ export const revalidate = 3600;
 export default async function Home() {
   const servicesByCategory = await getAllServicesByCategories();
   const promos = await getActiveFlashPromos();
+  const certifications = await fetchCertifications();
   
   return (
     <div className="min-h-screen">
       <Header />
-      <About />
+      <AboutSection certifications={certifications} />
       <HomeServiceSection servicesByCategory={servicesByCategory} />
       <FlashPromosClient promos={promos} />
       <div className="relative">

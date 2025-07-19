@@ -8,6 +8,8 @@ export type ImagePreset =
   | "modal"
   | "card"
   | "serviceCard"
+  | "certification"
+  | "certificationModal"
   | "promo";
 
 export interface ImageConfig {

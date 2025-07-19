@@ -57,6 +57,16 @@ export const imageConfig = {
       quality: 85,
       fit: "clip",
     },
+    certification: {
+      width: 600,
+      quality: 90,
+      fit: "max",
+    },
+    certificationModal: {
+      width: 1200,
+      quality: 95,
+      fit: "max", 
+    },
   } satisfies Record<ImagePreset, ImageConfig>,
 
   sizes: {
@@ -66,5 +76,7 @@ export const imageConfig = {
     hero: "100vw",
     modal: "(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw",
     promo: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+    certification: "(max-width: 768px) 280px, (max-width: 1024px) 320px, 380px",
+    certificationModal: "(max-width: 1024px) 100vw, 50vw",
   },
 } as const;

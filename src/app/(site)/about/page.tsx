@@ -1,6 +1,7 @@
-import About from "@/components/About";
+import AboutSection from "@/components/About";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import GoogleTestimonials from "@/components/Testimonials/GoogleTestimonials";
+import { fetchCertifications } from "@/lib/fetchCertifications";
 import { Metadata } from "next";
 import Script from "next/script";
 
@@ -54,11 +55,15 @@ export const metadata: Metadata = {
   },
 };
 
-const AboutPage = () => {
+export const revalidate = 3600;
+
+export default async function AboutPage() {
+  const certifications = await fetchCertifications();
+  
   return (
     <main>
       <Breadcrumb pageName="За Мен" />
-      <About />
+      <AboutSection certifications={certifications} />
       <GoogleTestimonials />
 
       <Script id="about-page-structured-data" type="application/ld+json">
@@ -87,4 +92,3 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;

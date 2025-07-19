@@ -7,7 +7,17 @@ import booking from "./booking";
 import workingHours from "./workingHours";
 import flashPromo from "./flashPromo";
 import siteAlert from "./siteAlert";
+import certification from "./certification";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [gallery, service, flashPromo, promotion, booking, workingHours, siteAlert],
+  types: [
+    gallery,
+    service,
+    flashPromo,
+    promotion,
+    booking,
+    workingHours,
+    siteAlert,
+    certification,
+  ],
 };
