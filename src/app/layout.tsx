@@ -117,41 +117,46 @@ export default async function SiteLayout({
       className={`${montserrat.variable}`}
     >
       <body>
-        {/* Google Analytics Script */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-FKY2SN96TJ"
-          strategy="afterInteractive"
-        />
-
-        {/* Google Ads Conversion Tracking Script */}
-        <Script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=AW-16778180960"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
 
-        <Script id="google-analytics-config" strategy="afterInteractive">
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-FKY2SN96TJ"
+          strategy="beforeInteractive"
+        />
+
+        <Script id="gtag-init" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            
-            // Configure Google Analytics
-            gtag('config', 'G-FKY2SN96TJ');
-            
-            // Configure Google Ads
-            gtag('config', 'AW-16778180960');
-            
-            // Make gtag available globally for conversion tracking
             window.gtag = gtag;
           `}
         </Script>
 
-        {/* Enhanced E-commerce and Conversion Tracking */}
-        <Script id="conversion-tracking-setup" strategy="afterInteractive">
+        <Script id="google-ads-config" strategy="afterInteractive">
           {`
-            // Set up enhanced conversion tracking
             gtag('config', 'AW-16778180960', {
-              'allow_enhanced_conversions': true
+              'allow_enhanced_conversions': true,
+              'send_page_view': true
+            });
+          `}
+        </Script>
+
+        <Script id="google-analytics-config" strategy="afterInteractive">
+          {`
+            gtag('config', 'G-FKY2SN96TJ');
+          `}
+        </Script>
+
+        <Script id="force-ads-pageview" strategy="afterInteractive">
+          {`
+            gtag('event', 'page_view', {
+              'send_to': 'AW-16778180960'
             });
           `}
         </Script>
@@ -164,7 +169,6 @@ export default async function SiteLayout({
         <Analytics />
         <SpeedInsights />
 
-        {/* Schema.org structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
