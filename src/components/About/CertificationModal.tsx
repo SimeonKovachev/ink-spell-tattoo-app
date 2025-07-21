@@ -99,15 +99,12 @@ export default function CertificationModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop - Following your design */}
       <div
         className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         onClick={onClose}
       />
 
-      {/* Modal Content - Following your glass morphism style */}
-      <div className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/20">
-        {/* Background Gradient Effects */}
+      <div className="relative w-full max-w-5xl max-h-[80vh] overflow-y-auto bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/20">
         <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
           <div className="absolute -top-20 -right-20 w-[400px] h-[400px] animate-gradient-spin">
             <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-500/30 via-fuchsia-500/20 to-pink-500/30 blur-[80px] animate-pulse-strong"></div>
