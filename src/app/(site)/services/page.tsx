@@ -1,5 +1,7 @@
+// src/app/(site)/services/page.tsx - ЗАМЕНИ СЪЩЕСТВУВАЩИЯ ФАЙЛ
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import HomeServiceSection from "@/components/Services/HomeServiceSection";
+import ServiceCategoriesNav from "@/components/Services/ServiceCategoriesNav";
 import { getAllServicesByCategories } from "@/lib/fetchServices";
 import { Metadata } from "next";
 import Script from "next/script";
@@ -23,6 +25,9 @@ export const metadata: Metadata = {
     "най-добрите услуги за татуировки",
     "татуировки с артистичен подход",
     "цени за услуги татуировки Плевен",
+    "пиърсинг Плевен",
+    "временни татуировки",
+    "инклес татуировки",
   ],
   alternates: {
     canonical: "https://www.ink-spell.com/services",
@@ -71,6 +76,9 @@ export default async function ServicesPage() {
   return (
     <main>
       <Breadcrumb pageName="Услуги" />
+
+      <ServiceCategoriesNav servicesByCategory={servicesByCategory} />
+
       <HomeServiceSection servicesByCategory={servicesByCategory} />
 
       <Script id="services-page-structured-data" type="application/ld+json">
@@ -96,7 +104,7 @@ export default async function ServicesPage() {
                   addressLocality: "Плевен",
                   addressCountry: "BG",
                 },
-                url: "https://www.ink-spell.com/services",
+                url: "https://www.ink-spell.com/services/tattoo",
               },
             },
             {
@@ -114,7 +122,61 @@ export default async function ServicesPage() {
                   addressLocality: "Плевен",
                   addressCountry: "BG",
                 },
-                url: "https://www.ink-spell.com/services",
+                url: "https://www.ink-spell.com/services/permanent-makeup",
+              },
+            },
+            {
+              "@type": "Service",
+              position: 3,
+              name: "Пиърсинг",
+              description:
+                "Професионален пиърсинг с висококачествени материали и стерилни условия.",
+              provider: {
+                "@type": "TattooParlor",
+                name: "Ink Spell Tattoo Studio",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "ул. Петко Р. Славейков 39",
+                  addressLocality: "Плевен",
+                  addressCountry: "BG",
+                },
+                url: "https://www.ink-spell.com/services/piercing",
+              },
+            },
+            {
+              "@type": "Service",
+              position: 4,
+              name: "Временни татуировки",
+              description:
+                "Временни татуировки за събития, тестване на дизайни и специални случаи.",
+              provider: {
+                "@type": "TattooParlor",
+                name: "Ink Spell Tattoo Studio",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "ул. Петко Р. Славейков 39",
+                  addressLocality: "Плевен",
+                  addressCountry: "BG",
+                },
+                url: "https://www.ink-spell.com/services/temporary-tattoo",
+              },
+            },
+            {
+              "@type": "Service",
+              position: 5,
+              name: "Инклес татуировки",
+              description:
+                "Корекция на стрии, белези и петна за естествен външен вид на кожата.",
+              provider: {
+                "@type": "BeautySalon",
+                name: "Ink Spell Tattoo Studio",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "ул. Петко Р. Славейков 39",
+                  addressLocality: "Плевен",
+                  addressCountry: "BG",
+                },
+                url: "https://www.ink-spell.com/services/inkless-tattoo",
               },
             },
           ],

@@ -2,13 +2,21 @@ import React from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
+interface BreadcrumbProps {
+  pageName: string;
+  pageDescription?: string;
+  homeUrl?: string;
+  parentName?: string;
+  parentUrl?: string;
+}
+
 const Breadcrumb = ({
   pageName,
   pageDescription,
-}: {
-  pageName: string;
-  pageDescription?: string;
-}) => {
+  homeUrl = "/",
+  parentName,
+  parentUrl,
+}: BreadcrumbProps) => {
   return (
     <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a0b2e] via-[#1c1231] to-gray-900"></div>
@@ -60,11 +68,24 @@ const Breadcrumb = ({
 
           <nav className="inline-flex flex-wrap items-center justify-center bg-purple-900/20 rounded-full px-4 sm:px-6 py-2 sm:py-3 border border-purple-500/10 max-w-full">
             <Link
-              href="/"
+              href={homeUrl}
               className="text-gray-300 hover:text-purple-400 transition-all duration-300 text-base sm:text-lg font-medium whitespace-nowrap"
             >
-              Home
+              Начало
             </Link>
+
+            {parentName && parentUrl && (
+              <>
+                <ChevronRight className="mx-2 sm:mx-3 w-4 sm:w-5 h-4 sm:h-5 text-purple-500/70 flex-shrink-0" />
+                <Link
+                  href={parentUrl}
+                  className="text-gray-300 hover:text-purple-400 transition-all duration-300 text-base sm:text-lg font-medium whitespace-nowrap"
+                >
+                  {parentName}
+                </Link>
+              </>
+            )}
+
             <ChevronRight className="mx-2 sm:mx-3 w-4 sm:w-5 h-4 sm:h-5 text-purple-500/70 flex-shrink-0" />
             <span className="text-purple-400 text-base sm:text-lg font-medium break-words">
               {pageName}

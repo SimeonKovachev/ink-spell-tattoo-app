@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Service, ServiceCategory, SERVICE_CATEGORIES } from "@/types/service";
 import SectionTitle from "../Common/SectionTitle";
 import SingleService from "./SingleService";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Link } from "lucide-react";
 
 interface ServicesClientProps {
   servicesByCategory: {
@@ -53,17 +53,29 @@ function ServiceSection({ category, services }: ServiceSectionProps) {
   return (
     <section className="relative text-white py-12 md:py-16">
       <div className="container mx-auto">
-        <div className="mb-8 md:mb-12">
-          <SectionTitle
-            subtitle={categoryInfo.name}
-            title={
-              categoryInfo.h1 ??
-              `Открийте нашите ${categoryInfo.name.toLowerCase()}`
-            }
-            paragraph={categoryInfo.description}
-            width="840px"
-            center
-          />
+        <div className="mb-8 md:mb-12 flex items-center justify-between">
+          <div className="flex-1">
+            <SectionTitle
+              subtitle={categoryInfo.name}
+              title={
+                categoryInfo.h1 ??
+                `Открийте нашите ${categoryInfo.name.toLowerCase()}`
+              }
+              paragraph={categoryInfo.description}
+              width="840px"
+              center={false}
+            />
+          </div>
+
+          <div className="hidden lg:block">
+            <Link
+              href={`/services/${categoryInfo.slug}`}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 rounded-lg text-purple-300 hover:text-white transition-all group"
+            >
+              <span>Виж всички</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
 
         <div className="relative px-8">
@@ -106,6 +118,16 @@ function ServiceSection({ category, services }: ServiceSectionProps) {
             </div>
           </div>
 
+          <div className="mt-8 text-center lg:hidden">
+            <Link
+              href={`/services/${categoryInfo.slug}`}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 rounded-lg text-purple-300 hover:text-white transition-all group"
+            >
+              <span>Виж всички {categoryInfo.name.toLowerCase()}</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
           {maxIndex > 0 && (
             <div className="flex justify-center mt-6 gap-2">
               {Array.from({ length: maxIndex + 1 }).map((_, index) => (
@@ -127,7 +149,6 @@ function ServiceSection({ category, services }: ServiceSectionProps) {
     </section>
   );
 }
-
 export default function HomeServiceSection({
   servicesByCategory,
 }: ServicesClientProps) {
@@ -150,12 +171,33 @@ export default function HomeServiceSection({
         </>
       )}
 
-      {servicesByCategory.piercing.length > 0 && (
+      {/* {servicesByCategory.piercing.length > 0 && (
         <>
           <div className="border-t border-gray-700/50 mx-auto max-w-4xl" />
           <ServiceSection
             category="piercing"
             services={servicesByCategory.piercing}
+          />
+        </>
+      )} */}
+
+      {/* ДОБАВЕНО: Новите категории */}
+      {servicesByCategory["temporary-tattoo"].length > 0 && (
+        <>
+          <div className="border-t border-gray-700/50 mx-auto max-w-4xl" />
+          <ServiceSection
+            category="temporary-tattoo"
+            services={servicesByCategory["temporary-tattoo"]}
+          />
+        </>
+      )}
+
+      {servicesByCategory["inkless-tattoo"].length > 0 && (
+        <>
+          <div className="border-t border-gray-700/50 mx-auto max-w-4xl" />
+          <ServiceSection
+            category="inkless-tattoo"
+            services={servicesByCategory["inkless-tattoo"]}
           />
         </>
       )}

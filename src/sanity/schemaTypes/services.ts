@@ -1,3 +1,4 @@
+// src/sanity/schemaTypes/services.ts
 import { defineField, defineType } from "sanity";
 
 export default defineType({
@@ -62,13 +63,19 @@ export default defineType({
           { title: "Татуировки", value: "tattoo" },
           { title: "Перманентен грим", value: "permanent-makeup" },
           { title: "Пиърсинг", value: "piercing" },
+          { title: "Временни татуировки", value: "temporary-tattoo" }, // NEW
+          { title: "Инклес татуировки", value: "inkless-tattoo" }, // NEW
         ],
         layout: "radio",
       },
       validation: (Rule) => Rule.required(),
       initialValue: "tattoo",
     }),
-    defineField({ name: "price", title: "Price (optional)", type: "string" }),
+    defineField({
+      name: "price",
+      title: "Price (optional)",
+      type: "string",
+    }),
     defineField({
       name: "order",
       title: "Display Order",
@@ -90,6 +97,27 @@ export default defineType({
         { name: "metaTitle", type: "string", title: "Meta Title" },
         { name: "metaDescription", type: "text", title: "Meta Description" },
         { name: "metaKeywords", type: "array", of: [{ type: "string" }] },
+        {
+          name: "schemaType",
+          type: "string",
+          title: "Schema Type",
+          description: "Override default schema type for structured data",
+          options: {
+            list: [
+              { title: "Tattoo Service", value: "TattooService" },
+              { title: "Beauty Service", value: "BeautyService" },
+              { title: "Piercing Service", value: "PiercingService" },
+              {
+                title: "Temporary Tattoo Service",
+                value: "TemporaryTattooService",
+              },
+              {
+                title: "Skin Correction Service",
+                value: "SkinCorrectionService",
+              },
+            ],
+          },
+        },
       ],
     }),
     defineField({

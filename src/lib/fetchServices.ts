@@ -45,7 +45,9 @@ export async function getAllServicesByCategories(): Promise<ServicesByCategory> 
     const servicesByCategory: ServicesByCategory = {
       tattoo: [],
       "permanent-makeup": [],
-      piercing: [],
+      //piercing: [],
+      "temporary-tattoo": [],
+      "inkless-tattoo": [],
     };
 
     allServices.forEach((service) => {
@@ -60,7 +62,9 @@ export async function getAllServicesByCategories(): Promise<ServicesByCategory> 
     return {
       tattoo: [],
       "permanent-makeup": [],
-      piercing: [],
+      //piercing: [],
+      "temporary-tattoo": [],
+      "inkless-tattoo": [],
     };
   }
 }
