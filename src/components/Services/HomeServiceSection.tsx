@@ -1,10 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Service, ServiceCategory, SERVICE_CATEGORIES } from "@/types/service";
 import SectionTitle from "../Common/SectionTitle";
 import SingleService from "./SingleService";
-import { ArrowRight, ChevronLeft, ChevronRight, Link } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+
+const SECTION_PADDING = "px-8";
+const BUTTON_BASE_STYLES =
+  "inline-flex items-center gap-2 px-6 py-3 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 rounded-lg text-purple-300 hover:text-white transition-all group whitespace-nowrap";
+const CAROUSEL_BUTTON_STYLES =
+  "absolute top-1/2 -translate-y-1/2 z-20 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500";
 
 interface ServicesClientProps {
   servicesByCategory: {
@@ -17,26 +24,30 @@ interface ServiceSectionProps {
   services: Service[];
 }
 
-function ServiceSection({ category, services }: ServiceSectionProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+function useResponsiveItemsPerView() {
   const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const itemsPerView = screenWidth < 768 ? 1 : screenWidth < 1024 ? 2 : 3;
-  const itemWidth = 100 / itemsPerView;
+  return { itemsPerView, screenWidth };
+}
+
+function useCarouselNavigation(services: Service[], itemsPerView: number) {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const maxIndex = Math.max(0, services.length - itemsPerView);
 
   useEffect(() => {
     setCurrentIndex((prev) => Math.min(prev, maxIndex));
-  }, [screenWidth, maxIndex]);
+  }, [maxIndex]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -46,15 +57,33 @@ function ServiceSection({ category, services }: ServiceSectionProps) {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
 
+  return {
+    currentIndex,
+    maxIndex,
+    handlePrev,
+    handleNext,
+    setCurrentIndex,
+  };
+}
+
+function ServiceSection({ category, services }: ServiceSectionProps) {
+  const { itemsPerView } = useResponsiveItemsPerView();
+  const { currentIndex, maxIndex, handlePrev, handleNext, setCurrentIndex } =
+    useCarouselNavigation(services, itemsPerView);
+
   if (services.length === 0) return null;
 
   const categoryInfo = SERVICE_CATEGORIES[category];
+  const itemWidth = 100 / itemsPerView;
+  const showNavigation = maxIndex > 0;
 
   return (
     <section className="relative text-white py-12 md:py-16">
       <div className="container mx-auto">
-        <div className="mb-8 md:mb-12 flex items-center justify-between">
-          <div className="flex-1">
+        <div
+          className={`mb-8 md:mb-12 flex items-center justify-between ${SECTION_PADDING}`}
+        >
+          <div className="flex-1 pr-8">
             <SectionTitle
               subtitle={categoryInfo.name}
               title={
@@ -67,33 +96,38 @@ function ServiceSection({ category, services }: ServiceSectionProps) {
             />
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex flex-shrink-0 relative z-10">
             <Link
               href={`/services/${categoryInfo.slug}`}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 rounded-lg text-purple-300 hover:text-white transition-all group"
+              className={BUTTON_BASE_STYLES}
+              aria-label={`Виж всички ${categoryInfo.name.toLowerCase()}`}
             >
-              <span>Виж всички</span>
+              <span className="whitespace-nowrap">Виж всички</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
 
-        <div className="relative px-8">
-          {maxIndex > 0 && currentIndex > 0 && (
+        {/* Service carousel section */}
+        <div className={`relative ${SECTION_PADDING}`}>
+          {/* Navigation buttons */}
+          {showNavigation && currentIndex > 0 && (
             <button
               onClick={handlePrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className={`${CAROUSEL_BUTTON_STYLES} left-0`}
               aria-label={`Предишни ${categoryInfo.name.toLowerCase()}`}
+              type="button"
             >
               <ChevronLeft size={24} />
             </button>
           )}
 
-          {maxIndex > 0 && currentIndex < maxIndex && (
+          {showNavigation && currentIndex < maxIndex && (
             <button
               onClick={handleNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 text-gray-400 hover:text-white transition-colors p-2 rounded-full bg-gray-800/90 hover:bg-gray-700/90 shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className={`${CAROUSEL_BUTTON_STYLES} right-0`}
               aria-label={`Следващи ${categoryInfo.name.toLowerCase()}`}
+              type="button"
             >
               <ChevronRight size={24} />
             </button>
@@ -121,15 +155,17 @@ function ServiceSection({ category, services }: ServiceSectionProps) {
           <div className="mt-8 text-center lg:hidden">
             <Link
               href={`/services/${categoryInfo.slug}`}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 rounded-lg text-purple-300 hover:text-white transition-all group"
+              className={BUTTON_BASE_STYLES}
+              aria-label={`Виж всички ${categoryInfo.name.toLowerCase()}`}
             >
               <span>Виж всички {categoryInfo.name.toLowerCase()}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 
-          {maxIndex > 0 && (
-            <div className="flex justify-center mt-6 gap-2">
+          {/* Pagination dots */}
+          {showNavigation && (
+            <div className="flex justify-center mt-6 gap-2" role="tablist">
               {Array.from({ length: maxIndex + 1 }).map((_, index) => (
                 <button
                   key={index}
@@ -139,7 +175,9 @@ function ServiceSection({ category, services }: ServiceSectionProps) {
                       ? "bg-purple-500 w-4"
                       : "bg-gray-600 hover:bg-gray-500"
                   }`}
-                  aria-label={`Преглед ${index + 1}`}
+                  aria-label={`Преглед страница ${index + 1}`}
+                  role="tab"
+                  type="button"
                 />
               ))}
             </div>
@@ -149,69 +187,49 @@ function ServiceSection({ category, services }: ServiceSectionProps) {
     </section>
   );
 }
+
 export default function HomeServiceSection({
   servicesByCategory,
 }: ServicesClientProps) {
-  return (
-    <section className="relative bg-gradient-to-b from-gray-900 via-gray-900/95 to-black overflow-hidden">
-      {servicesByCategory.tattoo.length > 0 && (
-        <ServiceSection
-          category="tattoo"
-          services={servicesByCategory.tattoo}
-        />
-      )}
+  const hasAnyServices = Object.values(servicesByCategory).some(
+    (services) => services.length > 0
+  );
 
-      {servicesByCategory["permanent-makeup"].length > 0 && (
-        <>
-          <div className="border-t border-gray-700/50 mx-auto max-w-4xl" />
-          <ServiceSection
-            category="permanent-makeup"
-            services={servicesByCategory["permanent-makeup"]}
-          />
-        </>
-      )}
-
-      {/* {servicesByCategory.piercing.length > 0 && (
-        <>
-          <div className="border-t border-gray-700/50 mx-auto max-w-4xl" />
-          <ServiceSection
-            category="piercing"
-            services={servicesByCategory.piercing}
-          />
-        </>
-      )} */}
-
-      {/* ДОБАВЕНО: Новите категории */}
-      {servicesByCategory["temporary-tattoo"].length > 0 && (
-        <>
-          <div className="border-t border-gray-700/50 mx-auto max-w-4xl" />
-          <ServiceSection
-            category="temporary-tattoo"
-            services={servicesByCategory["temporary-tattoo"]}
-          />
-        </>
-      )}
-
-      {servicesByCategory["inkless-tattoo"].length > 0 && (
-        <>
-          <div className="border-t border-gray-700/50 mx-auto max-w-4xl" />
-          <ServiceSection
-            category="inkless-tattoo"
-            services={servicesByCategory["inkless-tattoo"]}
-          />
-        </>
-      )}
-
-      {Object.values(servicesByCategory).every(
-        (services) => services.length === 0
-      ) && (
+  if (!hasAnyServices) {
+    return (
+      <section className="relative bg-gradient-to-b from-gray-900 via-gray-900/95 to-black overflow-hidden">
         <div className="flex items-center justify-center min-h-[300px] py-16">
           <div className="animate-pulse flex flex-col items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-gray-700" />
             <div className="h-4 w-48 bg-gray-700 rounded" />
           </div>
         </div>
-      )}
+      </section>
+    );
+  }
+
+  const categoryOrder: ServiceCategory[] = [
+    "tattoo",
+    "permanent-makeup",
+    "temporary-tattoo",
+    "inkless-tattoo",
+  ];
+
+  return (
+    <section className="relative bg-gradient-to-b from-gray-900 via-gray-900/95 to-black overflow-hidden">
+      {categoryOrder.map((category, index) => {
+        const services = servicesByCategory[category];
+        if (services.length === 0) return null;
+
+        return (
+          <div key={category}>
+            {index > 0 && (
+              <div className="border-t border-gray-700/50 mx-auto max-w-4xl" />
+            )}
+            <ServiceSection category={category} services={services} />
+          </div>
+        );
+      })}
     </section>
   );
 }
