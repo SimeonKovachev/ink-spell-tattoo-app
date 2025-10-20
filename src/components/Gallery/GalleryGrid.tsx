@@ -3,7 +3,7 @@
 import { getSizes, urlFor } from "@/lib/image";
 import { GalleryItem } from "@/types/galleryItem";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { useConversions } from "@/lib/gtag";
 
@@ -39,7 +39,15 @@ export default function GalleryGrid({
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const byTab = images.filter((img) => img.category === tab);
+  const sortedImages = useMemo(() => {
+    return [...images].sort((a, b) => {
+      const dateA = new Date(a._createdAt).getTime();
+      const dateB = new Date(b._createdAt).getTime();
+      return dateB - dateA;
+    });
+  }, [images]);
+
+  const byTab = sortedImages.filter((img) => img.category === tab);
   const totalPages = Math.ceil(byTab.length / imagesPerPage);
   const slice = paginated
     ? byTab.slice((page - 1) * imagesPerPage, page * imagesPerPage)
@@ -61,6 +69,13 @@ export default function GalleryGrid({
     conversions.galleryImageClick(img.title);
 
     setSelectedImage(img);
+  };
+
+  const isNewImage = (createdAt: string): boolean => {
+    const now = new Date().getTime();
+    const created = new Date(createdAt).getTime();
+    const daysDiff = (now - created) / (1000 * 60 * 60 * 24);
+    return daysDiff <= 7;
   };
 
   return (
@@ -103,6 +118,14 @@ export default function GalleryGrid({
                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                 priority={index < 4}
               />
+            )}
+
+            {isNewImage(img._createdAt) && (
+              <div className="absolute top-3 right-3 z-10">
+                <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
+                  NEW
+                </span>
+              </div>
             )}
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">

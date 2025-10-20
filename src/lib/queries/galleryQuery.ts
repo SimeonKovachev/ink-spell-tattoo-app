@@ -1,5 +1,6 @@
-export const GALLERY_QUERY = `*[_type == "gallery"]{
+export const GALLERY_QUERY = `*[_type == "gallery"] | order(_createdAt desc) {
   _id,
+  _createdAt,
   title,
   description,
   category,
