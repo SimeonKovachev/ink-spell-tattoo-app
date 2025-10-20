@@ -14,7 +14,8 @@ const ImagePreviewModal = dynamic(() => import("../Common/ImagePreviewModal"), {
 const TABS = [
   { id: "tattoo", label: "Татуировки" },
   { id: "permanent-makeup", label: "Перманентен грим" },
-  // { id: "piercing", label: "Пиърсинг" },
+  { id: "henna-tattoo", label: "Временни татуировки" },
+  { id: "inkless-tattoo", label: "Безмастилни татуировки" },
 ] as const;
 
 interface GalleryGridProps {
@@ -64,7 +65,7 @@ export default function GalleryGrid({
 
   return (
     <>
-      <div className="flex justify-center gap-4 mb-12 animate-fadeIn">
+      <div className="flex flex-wrap justify-center gap-4 mb-12 animate-fadeIn">
         {TABS.map((t) => (
           <button
             key={t.id}

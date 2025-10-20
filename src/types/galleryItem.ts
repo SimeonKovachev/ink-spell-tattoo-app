@@ -2,7 +2,7 @@ export type GalleryItem = {
   _id: string;
   title: string;
   description: string;
-  category: "tattoo" | "permanent-makeup";
+  category: "tattoo" | "permanent-makeup" | "henna-tattoo" | "inkless-tattoo";
   slug: { current: string };
   image: {
     asset: {

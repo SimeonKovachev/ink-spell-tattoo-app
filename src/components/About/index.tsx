@@ -172,14 +172,12 @@ export default function AboutSection({ certifications }: AboutSectionProps) {
         {/* Certification Carousel Section */}
         {certifications && certifications.length > 0 && (
           <div className="relative">
-            {/* Separator Line */}
             <div className="flex items-center justify-center mb-16">
               <div className="h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent w-full max-w-md"></div>
               <div className="mx-6 w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
               <div className="h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent w-full max-w-md"></div>
             </div>
 
-            {/* Certification Carousel */}
             <CertificationCarousel certifications={certifications} />
           </div>
         )}

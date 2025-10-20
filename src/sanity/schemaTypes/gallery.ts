@@ -35,7 +35,9 @@ export default defineType({
         list: [
           { title: "Татуировки", value: "tattoo" },
           { title: "Перманентен грим", value: "permanent-makeup" },
-          { title: "Пиърсинг", value: "piercing" },
+          { title: "Временни татуировки", value: "henna-tattoo" },
+          { title: "Безмастилни татуировки", value: "inkless-tattoo" }, 
+          // { title: "Пиърсинг", value: "piercing" },
         ],
         layout: "radio",
       },
